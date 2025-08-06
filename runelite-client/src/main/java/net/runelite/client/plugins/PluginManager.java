@@ -87,6 +87,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PluginManager
 {
+	// List of package roots for core plugins
+	private static final List<String> PLUGIN_PACKAGES = List.of(
+			"net.runelite.client.plugins",
+			"net.unethicalite.client.plugins"
+	);
 	/**
 	 * Base package where the core plugins are
 	 */
@@ -301,17 +306,59 @@ public class PluginManager
 		}
 	}
 
-	public void loadCorePlugins() throws IOException, PluginInstantiationException
-	{
+	public void reload() {
+		log.info("Reloading all plugins including side-loaded plugins...");
+		SwingUtilities.invokeLater(() -> {
+			// Stop all active plugins
+			for (Plugin plugin : new ArrayList<>(activePlugins)) {
+				try {
+					stopPlugin(plugin);
+					log.debug("Stopped plugin: {}", plugin.getClass().getSimpleName());
+				} catch (PluginInstantiationException e) {
+					log.error("Error stopping plugin {}", plugin.getClass().getSimpleName(), e);
+				}
+			}
+			// Optionally clear the current plugins list if you want to fully re-discover plugins:
+			plugins.clear();
+
+			// Reload core plugins (if applicable)
+			try {
+				loadCorePlugins();
+			} catch (IOException | PluginInstantiationException ex) {
+				log.error("Error reloading core plugins", ex);
+			}
+
+			// Also load side-loaded plugins from the designated folder
+			loadSideLoadPlugins();
+
+			// Start all enabled plugins
+			for (Plugin plugin : getPlugins()) {
+				if (isPluginEnabled(plugin)) {
+					try {
+						startPlugin(plugin);
+						log.debug("Started plugin: {}", plugin.getClass().getSimpleName());
+					} catch (PluginInstantiationException e) {
+						log.error("Error starting plugin {}", plugin.getClass().getSimpleName(), e);
+					}
+				}
+			}
+		});
+	}
+
+	public void loadCorePlugins() throws IOException, PluginInstantiationException {
 		SplashScreen.stage(.59, null, "Loading plugins");
 		ClassPath classPath = ClassPath.from(getClass().getClassLoader());
-
-		List<Class<?>> plugins = classPath.getTopLevelClassesRecursive(PLUGIN_PACKAGE).stream()
-			.map(ClassInfo::load)
-			.collect(Collectors.toList());
-
-		loadPlugins(plugins, (loaded, total) ->
-			SplashScreen.stage(.60, .70, null, "Loading plugins", loaded, total, false));
+		List<Class<?>> discoveredPlugins = new ArrayList<>();
+		for (String pkg : PLUGIN_PACKAGES) {
+			discoveredPlugins.addAll(
+				classPath.getTopLevelClassesRecursive(pkg).stream()
+					.map(ClassInfo::load)
+					.collect(Collectors.toList())
+			);
+		}
+		loadPlugins(discoveredPlugins, (loaded, total) ->
+			SplashScreen.stage(.60, .70, null, "Loading plugins", loaded, total, false)
+		);
 	}
 
 	public void loadSideLoadPlugins()

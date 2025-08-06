@@ -10666,7 +10666,7 @@ public final class VarbitID
 	public static final int CA_TOTAL_TASKS_COMPLETED_ROYAL_TITANS = 16088;
 	public static final int ROYAL_TITANS_ENTER_WARNING = 16089;
 	public static final int PRAYER_DEADEYE = 16090;
-	public static final int PRAYER_MYSTICVIGOUR = 16091;
+	public static final int PRAYER_MYSTIC_VIGOUR = 16091;
 	public static final int POH_MENAGERIE_MULTIFORM_ROYALTITANPET = 16092;
 	public static final int LEAGUE_TASK_FILL_40_MEDIUM_CLUE_COLLECTION_LOG_SLOTS = 16095;
 	public static final int LEAGUE_TASK_FILL_3_HARD_CLUE_COLLECTION_LOG_SLOTS = 16096;

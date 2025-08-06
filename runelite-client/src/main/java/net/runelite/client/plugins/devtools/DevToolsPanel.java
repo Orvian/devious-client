@@ -129,6 +129,7 @@ class DevToolsPanel extends PluginPanel
 		container.add(plugin.getMovementFlags());
 		container.add(plugin.getInteracting());
 		container.add(plugin.getExamine());
+		container.add(plugin.getReloadPlugins());
 
 		container.add(plugin.getDetachedCamera());
 		plugin.getDetachedCamera().addActionListener((ev) ->

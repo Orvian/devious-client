@@ -39,7 +39,7 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.min;
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +78,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.ui.NavigationButton;
@@ -85,6 +86,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
+import net.runelite.client.plugins.PluginManager;
 import org.slf4j.LoggerFactory;
 
 @Slf4j
@@ -139,6 +141,9 @@ public class DevToolsPlugin extends Plugin
 	private ChatMessageManager chatMessageManager;
 
 	@Inject
+	private PluginManager pluginManager;
+
+	@Inject
 	private DevToolsConfig config;
 
 	private DevToolsButton players;
@@ -174,6 +179,7 @@ public class DevToolsPlugin extends Plugin
 	private DevToolsButton shell;
 	private DevToolsButton menus;
 	private DevToolsButton uiDefaultsInspector;
+	private DevToolsButton reloadPlugins;
 	private NavigationButton navButton;
 
 	private final HotkeyListener swingInspectorHotkeyListener = new HotkeyListener(() -> config.swingInspectorHotkey())
@@ -277,6 +283,8 @@ public class DevToolsPlugin extends Plugin
 		shell = new DevToolsButton("Shell");
 		menus = new DevToolsButton("Menus");
 
+		reloadPlugins = new DevToolsButton("Reload Plugins");
+
 		uiDefaultsInspector = new DevToolsButton("Swing Defaults");
 
 		overlayManager.add(overlay);
@@ -297,6 +305,13 @@ public class DevToolsPlugin extends Plugin
 			.priority(1)
 			.panel(panel)
 			.build();
+
+		reloadPlugins.addActionListener(e -> {
+			reloadPlugins.setActive(true);
+			pluginManager.reload();
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Plugins reloaded", null);
+			reloadPlugins.setActive(false);
+		});
 
 		clientToolbar.addNavigation(navButton);
 

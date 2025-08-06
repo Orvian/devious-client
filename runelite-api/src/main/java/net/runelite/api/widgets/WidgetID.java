@@ -688,6 +688,8 @@ public final class WidgetID
 		static final int PIETY = 35;
 		static final int RIGOUR = 33;
 		static final int AUGURY = 36;
+		static final int DEADEYE = 29;
+		static final int MYSTIC_VIGOUR = 32;
 	}
 
 	public static class QuickPrayer

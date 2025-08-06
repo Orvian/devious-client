@@ -1,0 +1,5 @@
+devious-client [build]
+build publishToMavenLocal :runelite-client:publishToMavenLocal :runelite-api:publishToMavenLocal :http-api:publishToMavenLocal -x test -x checkstyleMain
+
+devious-client [RuneLite.main()]
+RuneLite.main()

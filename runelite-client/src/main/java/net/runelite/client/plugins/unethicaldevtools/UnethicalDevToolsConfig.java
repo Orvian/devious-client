@@ -533,8 +533,29 @@ public interface UnethicalDevToolsConfig extends Config
 		return false;
 	}
 
-	@ConfigItem(
-			keyName = "printStackTrace",
+    @ConfigSection(
+        name = "Action Logger",
+        keyName = "actionLoggerSection",
+        description = "Settings for the action logger",
+        position = 6,
+        closedByDefault = true
+    )
+    String actionLoggerSection = "Action Logger";
+
+    @ConfigItem(
+            keyName = "actionLogger",
+            name = "Enable Action Logger",
+            description = "Logs various in-game actions for debugging",
+            section = actionLoggerSection,
+            position = 0
+    )
+    default boolean actionLogger()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "printStackTrace",
 			name = "Print Stack Trace",
 			description = "Button that prints out the current stack trace",
 			position = 100

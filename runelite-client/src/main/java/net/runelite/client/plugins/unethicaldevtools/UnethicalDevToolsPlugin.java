@@ -96,6 +96,9 @@ public class UnethicalDevToolsPlugin extends Plugin
 	@Inject
 	private InputManager inputManager;
 
+	@Inject
+	private ActionLogger actionLogger;
+
 	private WorldPoint sourceTile;
 	private Pair<String, Integer> transportObject;
 	private boolean selectingSource = true;
@@ -112,6 +115,7 @@ public class UnethicalDevToolsPlugin extends Plugin
 		overlayManager.add(memoryUsageOverlay);
 
 		eventBus.register(regionOverlay);
+		eventBus.register(actionLogger);
 	}
 
 	@Override
@@ -123,6 +127,7 @@ public class UnethicalDevToolsPlugin extends Plugin
 		overlayManager.remove(memoryUsageOverlay);
 
 		eventBus.unregister(regionOverlay);
+		eventBus.unregister(actionLogger);
 	}
 
 	@Provides

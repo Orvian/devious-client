@@ -7,18 +7,26 @@ import net.runelite.api.NPC;
 import net.runelite.api.Projectile;
 import net.runelite.api.events.ProjectileMoved;
 import net.runelite.api.Prayer;
+import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.ItemDespawned;
+import net.runelite.api.TileItem;
+import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.util.Text;
 import net.runelite.client.eventbus.Subscribe;
 
 import java.util.HashSet;
 import java.util.EnumSet;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -31,6 +39,13 @@ public class ActionLogger {
     private final Set<Projectile> loggedProjectiles = new HashSet<>();
     private Set<Prayer> lastActivePrayers = EnumSet.noneOf(Prayer.class);
     private final Map<Prayer, Integer> prayerLastLogTick = new EnumMap<>(Prayer.class);
+    private static final int DEFAULT_DEDUP_TICKS = 10; // suppress identical logs for ~6s
+    private final Map<String, Integer> recentLogs = new LinkedHashMap<String, Integer>(256, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, Integer> eldest) {
+            return size() > 512;
+        }
+    };
     private final UnethicalDevToolsConfig config;
     private final Client client;
 
@@ -41,6 +56,14 @@ public class ActionLogger {
     }
 
     private void log(String action, String details) {
+        // Deduplicate identical logs across a small tick window
+        final int tick = client.getTickCount();
+        final String key = action + "|" + Text.removeTags(details);
+        Integer suppressUntil = recentLogs.get(key);
+        if (suppressUntil != null && tick < suppressUntil) {
+            return;
+        }
+        recentLogs.put(key, tick + DEFAULT_DEDUP_TICKS);
         log.info("[Action Logger] {}: {}", action, details);
     }
 
@@ -188,6 +211,32 @@ public class ActionLogger {
     }
 
     @Subscribe
+    public void onChatMessage(ChatMessage event) {
+        if (!config.actionLogger()) {
+            return;
+        }
+        ChatMessageType type = event.getType();
+        boolean isSelf = false;
+        if (type == ChatMessageType.PRIVATECHATOUT) {
+            isSelf = true;
+        } else {
+            if (client.getLocalPlayer() != null) {
+                String self = Text.sanitize(client.getLocalPlayer().getName());
+                String name = Text.sanitize(event.getName());
+                if (self != null && name != null && self.equalsIgnoreCase(name)) {
+                    isSelf = true;
+                }
+            }
+        }
+        if (!isSelf) {
+            return;
+        }
+        String msg = Text.removeTags(event.getMessage());
+        String details = String.format("Type: %s, Text: %s", type, msg);
+        log("Chat", details);
+    }
+
+    @Subscribe
     public void onGameTick(GameTick event) {
         if (!config.actionLogger() || client.getLocalPlayer() == null) {
             return;
@@ -258,5 +307,35 @@ public class ActionLogger {
 
         log("Projectile", details);
         loggedProjectiles.add(projectile);
+    }
+
+    @Subscribe
+    public void onItemSpawned(ItemSpawned event) {
+        if (!config.actionLogger()) {
+            return;
+        }
+        Tile tile = event.getTile();
+        TileItem item = event.getItem();
+        LocalPoint lp = tile != null ? tile.getLocalLocation() : null;
+        WorldPoint wp = lp != null ? WorldPoint.fromLocalInstance(client, lp)
+                : (tile != null ? tile.getWorldLocation() : null);
+        String details = String.format("ID: %d, Qty: %d, Location: %s",
+                item.getId(), item.getQuantity(), wp);
+        log("Ground Item Spawned", details);
+    }
+
+    @Subscribe
+    public void onItemDespawned(ItemDespawned event) {
+        if (!config.actionLogger()) {
+            return;
+        }
+        Tile tile = event.getTile();
+        TileItem item = event.getItem();
+        LocalPoint lp = tile != null ? tile.getLocalLocation() : null;
+        WorldPoint wp = lp != null ? WorldPoint.fromLocalInstance(client, lp)
+                : (tile != null ? tile.getWorldLocation() : null);
+        String details = String.format("ID: %d, Qty: %d, Location: %s",
+                item.getId(), item.getQuantity(), wp);
+        log("Ground Item Despawned", details);
     }
 }

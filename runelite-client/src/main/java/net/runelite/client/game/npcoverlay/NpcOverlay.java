@@ -140,7 +140,18 @@ class NpcOverlay extends Overlay
 
 		if (highlightedNpc.isOutline())
 		{
-			modelOutlineRenderer.drawOutline(actor, (int) highlightedNpc.getBorderWidth(), borderColor, highlightedNpc.getOutlineFeather());
+			// Guard against null model/animation state during despawn/transform frames
+			try
+			{
+				if (actor != null && actor.getModel() != null)
+				{
+					modelOutlineRenderer.drawOutline(actor, (int) highlightedNpc.getBorderWidth(), borderColor, highlightedNpc.getOutlineFeather());
+				}
+			}
+			catch (NullPointerException ignored)
+			{
+				// Skip outlining this tick if underlying model/sequence is null
+			}
 		}
 
 		if (highlightedNpc.isName() && actor.getName() != null)

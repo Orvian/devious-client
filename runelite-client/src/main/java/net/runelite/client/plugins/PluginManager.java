@@ -41,9 +41,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
@@ -61,6 +63,8 @@ import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.lang.invoke.CallSite;
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
@@ -77,25 +81,25 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+import java.io.Closeable;
 
 @Singleton
 @Slf4j
-public class PluginManager
-{
+public class PluginManager {
 	// List of package roots for core plugins
 	private static final List<String> PLUGIN_PACKAGES = List.of(
 			"net.runelite.client.plugins",
-			"net.unethicalite.client.plugins"
-	);
+			"net.unethicalite.client.plugins");
 	/**
 	 * Base package where the core plugins are
 	 */
-	private static final String PLUGIN_PACKAGE = "net.runelite.client.plugins";
+	// private static final String PLUGIN_PACKAGE = "net.runelite.client.plugins";
 	private static final File SIDELOADED_PLUGINS = new File(RuneLite.RUNELITE_DIR, "sideloaded-plugins");
 
 	private final boolean developerMode;
@@ -106,17 +110,19 @@ public class PluginManager
 	private final Provider<GameEventManager> sceneTileManager;
 	private final List<Plugin> plugins = new CopyOnWriteArrayList<>();
 	private final List<Plugin> activePlugins = new CopyOnWriteArrayList<>();
+	private final Set<Plugin> sideloadedPlugins = new HashSet<>();
+	private final Map<Plugin, ClassLoader> sideloadedPluginLoaders = new HashMap<>();
+	private final Set<String> registeredConfigGroups = new HashSet<>();
 
 	@Inject
 	@VisibleForTesting
 	PluginManager(
-		@Named("developerMode") final boolean developerMode,
-		@Named("safeMode") final boolean safeMode,
-		final EventBus eventBus,
-		final Scheduler scheduler,
-		final ConfigManager configManager,
-		final Provider<GameEventManager> sceneTileManager)
-	{
+			@Named("developerMode") final boolean developerMode,
+			@Named("safeMode") final boolean safeMode,
+			final EventBus eventBus,
+			final Scheduler scheduler,
+			final ConfigManager configManager,
+			final Provider<GameEventManager> sceneTileManager) {
 		this.developerMode = developerMode;
 		this.safeMode = safeMode;
 		this.eventBus = eventBus;
@@ -126,57 +132,42 @@ public class PluginManager
 	}
 
 	@Subscribe
-	public void onSessionOpen(SessionOpen event)
-	{
+	public void onSessionOpen(SessionOpen event) {
 		refreshPlugins();
 	}
 
 	@Subscribe
-	public void onSessionClose(SessionClose event)
-	{
+	public void onSessionClose(SessionClose event) {
 		refreshPlugins();
 	}
 
-	private void refreshPlugins()
-	{
+	private void refreshPlugins() {
 		loadDefaultPluginConfiguration(null);
-		SwingUtilities.invokeLater(() ->
-		{
-			for (Plugin plugin : getPlugins())
-			{
-				try
-				{
-					if (isPluginEnabled(plugin) != activePlugins.contains(plugin))
-					{
-						if (activePlugins.contains(plugin))
-						{
+		SwingUtilities.invokeLater(() -> {
+			for (Plugin plugin : getPlugins()) {
+				try {
+					if (isPluginEnabled(plugin) != activePlugins.contains(plugin)) {
+						if (activePlugins.contains(plugin)) {
 							stopPlugin(plugin);
-						}
-						else
-						{
+						} else {
 							startPlugin(plugin);
 						}
 					}
-				}
-				catch (PluginInstantiationException e)
-				{
+				} catch (PluginInstantiationException e) {
 					log.error("Error during starting/stopping plugin {}", plugin.getClass().getSimpleName(), e);
 				}
 			}
 		});
 	}
 
-	public Config getPluginConfigProxy(Plugin plugin)
-	{
-		try
-		{
+	public Config getPluginConfigProxy(Plugin plugin) {
+		try {
 			Injector injector = plugin.getInjector();
-			if (injector == null)
-			{
+			if (injector == null) {
 				// Create injector for the module
-				Module pluginModule = (Binder binder) ->
-				{
-					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+				Module pluginModule = (Binder binder) -> {
+					// Since the plugin itself is a module, it won't bind itself, so we'll bind it
+					// here
 					binder.bind((Class<Plugin>) plugin.getClass()).toInstance(plugin);
 					binder.install(plugin);
 				};
@@ -185,44 +176,35 @@ public class PluginManager
 				plugin.injector = pluginInjector;
 				injector = pluginInjector;
 			}
-			for (Key<?> key : injector.getBindings().keySet())
-			{
+			for (Key<?> key : injector.getBindings().keySet()) {
 				Class<?> type = key.getTypeLiteral().getRawType();
-				if (Config.class.isAssignableFrom(type))
-				{
+				if (Config.class.isAssignableFrom(type)) {
 					return (Config) injector.getInstance(key);
 				}
 			}
-		}
-		catch (ThreadDeath e)
-		{
+		} catch (ThreadDeath e) {
 			throw e;
-		}
-		catch (Throwable e)
-		{
+		} catch (Throwable e) {
 			log.error("Unable to get plugin config", e);
 		}
 		return null;
 	}
 
-	public List<Config> getPluginConfigProxies(Collection<Plugin> plugins)
-	{
+	public List<Config> getPluginConfigProxies(Collection<Plugin> plugins) {
 		List<Injector> injectors = new ArrayList<>();
-		if (plugins == null)
-		{
+		if (plugins == null) {
 			injectors.add(RuneLite.getInjector());
 			plugins = getPlugins();
 		}
-		plugins.forEach(pl ->
-		{
-			//TODO: Not sure why this is necessary but it is. The Injector isn't null when its handed off from our ExternalPluginManager.
-			//		Hopefully we can figure out the root cause of the underlying issue.
-			if (pl.injector == null)
-			{
+		plugins.forEach(pl -> {
+			// TODO: Not sure why this is necessary but it is. The Injector isn't null when
+			// its handed off from our ExternalPluginManager.
+			// Hopefully we can figure out the root cause of the underlying issue.
+			if (pl.injector == null) {
 				// Create injector for the module
-				Module pluginModule = (Binder binder) ->
-				{
-					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+				Module pluginModule = (Binder binder) -> {
+					// Since the plugin itself is a module, it won't bind itself, so we'll bind it
+					// here
 					binder.bind((Class<Plugin>) pl.getClass()).toInstance(pl);
 					binder.install(pl);
 				};
@@ -234,64 +216,108 @@ public class PluginManager
 			injectors.add(pl.getInjector());
 		});
 
-		List<Config> list = new ArrayList<>();
-		for (Injector injector : injectors)
-		{
-			for (Key<?> key : injector.getBindings().keySet())
-			{
+		// Deduplicate configs by their ConfigGroup value (stable across classloaders)
+		Map<String, Config> byGroup = new LinkedHashMap<>();
+		for (Injector injector : injectors) {
+			for (Key<?> key : injector.getBindings().keySet()) {
 				Class<?> type = key.getTypeLiteral().getRawType();
-				if (Config.class.isAssignableFrom(type))
-				{
+				if (Config.class.isAssignableFrom(type)) {
 					Config config = (Config) injector.getInstance(key);
-					list.add(config);
+					String groupKey = null;
+					try {
+						ConfigGroup cg = config.getClass().getAnnotation(ConfigGroup.class);
+						if (cg != null) {
+							groupKey = cg.value();
+						}
+					} catch (Throwable ignore) {
+					}
+					if (groupKey == null) {
+						groupKey = type.getName();
+					}
+					if (!byGroup.containsKey(groupKey)) {
+						byGroup.put(groupKey, config);
+					}
 				}
 			}
 		}
 
-		return list;
+		return new ArrayList<>(byGroup.values());
 	}
 
-	public void loadDefaultPluginConfiguration(Collection<Plugin> plugins)
-	{
-		try
-		{
-			for (Config config : getPluginConfigProxies(plugins))
-			{
-				configManager.setDefaultConfiguration(config, false);
+	public void loadDefaultPluginConfiguration(Collection<Plugin> plugins) {
+		try {
+			for (Config config : getPluginConfigProxies(plugins)) {
+				String groupKey = null;
+				try {
+					ConfigGroup cg = config.getClass().getAnnotation(ConfigGroup.class);
+					if (cg != null) {
+						groupKey = cg.value();
+					}
+				} catch (Throwable ignore) {
+				}
+				if (groupKey == null) {
+					groupKey = config.getClass().getName();
+				}
+
+				// Skip if we already registered this config group during this session
+				if (registeredConfigGroups.add(groupKey)) {
+					configManager.setDefaultConfiguration(config, false);
+				}
 			}
-		}
-		catch (ThreadDeath e)
-		{
+		} catch (ThreadDeath e) {
 			throw e;
-		}
-		catch (Throwable ex)
-		{
+		} catch (Throwable ex) {
 			log.error("Unable to reset plugin configuration", ex);
 		}
 	}
 
-	public void startPlugins()
+	private Set<String> collectConfigGroupKeys(Collection<Plugin> plugins)
 	{
+		Set<String> keys = new HashSet<>();
+		try
+		{
+			for (Config config : getPluginConfigProxies(plugins))
+			{
+				String groupKey = null;
+				try
+				{
+					ConfigGroup cg = config.getClass().getAnnotation(ConfigGroup.class);
+					if (cg != null)
+					{
+						groupKey = cg.value();
+					}
+				}
+				catch (Throwable ignore)
+				{
+				}
+				if (groupKey == null)
+				{
+					groupKey = config.getClass().getName();
+				}
+				keys.add(groupKey);
+			}
+		}
+		catch (Throwable ex)
+		{
+			log.error("Unable to collect config group keys", ex);
+		}
+		return keys;
+	}
+
+	public void startPlugins() {
 		List<Plugin> scannedPlugins = new ArrayList<>(plugins);
 		int loaded = 0;
-		for (Plugin plugin : scannedPlugins)
-		{
-			try
-			{
-				SwingUtilities.invokeAndWait(() ->
-				{
-					try
-					{
+		registeredConfigGroups.clear();
+		for (Plugin plugin : scannedPlugins) {
+			try {
+				SwingUtilities.invokeAndWait(() -> {
+					try {
 						startPlugin(plugin);
-					}
-					catch (PluginInstantiationException ex)
-					{
+					} catch (PluginInstantiationException ex) {
 						log.error("Unable to start plugin {}", plugin.getClass().getSimpleName(), ex);
 					}
 				});
-			}
-			catch (InterruptedException | InvocationTargetException e)
-			{
+			} catch (InterruptedException | InvocationTargetException e) {
 				throw new RuntimeException(e);
 			}
 
@@ -299,15 +325,19 @@ public class PluginManager
 			SplashScreen.stage(.80, 1, null, "Starting plugins", loaded, scannedPlugins.size(), false);
 		}
 
-		for (Plugin plugin : plugins)
-		{
+		for (Plugin plugin : plugins) {
 			ReflectUtil.queueInjectorAnnotationCacheInvalidation(plugin.injector);
 		}
 	}
 
 	public void reload() {
+		reload(null);
+	}
+
+	public void reload(Runnable onComplete) {
 		log.info("Reloading all plugins including side-loaded plugins...");
 		SwingUtilities.invokeLater(() -> {
+			registeredConfigGroups.clear();
 			// Stop all active plugins
 			for (Plugin plugin : new ArrayList<>(activePlugins)) {
 				try {
@@ -317,7 +347,8 @@ public class PluginManager
 					log.error("Error stopping plugin {}", plugin.getClass().getSimpleName(), e);
 				}
 			}
-			// Optionally clear the current plugins list if you want to fully re-discover plugins:
+			// Optionally clear the current plugins list if you want to fully re-discover
+			// plugins:
 			plugins.clear();
 
 			// Reload core plugins (if applicable)
@@ -341,6 +372,13 @@ public class PluginManager
 					}
 				}
 			}
+			if (onComplete != null) {
+				try {
+					onComplete.run();
+				} catch (Exception e) {
+					log.warn("onComplete threw", e);
+				}
+			}
 		});
 	}
 
@@ -350,96 +388,189 @@ public class PluginManager
 		List<Class<?>> discoveredPlugins = new ArrayList<>();
 		for (String pkg : PLUGIN_PACKAGES) {
 			discoveredPlugins.addAll(
-				classPath.getTopLevelClassesRecursive(pkg).stream()
-					.map(ClassInfo::load)
-					.collect(Collectors.toList())
-			);
+					classPath.getTopLevelClassesRecursive(pkg).stream()
+							.map(ClassInfo::load)
+							.collect(Collectors.toList()));
 		}
-		loadPlugins(discoveredPlugins, (loaded, total) ->
-			SplashScreen.stage(.60, .70, null, "Loading plugins", loaded, total, false)
-		);
+
+		// Instantiate core plugins
+		loadPlugins(discoveredPlugins, null);
 	}
 
-	public void loadSideLoadPlugins()
-	{
-		if (!developerMode)
-		{
+	public void loadSideLoadPlugins() {
+		if (!developerMode) {
+			log.debug("Developer mode disabled; skipping side-loaded plugins");
 			return;
 		}
 
-		File[] files = SIDELOADED_PLUGINS.listFiles();
-		if (files == null)
-		{
+		try {
+			Files.createDirectories(SIDELOADED_PLUGINS.toPath());
+		} catch (IOException e) {
+			log.warn("Unable to create side-loaded plugins directory {}", SIDELOADED_PLUGINS, e);
 			return;
 		}
 
-		for (File f : files)
-		{
-			if (f.getName().endsWith(".jar"))
-			{
-				log.info("Side-loading plugin {}", f);
-
-				try
-				{
-					ClassLoader classLoader = new PluginClassLoader(f, getClass().getClassLoader());
-
-					List<Class<?>> plugins = ClassPath.from(classLoader)
-						.getAllClasses()
-						.stream()
-						.map(ClassInfo::load)
-						.collect(Collectors.toList());
-
-					loadPlugins(plugins, null);
-				}
-				catch (PluginInstantiationException | IOException ex)
-				{
-					log.error("error sideloading plugin", ex);
-				}
-			}
+		File cacheDir = new File(RuneLite.RUNELITE_DIR, "sideloaded-cache");
+		if (!cacheDir.exists() && !cacheDir.mkdirs()) {
+			log.warn("Unable to create sideloaded cache at {}", cacheDir);
 		}
-	}
 
-	public List<Plugin> loadPlugins(List<Class<?>> plugins, BiConsumer<Integer, Integer> onPluginLoaded) throws PluginInstantiationException
-	{
-		MutableGraph<Class<? extends Plugin>> graph = GraphBuilder
-			.directed()
-			.build();
+		File[] jars = SIDELOADED_PLUGINS.listFiles((dir, name) -> name.endsWith(".jar"));
+		if (jars == null || jars.length == 0) {
+			log.debug("No side-loaded plugin jars found in {}", SIDELOADED_PLUGINS);
+			return;
+		}
 
-		for (Class<?> clazz : plugins)
-		{
-			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
-
-			if (Modifier.isAbstract(clazz.getModifiers()))
-			{
+		for (File jar : jars) {
+			File cached = new File(cacheDir, jar.getName());
+			try {
+				Files.copy(jar.toPath(), cached.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				log.warn("Failed copying {} to cache {}", jar, cached, e);
 				continue;
 			}
 
-			if (pluginDescriptor == null)
-			{
-				if (Plugin.class.isAssignableFrom(clazz))
-				{
+			try {
+				ClassLoader loader = new PluginClassLoader(cached, getClass().getClassLoader());
+				ClassPath cp = ClassPath.from(loader);
+				List<Class<?>> discovered = cp.getTopLevelClasses().stream()
+						.map(ClassInfo::load)
+						.collect(Collectors.toList());
+
+				List<Plugin> newPlugins = loadPlugins(discovered, null);
+				for (Plugin p : newPlugins) {
+					sideloadedPlugins.add(p);
+					sideloadedPluginLoaders.put(p, loader);
+				}
+				log.info("Loaded {} side-loaded plugin(s) from {}", newPlugins.size(), jar.getName());
+			} catch (Throwable e) {
+				log.error("Error loading side-loaded plugin jar {}", jar, e);
+			}
+		}
+
+		// Apply default configs for newly loaded side-loaded plugins once per session
+		loadDefaultPluginConfiguration(sideloadedPlugins);
+	}
+
+	public void reloadSideLoaded() {
+		reloadSideLoaded(null);
+	}
+
+	public void reloadSideLoaded(Runnable onComplete) {
+		log.info("Reloading side-loaded plugins only...");
+		if (!developerMode) {
+			return;
+		}
+
+		SwingUtilities.invokeLater(() -> {
+			// Only drop config registration for side-loaded plugins so their defaults can be re-applied
+			registeredConfigGroups.removeAll(collectConfigGroupKeys(sideloadedPlugins));
+
+			// Stop and unload active side-loaded plugins and close their classloaders
+			for (Plugin plugin : new ArrayList<>(sideloadedPlugins)) {
+				try {
+					if (activePlugins.contains(plugin)) {
+						stopPlugin(plugin);
+						log.debug("Stopped side-loaded plugin: {}", plugin.getClass().getSimpleName());
+					}
+				} catch (PluginInstantiationException e) {
+					log.error("Error stopping side-loaded plugin {}", plugin.getClass().getSimpleName(), e);
+				}
+
+				// Remove from global plugin list
+				plugins.remove(plugin);
+				// Close and discard classloader so subsequent reloads pick fresh bytes
+				ClassLoader loader = sideloadedPluginLoaders.remove(plugin);
+				if (loader instanceof Closeable) {
+					try {
+						((Closeable) loader).close();
+					} catch (Exception ignore) {
+					}
+				}
+			}
+
+			// Clear the current record of side-loaded plugins and hint GC
+			sideloadedPlugins.clear();
+			try {
+				System.gc();
+			} catch (Throwable ignore) {
+			}
+
+			// Re-discover and load side-loaded plugins
+			loadSideLoadPlugins();
+
+			// Ensure defaults/config proxies are applied for newly loaded side-loaded plugins
+			loadDefaultPluginConfiguration(sideloadedPlugins);
+
+			// Notify UI to rebuild plugin list so newly discovered (disabled or enabled)
+			// side-loaded plugins appear in Config panel.
+			eventBus.post(new ExternalPluginsChanged());
+
+			// Start enabled side-loaded plugins
+			for (Plugin plugin : new ArrayList<>(sideloadedPlugins)) {
+				if (isPluginEnabled(plugin)) {
+					try {
+						startPlugin(plugin);
+						String src = "unknown";
+						try {
+							src = String.valueOf(plugin.getClass().getProtectionDomain().getCodeSource().getLocation());
+						} catch (Exception ignore) {
+						}
+						log.debug("Started side-loaded plugin: {} from {} (loader={})",
+							plugin.getClass().getSimpleName(), src, plugin.getClass().getClassLoader());
+					} catch (PluginInstantiationException e) {
+						log.error("Error starting side-loaded plugin {}", plugin.getClass().getSimpleName(), e);
+					}
+				} else {
+					log.info("Skipping start of side-loaded plugin {}: not enabled", plugin.getClass().getSimpleName());
+				}
+			}
+
+			if (onComplete != null) {
+				try {
+					onComplete.run();
+				} catch (Exception e) {
+					log.warn("onComplete threw", e);
+				}
+			}
+		});
+	}
+
+	public List<Plugin> loadPlugins(List<Class<?>> plugins, BiConsumer<Integer, Integer> onPluginLoaded)
+			throws PluginInstantiationException {
+		MutableGraph<Class<? extends Plugin>> graph = GraphBuilder
+				.directed()
+				.build();
+
+		for (Class<?> clazz : plugins) {
+			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
+
+			if (Modifier.isAbstract(clazz.getModifiers())) {
+				continue;
+			}
+
+			if (pluginDescriptor == null) {
+				if (Plugin.class.isAssignableFrom(clazz)) {
 					log.error("Class {} is a plugin, but has no plugin descriptor", clazz);
 				}
 				continue;
 			}
 
-			if (!Plugin.class.isAssignableFrom(clazz))
-			{
+			if (!Plugin.class.isAssignableFrom(clazz)) {
 				log.error("Class {} has plugin descriptor, but is not a plugin", clazz);
 				continue;
 			}
 
-			if (pluginDescriptor.developerPlugin() && !developerMode)
-			{
+			if (pluginDescriptor.developerPlugin() && !developerMode) {
 				continue;
 			}
 
-			if (safeMode && !pluginDescriptor.loadInSafeMode())
-			{
+			if (safeMode && !pluginDescriptor.loadInSafeMode()) {
 				log.debug("Disabling {} due to safe mode", clazz);
 				// also disable the plugin from autostarting later
 				configManager.unsetConfiguration(RuneLiteConfig.GROUP_NAME,
-					(Strings.isNullOrEmpty(pluginDescriptor.configName()) ? clazz.getSimpleName() : pluginDescriptor.configName()).toLowerCase());
+						(Strings.isNullOrEmpty(pluginDescriptor.configName()) ? clazz.getSimpleName()
+								: pluginDescriptor.configName()).toLowerCase());
 				continue;
 			}
 
@@ -447,21 +578,17 @@ public class PluginManager
 		}
 
 		// Build plugin graph
-		for (Class<? extends Plugin> pluginClazz : graph.nodes())
-		{
+		for (Class<? extends Plugin> pluginClazz : graph.nodes()) {
 			PluginDependency[] pluginDependencies = pluginClazz.getAnnotationsByType(PluginDependency.class);
 
-			for (PluginDependency pluginDependency : pluginDependencies)
-			{
-				if (graph.nodes().contains(pluginDependency.value()))
-				{
+			for (PluginDependency pluginDependency : pluginDependencies) {
+				if (graph.nodes().contains(pluginDependency.value())) {
 					graph.putEdge(pluginDependency.value(), pluginClazz);
 				}
 			}
 		}
 
-		if (Graphs.hasCycle(graph))
-		{
+		if (Graphs.hasCycle(graph)) {
 			throw new PluginInstantiationException("Plugin dependency graph contains a cycle!");
 		}
 
@@ -469,23 +596,18 @@ public class PluginManager
 
 		int loaded = 0;
 		List<Plugin> newPlugins = new ArrayList<>();
-		for (Class<? extends Plugin> pluginClazz : sortedPlugins)
-		{
+		for (Class<? extends Plugin> pluginClazz : sortedPlugins) {
 			Plugin plugin;
-			try
-			{
+			try {
 				plugin = instantiate(this.plugins, (Class<Plugin>) pluginClazz);
 				newPlugins.add(plugin);
 				this.plugins.add(plugin);
-			}
-			catch (PluginInstantiationException ex)
-			{
+			} catch (PluginInstantiationException ex) {
 				log.error("Error instantiating plugin!", ex);
 			}
 
 			loaded++;
-			if (onPluginLoaded != null)
-			{
+			if (onPluginLoaded != null) {
 				onPluginLoaded.accept(loaded, sortedPlugins.size());
 			}
 		}
@@ -493,41 +615,33 @@ public class PluginManager
 		return newPlugins;
 	}
 
-	public boolean startPlugin(Plugin plugin) throws PluginInstantiationException
-	{
+	public boolean startPlugin(Plugin plugin) throws PluginInstantiationException {
 		// plugins always start in the EDT
 		assert SwingUtilities.isEventDispatchThread();
 
-		if (activePlugins.contains(plugin) || !isPluginEnabled(plugin))
-		{
+		if (activePlugins.contains(plugin) || !isPluginEnabled(plugin)) {
 			return false;
 		}
 
 		List<Plugin> conflicts = conflictsForPlugin(plugin);
-		for (Plugin conflict : conflicts)
-		{
-			if (isPluginEnabled(conflict))
-			{
+		for (Plugin conflict : conflicts) {
+			if (isPluginEnabled(conflict)) {
 				setPluginEnabled(conflict, false);
 			}
-			if (activePlugins.contains(conflict))
-			{
+			if (activePlugins.contains(conflict)) {
 				stopPlugin(conflict);
 			}
 		}
 
 		activePlugins.add(plugin);
 
-		try
-		{
+		try {
 			plugin.startUp();
 
 			log.debug("Plugin {} is now running", plugin.getClass().getSimpleName());
-			if (sceneTileManager != null)
-			{
+			if (sceneTileManager != null) {
 				final GameEventManager gameEventManager = this.sceneTileManager.get();
-				if (gameEventManager != null)
-				{
+				if (gameEventManager != null) {
 					gameEventManager.simulateGameEvents(plugin);
 				}
 			}
@@ -535,20 +649,13 @@ public class PluginManager
 			eventBus.register(plugin);
 			schedule(plugin);
 			eventBus.post(new PluginChanged(plugin, true));
-		}
-		catch (ThreadDeath e)
-		{
+		} catch (ThreadDeath e) {
 			throw e;
-		}
-		catch (Throwable ex)
-		{
+		} catch (Throwable ex) {
 			// stop the plugin and fire the change event to update the plugin list panel
-			try
-			{
+			try {
 				stopPlugin(plugin);
-			}
-			catch (Throwable ex2)
-			{
+			} catch (Throwable ex2) {
 				log.error("unable to stop plugin", ex2);
 			}
 			throw new PluginInstantiationException(ex);
@@ -557,47 +664,39 @@ public class PluginManager
 		return true;
 	}
 
-	public boolean stopPlugin(Plugin plugin) throws PluginInstantiationException
-	{
+	public boolean stopPlugin(Plugin plugin) throws PluginInstantiationException {
 		// plugins always stop in the EDT
 		assert SwingUtilities.isEventDispatchThread();
 
-		if (!activePlugins.remove(plugin))
-		{
+		if (!activePlugins.remove(plugin)) {
 			return false;
 		}
 
 		unschedule(plugin);
 		eventBus.unregister(plugin);
 
-		try
-		{
+		try {
 			plugin.shutDown();
 
 			log.debug("Plugin {} is now stopped", plugin.getClass().getSimpleName());
 			eventBus.post(new PluginChanged(plugin, false));
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			throw new PluginInstantiationException(ex);
 		}
 
 		return true;
 	}
 
-	public void setPluginEnabled(Plugin plugin, boolean enabled)
-	{
+	public void setPluginEnabled(Plugin plugin, boolean enabled) {
 		final PluginDescriptor pluginDescriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
-		final String keyName = Strings.isNullOrEmpty(pluginDescriptor.configName()) ? plugin.getClass().getSimpleName() : pluginDescriptor.configName();
+		final String keyName = Strings.isNullOrEmpty(pluginDescriptor.configName()) ? plugin.getClass().getSimpleName()
+				: pluginDescriptor.configName();
 		configManager.setConfiguration(RuneLiteConfig.GROUP_NAME, keyName.toLowerCase(), String.valueOf(enabled));
 
-		if (enabled)
-		{
+		if (enabled) {
 			List<Plugin> conflicts = conflictsForPlugin(plugin);
-			for (Plugin conflict : conflicts)
-			{
-				if (isPluginEnabled(conflict))
-				{
+			for (Plugin conflict : conflicts) {
+				if (isPluginEnabled(conflict)) {
 					setPluginEnabled(conflict, false);
 				}
 			}
@@ -605,68 +704,60 @@ public class PluginManager
 	}
 
 	/**
-	 * Test if a plugin is enabled, which causes the client to attempt to start it on boot
+	 * Test if a plugin is enabled, which causes the client to attempt to start it
+	 * on boot
+	 *
 	 * @param plugin
 	 * @return
 	 */
-	public boolean isPluginEnabled(Plugin plugin)
-	{
+	public boolean isPluginEnabled(Plugin plugin) {
 		final PluginDescriptor pluginDescriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
-		final String keyName = Strings.isNullOrEmpty(pluginDescriptor.configName()) ? plugin.getClass().getSimpleName() : pluginDescriptor.configName();
+		final String keyName = Strings.isNullOrEmpty(pluginDescriptor.configName()) ? plugin.getClass().getSimpleName()
+				: pluginDescriptor.configName();
 		final String value = configManager.getConfiguration(RuneLiteConfig.GROUP_NAME, keyName.toLowerCase());
 		return value != null ? Boolean.parseBoolean(value) : pluginDescriptor.enabledByDefault();
 	}
 
 	/**
 	 * Test if a plugin is on, eg. enabled and also was started successfully
+	 *
 	 * @param plugin
 	 * @return
 	 */
-	public boolean isPluginActive(Plugin plugin)
-	{
+	public boolean isPluginActive(Plugin plugin) {
 		return activePlugins.contains(plugin);
 	}
 
-	private Plugin instantiate(List<Plugin> scannedPlugins, Class<Plugin> clazz) throws PluginInstantiationException
-	{
+	private Plugin instantiate(List<Plugin> scannedPlugins, Class<Plugin> clazz) throws PluginInstantiationException {
 		PluginDependency[] pluginDependencies = clazz.getAnnotationsByType(PluginDependency.class);
 		List<Plugin> deps = new ArrayList<>();
-		for (PluginDependency pluginDependency : pluginDependencies)
-		{
-			Optional<Plugin> dependency = scannedPlugins.stream().filter(p -> p.getClass() == pluginDependency.value()).findFirst();
-			if (!dependency.isPresent())
-			{
-				throw new PluginInstantiationException("Unmet dependency for " + clazz.getSimpleName() + ": " + pluginDependency.value().getSimpleName());
+		for (PluginDependency pluginDependency : pluginDependencies) {
+			Optional<Plugin> dependency = scannedPlugins.stream().filter(p -> p.getClass() == pluginDependency.value())
+					.findFirst();
+			if (!dependency.isPresent()) {
+				throw new PluginInstantiationException("Unmet dependency for " + clazz.getSimpleName() + ": "
+						+ pluginDependency.value().getSimpleName());
 			}
 			deps.add(dependency.get());
 		}
 
 		Plugin plugin;
-		try
-		{
+		try {
 			plugin = clazz.getDeclaredConstructor().newInstance();
-		}
-		catch (ThreadDeath e)
-		{
+		} catch (ThreadDeath e) {
 			throw e;
-		}
-		catch (Throwable ex)
-		{
+		} catch (Throwable ex) {
 			throw new PluginInstantiationException(ex);
 		}
 
-		try
-		{
+		try {
 			Injector parent = RuneLite.getInjector();
 
-			if (deps.size() > 1)
-			{
+			if (deps.size() > 1) {
 				List<Module> modules = new ArrayList<>(deps.size());
-				for (Plugin p : deps)
-				{
+				for (Plugin p : deps) {
 					// Create a module for each dependency
-					Module module = (Binder binder) ->
-					{
+					Module module = (Binder binder) -> {
 						binder.bind((Class<Plugin>) p.getClass()).toInstance(p);
 						binder.install(p);
 					};
@@ -675,25 +766,21 @@ public class PluginManager
 
 				// Create a parent injector containing all of the dependencies
 				parent = parent.createChildInjector(modules);
-			}
-			else if (!deps.isEmpty())
-			{
+			} else if (!deps.isEmpty()) {
 				// With only one dependency we can simply use its injector
 				parent = deps.get(0).injector;
 			}
 
 			// Create injector for the module
-			Module pluginModule = (Binder binder) ->
-			{
-				// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+			Module pluginModule = (Binder binder) -> {
+				// Since the plugin itself is a module, it won't bind itself, so we'll bind it
+				// here
 				binder.bind(clazz).toInstance(plugin);
 				binder.install(plugin);
 			};
 			Injector pluginInjector = parent.createChildInjector(pluginModule);
 			plugin.injector = pluginInjector;
-		}
-		catch (CreationException ex)
-		{
+		} catch (CreationException ex) {
 			throw new PluginInstantiationException(ex);
 		}
 
@@ -701,18 +788,15 @@ public class PluginManager
 		return plugin;
 	}
 
-	public void add(Plugin plugin)
-	{
+	public void add(Plugin plugin) {
 		plugins.add(plugin);
 	}
 
-	public void remove(Plugin plugin)
-	{
+	public void remove(Plugin plugin) {
 		plugins.remove(plugin);
 	}
 
-	public Collection<Plugin> getPlugins()
-	{
+	public Collection<Plugin> getPlugins() {
 		return plugins;
 	}
 
@@ -722,84 +806,74 @@ public class PluginManager
 	 * Plugins in group (index) 0 has no dependents.
 	 * Plugins in group 1 has dependents in group 0.
 	 * Plugins in group 2 has dependents in group 1, etc.
-	 * This allows for loading dependent groups serially, starting from the last group,
+	 * This allows for loading dependent groups serially, starting from the last
+	 * group,
 	 * while loading plugins within each group in parallel.
 	 *
 	 * @param graph
 	 * @param <T>
 	 * @return
 	 */
-	public static <T> List<List<T>> topologicalGroupSort(Graph<T> graph)
-	{
+	public static <T> List<List<T>> topologicalGroupSort(Graph<T> graph) {
 		final Set<T> root = graph.nodes().stream()
-			.filter(node -> graph.inDegree(node) == 0)
-			.collect(Collectors.toSet());
+				.filter(node -> graph.inDegree(node) == 0)
+				.collect(Collectors.toSet());
 		final Map<T, Integer> dependencyCount = new HashMap<>();
 
 		root.forEach(n -> dependencyCount.put(n, 0));
 		root.forEach(n -> graph.successors(n)
-			.forEach(m -> incrementChildren(graph, dependencyCount, m, dependencyCount.get(n) + 1)));
+				.forEach(m -> incrementChildren(graph, dependencyCount, m, dependencyCount.get(n) + 1)));
 
 		// create list<list> dependency grouping
 		final List<List<T>> dependencyGroups = new ArrayList<>();
-		final int[] curGroup = {-1};
+		final int[] curGroup = { -1 };
 
 		dependencyCount.entrySet().stream()
-			.sorted(Map.Entry.comparingByValue())
-			.forEach(entry ->
-			{
-				if (entry.getValue() != curGroup[0])
-				{
-					curGroup[0] = entry.getValue();
-					dependencyGroups.add(new ArrayList<>());
-				}
-				dependencyGroups.get(dependencyGroups.size() - 1).add(entry.getKey());
-			});
+				.sorted(Map.Entry.comparingByValue())
+				.forEach(entry -> {
+					if (entry.getValue() != curGroup[0]) {
+						curGroup[0] = entry.getValue();
+						dependencyGroups.add(new ArrayList<>());
+					}
+					dependencyGroups.get(dependencyGroups.size() - 1).add(entry.getKey());
+				});
 
 		return dependencyGroups;
 	}
 
-	private static <T> void incrementChildren(Graph<T> graph, Map<T, Integer> dependencyCount, T n, int val)
-	{
-		if (!dependencyCount.containsKey(n) || dependencyCount.get(n) < val)
-		{
+	private static <T> void incrementChildren(Graph<T> graph, Map<T, Integer> dependencyCount, T n, int val) {
+		if (!dependencyCount.containsKey(n) || dependencyCount.get(n) < val) {
 			dependencyCount.put(n, val);
-			graph.successors(n).forEach(m ->
-				incrementChildren(graph, dependencyCount, m, val + 1));
+			graph.successors(n).forEach(m -> incrementChildren(graph, dependencyCount, m, val + 1));
 		}
 	}
 
-	private void schedule(Plugin plugin)
-	{
-		for (Method method : plugin.getClass().getMethods())
-		{
+	private void schedule(Plugin plugin) {
+		for (Method method : plugin.getClass().getMethods()) {
 			Schedule schedule = method.getAnnotation(Schedule.class);
 
-			if (schedule == null)
-			{
+			if (schedule == null) {
 				continue;
 			}
 
 			Runnable runnable = null;
-			try
-			{
+			try {
 				final Class<?> clazz = method.getDeclaringClass();
 				final MethodHandles.Lookup caller = ReflectUtil.privateLookupIn(clazz);
-				final MethodType subscription = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
+				final MethodType subscription = MethodType.methodType(method.getReturnType(),
+						method.getParameterTypes());
 				final MethodHandle target = caller.findVirtual(clazz, method.getName(), subscription);
 				final CallSite site = LambdaMetafactory.metafactory(
-					caller,
-					"run",
-					MethodType.methodType(Runnable.class, clazz),
-					subscription,
-					target,
-					subscription);
+						caller,
+						"run",
+						MethodType.methodType(Runnable.class, clazz),
+						subscription,
+						target,
+						subscription);
 
 				final MethodHandle factory = site.getTarget();
 				runnable = (Runnable) factory.bindTo(plugin).invokeExact();
-			}
-			catch (Throwable e)
-			{
+			} catch (Throwable e) {
 				log.warn("Unable to create lambda for method {}", method, e);
 			}
 
@@ -810,14 +884,11 @@ public class PluginManager
 		}
 	}
 
-	private void unschedule(Plugin plugin)
-	{
+	private void unschedule(Plugin plugin) {
 		List<ScheduledMethod> methods = new ArrayList<>(scheduler.getScheduledMethods());
 
-		for (ScheduledMethod method : methods)
-		{
-			if (method.getObject() != plugin)
-			{
+		for (ScheduledMethod method : methods) {
+			if (method.getObject() != plugin) {
 				continue;
 			}
 
@@ -832,43 +903,38 @@ public class PluginManager
 	 * @param graph - A directed graph
 	 * @param <T>   - The type of the item contained in the nodes of the graph
 	 * @return - A topologically sorted list corresponding to graph.
-	 * <p>
-	 * Multiple invocations with the same arguments may return lists that are not equal.
+	 *         <p>
+	 *         Multiple invocations with the same arguments may return lists that
+	 *         are not equal.
 	 */
 	@VisibleForTesting
-	static <T> List<T> topologicalSort(Graph<T> graph)
-	{
+	static <T> List<T> topologicalSort(Graph<T> graph) {
 		MutableGraph<T> graphCopy = Graphs.copyOf(graph);
 		List<T> l = new ArrayList<>();
 		Set<T> s = graphCopy.nodes().stream()
-			.filter(node -> graphCopy.inDegree(node) == 0)
-			.collect(Collectors.toSet());
-		while (!s.isEmpty())
-		{
+				.filter(node -> graphCopy.inDegree(node) == 0)
+				.collect(Collectors.toSet());
+		while (!s.isEmpty()) {
 			Iterator<T> it = s.iterator();
 			T n = it.next();
 			it.remove();
 
 			l.add(n);
 
-			for (T m : new HashSet<>(graphCopy.successors(n)))
-			{
+			for (T m : new HashSet<>(graphCopy.successors(n))) {
 				graphCopy.removeEdge(n, m);
-				if (graphCopy.inDegree(m) == 0)
-				{
+				if (graphCopy.inDegree(m) == 0) {
 					s.add(m);
 				}
 			}
 		}
-		if (!graphCopy.edges().isEmpty())
-		{
+		if (!graphCopy.edges().isEmpty()) {
 			throw new RuntimeException("Graph has at least one cycle");
 		}
 		return l;
 	}
 
-	public List<Plugin> conflictsForPlugin(Plugin plugin)
-	{
+	public List<Plugin> conflictsForPlugin(Plugin plugin) {
 		Set<String> conflicts;
 		{
 			PluginDescriptor desc = plugin.getClass().getAnnotation(PluginDescriptor.class);
@@ -877,29 +943,24 @@ public class PluginManager
 		}
 
 		return plugins.stream()
-			.filter(p ->
-			{
-				if (p == plugin)
-				{
-					return false;
-				}
+				.filter(p -> {
+					if (p == plugin) {
+						return false;
+					}
 
-				PluginDescriptor desc = p.getClass().getAnnotation(PluginDescriptor.class);
-				if (conflicts.contains(desc.name()))
-				{
-					return true;
-				}
-
-				for (String conflict : desc.conflicts())
-				{
-					if (conflicts.contains(conflict))
-					{
+					PluginDescriptor desc = p.getClass().getAnnotation(PluginDescriptor.class);
+					if (conflicts.contains(desc.name())) {
 						return true;
 					}
-				}
 
-				return false;
-			})
-			.collect(Collectors.toList());
+					for (String conflict : desc.conflicts()) {
+						if (conflicts.contains(conflict)) {
+							return true;
+						}
+					}
+
+					return false;
+				})
+				.collect(Collectors.toList());
 	}
 }

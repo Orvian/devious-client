@@ -48,6 +48,7 @@ import javax.inject.Inject;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.RootPaneContainer;
+import javax.swing.Timer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
@@ -88,17 +89,13 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.callback.ClientThread;
 import org.slf4j.LoggerFactory;
 
 @Slf4j
-@PluginDescriptor(
-	name = "Developer Tools",
-	tags = {"panel"},
-	developerPlugin = true
-)
+@PluginDescriptor(name = "Developer Tools", tags = { "panel" }, developerPlugin = true)
 @Getter
-public class DevToolsPlugin extends Plugin
-{
+public class DevToolsPlugin extends Plugin {
 	private static final List<MenuAction> EXAMINE_MENU_ACTIONS = ImmutableList.of(MenuAction.EXAMINE_ITEM,
 			MenuAction.EXAMINE_ITEM_GROUND, MenuAction.EXAMINE_NPC, MenuAction.EXAMINE_OBJECT);
 
@@ -145,6 +142,9 @@ public class DevToolsPlugin extends Plugin
 	private PluginManager pluginManager;
 
 	@Inject
+	private ClientThread clientThread;
+
+	@Inject
 	private DevToolsConfig config;
 
 	private DevToolsButton players;
@@ -183,68 +183,52 @@ public class DevToolsPlugin extends Plugin
 	private DevToolsButton reloadPlugins;
 	private NavigationButton navButton;
 
-	private final HotkeyListener swingInspectorHotkeyListener = new HotkeyListener(() -> config.swingInspectorHotkey())
-	{
+	private final HotkeyListener swingInspectorHotkeyListener = new HotkeyListener(
+			() -> config.swingInspectorHotkey()) {
 		Object inspector;
 
 		@Override
-		public void hotkeyPressed()
-		{
+		public void hotkeyPressed() {
 			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow();
-			try
-			{
-				if (inspector == null)
-				{
+			try {
+				if (inspector == null) {
 					JRootPane rootPane = ((RootPaneContainer) window).getRootPane();
 					FlatInspector fi = new FlatInspector(rootPane);
 					fi.setEnabled(true);
 					inspector = fi;
-					fi.addPropertyChangeListener(ev ->
-					{
-						if ("enabled".equals(ev.getPropertyName()) && !fi.isEnabled() && inspector == ev.getSource())
-						{
+					fi.addPropertyChangeListener(ev -> {
+						if ("enabled".equals(ev.getPropertyName()) && !fi.isEnabled() && inspector == ev.getSource()) {
 							inspector = null;
 						}
 					});
-				}
-				else
-				{
+				} else {
 					((FlatInspector) inspector).setEnabled(false);
 				}
-			}
-			catch (LinkageError | Exception e)
-			{
+			} catch (LinkageError | Exception e) {
 				log.warn("unable to open swing inspector", e);
 				JOptionPane.showMessageDialog(window, "The swing inspector is not available.");
 			}
 		}
 	};
 
-	private final AWTEventListener swingInspectorKeyListener = rawEv ->
-	{
-		if (rawEv instanceof KeyEvent)
-		{
+	private final AWTEventListener swingInspectorKeyListener = rawEv -> {
+		if (rawEv instanceof KeyEvent) {
 			KeyEvent kev = (KeyEvent) rawEv;
-			if (kev.getID() == KeyEvent.KEY_PRESSED)
-			{
+			if (kev.getID() == KeyEvent.KEY_PRESSED) {
 				swingInspectorHotkeyListener.keyPressed(kev);
-			}
-			else if (kev.getID() == KeyEvent.KEY_RELEASED)
-			{
+			} else if (kev.getID() == KeyEvent.KEY_RELEASED) {
 				swingInspectorHotkeyListener.keyReleased(kev);
 			}
 		}
 	};
 
 	@Provides
-	DevToolsConfig provideConfig(ConfigManager configManager)
-	{
+	DevToolsConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(DevToolsConfig.class);
 	}
 
 	@Override
-	protected void startUp() throws Exception
-	{
+	protected void startUp() throws Exception {
 		players = new DevToolsButton("Players");
 		npcs = new DevToolsButton("NPCs");
 
@@ -286,6 +270,11 @@ public class DevToolsPlugin extends Plugin
 
 		reloadPlugins = new DevToolsButton("Reload Plugins");
 
+		// Make this button flash instead of toggling persistent active state
+		for (var al : reloadPlugins.getActionListeners()) {
+			reloadPlugins.removeActionListener(al);
+		}
+
 		uiDefaultsInspector = new DevToolsButton("Swing Defaults");
 
 		overlayManager.add(overlay);
@@ -301,17 +290,23 @@ public class DevToolsPlugin extends Plugin
 		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "devtools_icon.png");
 
 		navButton = NavigationButton.builder()
-			.tooltip("Developer Tools")
-			.icon(icon)
-			.priority(1)
-			.panel(panel)
-			.build();
+				.tooltip("Developer Tools")
+				.icon(icon)
+				.priority(1)
+				.panel(panel)
+				.build();
 
 		reloadPlugins.addActionListener(e -> {
 			reloadPlugins.setActive(true);
-			pluginManager.reload();
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Plugins reloaded", null);
-			reloadPlugins.setActive(false);
+			new Timer(600, ev -> reloadPlugins.setActive(false)) {
+				{
+					setRepeats(false);
+				}
+			}.start();
+			// Only reload side-loaded plugins to avoid clearing plugin-hub plugins from
+			// configuration
+			pluginManager.reloadSideLoaded(() -> clientThread.invoke(() -> client
+					.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Side-loaded plugins reloaded", null)));
 		});
 
 		clientToolbar.addNavigation(navButton);
@@ -322,8 +317,7 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
-	{
+	protected void shutDown() throws Exception {
 		eventBus.unregister(soundEffectOverlay);
 		overlayManager.remove(overlay);
 		overlayManager.remove(locationOverlay);
@@ -337,24 +331,18 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onCommandExecuted(CommandExecuted commandExecuted)
-	{
+	public void onCommandExecuted(CommandExecuted commandExecuted) {
 		String[] args = commandExecuted.getArguments();
 
-		switch (commandExecuted.getCommand().toLowerCase())
-		{
-			case "logger":
-			{
+		switch (commandExecuted.getCommand().toLowerCase()) {
+			case "logger": {
 				final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 				String message;
 				Level currentLoggerLevel = logger.getLevel();
 
-				if (args.length < 1)
-				{
+				if (args.length < 1) {
 					message = "Logger level is currently set to " + currentLoggerLevel;
-				}
-				else
-				{
+				} else {
 					Level newLoggerLevel = Level.toLevel(args[0], currentLoggerLevel);
 					logger.setLevel(newLoggerLevel);
 					message = "Logger level has been set to " + newLoggerLevel;
@@ -363,16 +351,14 @@ public class DevToolsPlugin extends Plugin
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", message, null);
 				break;
 			}
-			case "getvarp":
-			{
+			case "getvarp": {
 				int varp = Integer.parseInt(args[0]);
 				int[] varps = client.getVarps();
 				int value = varps[varp];
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "VarPlayer " + varp + ": " + value, null);
 				break;
 			}
-			case "setvarp":
-			{
+			case "setvarp": {
 				int varp = Integer.parseInt(args[0]);
 				int value = Integer.parseInt(args[1]);
 				int[] varps = client.getVarps();
@@ -385,15 +371,13 @@ public class DevToolsPlugin extends Plugin
 				eventBus.post(varbitChanged); // fake event
 				break;
 			}
-			case "getvarb":
-			{
+			case "getvarb": {
 				int varbit = Integer.parseInt(args[0]);
 				int value = client.getVarbitValue(client.getVarps(), varbit);
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Varbit " + varbit + ": " + value, null);
 				break;
 			}
-			case "setvarb":
-			{
+			case "setvarb": {
 				int varbit = Integer.parseInt(args[0]);
 				int value = Integer.parseInt(args[1]);
 				client.setVarbitValue(client.getVarps(), varbit, value);
@@ -406,8 +390,7 @@ public class DevToolsPlugin extends Plugin
 				eventBus.post(varbitChanged); // fake event
 				break;
 			}
-			case "addxp":
-			{
+			case "addxp": {
 				Skill skill = Skill.valueOf(args[0].toUpperCase());
 				int xp = Integer.parseInt(args[1]);
 
@@ -421,16 +404,14 @@ public class DevToolsPlugin extends Plugin
 				client.queueChangedSkill(skill);
 
 				StatChanged statChanged = new StatChanged(
-					skill,
-					totalXp,
-					level,
-					level
-				);
+						skill,
+						totalXp,
+						level,
+						level);
 				eventBus.post(statChanged);
 				break;
 			}
-			case "setstat":
-			{
+			case "setstat": {
 				Skill skill = Skill.valueOf(args[0].toUpperCase());
 				int level = Integer.parseInt(args[1]);
 
@@ -444,32 +425,28 @@ public class DevToolsPlugin extends Plugin
 				client.queueChangedSkill(skill);
 
 				StatChanged statChanged = new StatChanged(
-					skill,
-					xp,
-					level,
-					level
-				);
+						skill,
+						xp,
+						level,
+						level);
 				eventBus.post(statChanged);
 				break;
 			}
-			case "anim":
-			{
+			case "anim": {
 				int id = Integer.parseInt(args[0]);
 				Player localPlayer = client.getLocalPlayer();
 				localPlayer.setAnimation(id);
 				localPlayer.setAnimationFrame(0);
 				break;
 			}
-			case "gfx":
-			{
+			case "gfx": {
 				int id = Integer.parseInt(args[0]);
 				Player localPlayer = client.getLocalPlayer();
 				localPlayer.setGraphic(id);
 				localPlayer.setSpotAnimFrame(0);
 				break;
 			}
-			case "transform":
-			{
+			case "transform": {
 				int id = Integer.parseInt(args[0]);
 				Player player = client.getLocalPlayer();
 				player.getPlayerComposition().setTransformedNpcId(id);
@@ -477,8 +454,7 @@ public class DevToolsPlugin extends Plugin
 				player.setPoseAnimation(-1);
 				break;
 			}
-			case "wear":
-			{
+			case "wear": {
 				int slot = Integer.parseInt(args[0]);
 				int id = Integer.parseInt(args[1]);
 				Player player = client.getLocalPlayer();
@@ -486,50 +462,53 @@ public class DevToolsPlugin extends Plugin
 				player.getPlayerComposition().setHash();
 				break;
 			}
-			case "tex":
-			{
+			case "tex": {
 				Player player = client.getLocalPlayer();
-				player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = ItemID.TZHAAR_CAPE_FIRE + PlayerComposition.ITEM_OFFSET;
-				player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = ItemID.SLAYER_MIRROR_SHIELD + PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = ItemID.TZHAAR_CAPE_FIRE
+						+ PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = ItemID.SLAYER_MIRROR_SHIELD
+						+ PlayerComposition.ITEM_OFFSET;
 				player.getPlayerComposition().setHash();
 				break;
 			}
-			case "alpha":
-			{
+			case "alpha": {
 				Player player = client.getLocalPlayer();
-				player.getPlayerComposition().getEquipmentIds()[KitType.HEAD.getIndex()] = ItemID.SECRET_GHOST_HAT + PlayerComposition.ITEM_OFFSET;
-				player.getPlayerComposition().getEquipmentIds()[KitType.AMULET.getIndex()] = ItemID.ZENYTE_AMULET_ORNAMENT + PlayerComposition.ITEM_OFFSET;
-				player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = ItemID.SECRET_GHOST_CLOAK + PlayerComposition.ITEM_OFFSET;
-				player.getPlayerComposition().getEquipmentIds()[KitType.TORSO.getIndex()] = ItemID.SECRET_GHOST_TOP + PlayerComposition.ITEM_OFFSET;
-				player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = ItemID.ELYSIAN + PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.HEAD.getIndex()] = ItemID.SECRET_GHOST_HAT
+						+ PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.AMULET
+						.getIndex()] = ItemID.ZENYTE_AMULET_ORNAMENT + PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = ItemID.SECRET_GHOST_CLOAK
+						+ PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.TORSO.getIndex()] = ItemID.SECRET_GHOST_TOP
+						+ PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = ItemID.ELYSIAN
+						+ PlayerComposition.ITEM_OFFSET;
 				player.getPlayerComposition().getEquipmentIds()[KitType.ARMS.getIndex()] = -1;
-				player.getPlayerComposition().getEquipmentIds()[KitType.LEGS.getIndex()] = ItemID.SECRET_GHOST_BOTTOM + PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.LEGS.getIndex()] = ItemID.SECRET_GHOST_BOTTOM
+						+ PlayerComposition.ITEM_OFFSET;
 				player.getPlayerComposition().getEquipmentIds()[KitType.HAIR.getIndex()] = -1;
-				player.getPlayerComposition().getEquipmentIds()[KitType.HANDS.getIndex()] = ItemID.SECRET_GHOST_GLOVES + PlayerComposition.ITEM_OFFSET;
-				player.getPlayerComposition().getEquipmentIds()[KitType.BOOTS.getIndex()] = ItemID.SECRET_GHOST_BOOTS + PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.HANDS.getIndex()] = ItemID.SECRET_GHOST_GLOVES
+						+ PlayerComposition.ITEM_OFFSET;
+				player.getPlayerComposition().getEquipmentIds()[KitType.BOOTS.getIndex()] = ItemID.SECRET_GHOST_BOOTS
+						+ PlayerComposition.ITEM_OFFSET;
 				player.getPlayerComposition().setHash();
 				break;
 			}
-			case "sound":
-			{
+			case "sound": {
 				int id = Integer.parseInt(args[0]);
 				client.playSoundEffect(id);
 				break;
 			}
-			case "msg":
-			{
+			case "msg": {
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", String.join(" ", args), "");
 				break;
 			}
-			case "setconf":
-			{
+			case "setconf": {
 				// setconf group.key name = value
 				String group = args[0];
 				String key = args[1], value = "";
-				for (int i = 2; i < args.length; ++i)
-				{
-					if (args[i].equals("="))
-					{
+				for (int i = 2; i < args.length; ++i) {
+					if (args[i].equals("=")) {
 						value = String.join(" ", Arrays.copyOfRange(args, i + 1, args.length));
 						break;
 					}
@@ -538,151 +517,128 @@ public class DevToolsPlugin extends Plugin
 				}
 				String current = configManager.getConfiguration(group, key);
 				final String message;
-				if (value.isEmpty())
-				{
+				if (value.isEmpty()) {
 					configManager.unsetConfiguration(group, key);
 					message = String.format("Unset configuration %s.%s (was: %s)", group, key, current);
-				}
-				else
-				{
+				} else {
 					configManager.setConfiguration(group, key, value);
 					message = String.format("Set configuration %s.%s to %s (was: %s)", group, key, value, current);
 				}
 				chatMessageManager.queue(QueuedMessage.builder()
-					.type(ChatMessageType.GAMEMESSAGE)
-					.runeLiteFormattedMessage(new ChatMessageBuilder().append(message).build())
-					.build());
+						.type(ChatMessageType.GAMEMESSAGE)
+						.runeLiteFormattedMessage(new ChatMessageBuilder().append(message).build())
+						.build());
 				break;
 			}
-			case "getconf":
-			{
+			case "getconf": {
 				String group = args[0], key = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 				String value = configManager.getConfiguration(group, key);
 				final String message = String.format("%s.%s = %s", group, key, value);
 				chatMessageManager.queue(QueuedMessage.builder()
-					.type(ChatMessageType.GAMEMESSAGE)
-					.runeLiteFormattedMessage(new ChatMessageBuilder().append(message).build())
-					.build());
+						.type(ChatMessageType.GAMEMESSAGE)
+						.runeLiteFormattedMessage(new ChatMessageBuilder().append(message).build())
+						.build());
 				break;
 			}
-			case "modicons":
-			{
+			case "modicons": {
 				final ChatMessageBuilder builder = new ChatMessageBuilder();
 				final IndexedSprite[] modIcons = client.getModIcons();
-				for (int i = 0; i < modIcons.length; i++)
-				{
+				for (int i = 0; i < modIcons.length; i++) {
 					builder.append(i + "=").img(i);
 
-					if (i != modIcons.length - 1)
-					{
+					if (i != modIcons.length - 1) {
 						builder.append(", ");
 					}
 				}
 				chatMessageManager.queue(QueuedMessage.builder()
-					.type(ChatMessageType.GAMEMESSAGE)
-					.runeLiteFormattedMessage(builder.build())
-					.build());
+						.type(ChatMessageType.GAMEMESSAGE)
+						.runeLiteFormattedMessage(builder.build())
+						.build());
 				break;
 			}
 		}
 	}
 
 	@Subscribe
-	public void onMenuEntryAdded(MenuEntryAdded event)
-	{
-		if (!examine.isActive())
-		{
+	public void onMenuEntryAdded(MenuEntryAdded event) {
+		if (!examine.isActive()) {
 			return;
 		}
 
 		MenuAction action = MenuAction.of(event.getType());
 
-		if (EXAMINE_MENU_ACTIONS.contains(action))
-		{
+		if (EXAMINE_MENU_ACTIONS.contains(action)) {
 			MenuEntry entry = event.getMenuEntry();
 
 			final int identifier = event.getIdentifier();
 			String info = "ID: ";
 
-			if (action == MenuAction.EXAMINE_NPC)
-			{
+			if (action == MenuAction.EXAMINE_NPC) {
 				NPC npc = entry.getNpc();
 				assert npc != null;
 				info += npc.getId();
-			}
-			else
-			{
+			} else {
 				info += identifier;
 
-				if (action == MenuAction.EXAMINE_OBJECT)
-				{
-					WorldPoint point = WorldPoint.fromScene(client, entry.getParam0(), entry.getParam1(), client.getPlane());
+				if (action == MenuAction.EXAMINE_OBJECT) {
+					WorldPoint point = WorldPoint.fromScene(client, entry.getParam0(), entry.getParam1(),
+							client.getPlane());
 					info += " X: " + point.getX() + " Y: " + point.getY();
 				}
 			}
 
-			entry.setTarget(entry.getTarget() + " " + ColorUtil.prependColorTag("(" + info + ")", JagexColors.MENU_TARGET));
+			entry.setTarget(
+					entry.getTarget() + " " + ColorUtil.prependColorTag("(" + info + ")", JagexColors.MENU_TARGET));
 		}
 	}
 
 	@Subscribe
-	public void onScriptCallbackEvent(ScriptCallbackEvent ev)
-	{
-		if ("devtoolsEnabled".equals(ev.getEventName()))
-		{
+	public void onScriptCallbackEvent(ScriptCallbackEvent ev) {
+		if ("devtoolsEnabled".equals(ev.getEventName())) {
 			client.getIntStack()[client.getIntStackSize() - 1] = 1;
 		}
 	}
 
 	@Subscribe
-	public void onClientTick(ClientTick clientTick)
-	{
-		if (menus.isActive() && !client.isMenuOpen())
-		{
-			for (int i = 0; i < 100; ++i)
-			{
+	public void onClientTick(ClientTick clientTick) {
+		if (menus.isActive() && !client.isMenuOpen()) {
+			for (int i = 0; i < 100; ++i) {
 				final int i_ = i;
-				if (i % 30 == 0)
-				{
+				if (i % 30 == 0) {
 					MenuEntry parent = client.createMenuEntry(1)
-						.setOption("pmenu" + i)
-						.setTarget(i % 60 == 0 ? "devtools devtools devtools devtools" : "devtools")
-						.setType(MenuAction.RUNELITE);
+							.setOption("pmenu" + i)
+							.setTarget(i % 60 == 0 ? "devtools devtools devtools devtools" : "devtools")
+							.setType(MenuAction.RUNELITE);
 					Menu submenu = parent.createSubMenu();
 
-					for (int j = 0; j < 4; ++j)
-					{
+					for (int j = 0; j < 4; ++j) {
 						final int j_ = j;
 						submenu.createMenuEntry(0)
-							.setOption("submenu" + j)
-							.setTarget("devtools")
-							.setType(MenuAction.RUNELITE)
-							.onClick(c -> client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "menu " + i_ + " sub " + j_, null));
+								.setOption("submenu" + j)
+								.setTarget("devtools")
+								.setType(MenuAction.RUNELITE)
+								.onClick(c -> client.addChatMessage(ChatMessageType.GAMEMESSAGE, "",
+										"menu " + i_ + " sub " + j_, null));
 					}
 					continue;
 				}
 
 				client.createMenuEntry(1)
-					.setOption("menu" + i)
-					.setTarget("devtools")
-					.setType(MenuAction.RUNELITE)
-					.onClick(c -> client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "menu " + i_, null));
+						.setOption("menu" + i)
+						.setTarget("devtools")
+						.setType(MenuAction.RUNELITE)
+						.onClick(c -> client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "menu " + i_, null));
 			}
 		}
 	}
 
-	static Map<Integer, String> loadFieldNames(Class<?> clazz)
-	{
+	static Map<Integer, String> loadFieldNames(Class<?> clazz) {
 		var map = ImmutableMap.<Integer, String>builder();
-		try
-		{
-			for (Field f : clazz.getDeclaredFields())
-			{
+		try {
+			for (Field f : clazz.getDeclaredFields()) {
 				map.put(f.getInt(null), f.getName());
 			}
-		}
-		catch (ReflectiveOperationException e)
-		{
+		} catch (ReflectiveOperationException e) {
 			log.debug("Failed to load fields", e);
 		}
 

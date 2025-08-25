@@ -17,7 +17,6 @@ import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.gameval.SpotanimID;
 import net.runelite.api.AnimationID;
-import net.unethicalite.api.game.Animations;
 
 public class Game {
 	private static final int MEMBER_DAYS_VARP = 1780;
@@ -145,7 +144,8 @@ public class Game {
 		}
 
 		// Check for wall mining animations with timing consideration
-		// when receiving ore from a wall the animation sets to -1 before starting up again
+		// when receiving ore from a wall the animation sets to -1 before starting up
+		// again
 		if (Animations.WAll_ANIMATIONS.contains(currentAnim)) {
 			return true;
 		}

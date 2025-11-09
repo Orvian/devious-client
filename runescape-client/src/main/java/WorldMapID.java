@@ -4,128 +4,89 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("le")
+@ObfuscatedName("lo")
 @Implements("WorldMapID")
 public class WorldMapID {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lle;"
-	)
-	static final WorldMapID field3385;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lle;"
+		descriptor = "Llo;"
 	)
-	static final WorldMapID field3386;
-	@ObfuscatedName("ac")
+	static final WorldMapID field3478;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "Llo;"
+	)
+	static final WorldMapID field3481;
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 59685367
+		intValue = 992813529
 	)
 	@Export("value")
 	final int value;
 
 	static {
-		field3385 = new WorldMapID(0);
-		field3386 = new WorldMapID(1);
+		field3478 = new WorldMapID(0);
+		field3481 = new WorldMapID(1);
 	}
 
 	WorldMapID(int var1) {
 		this.value = var1;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Ldj;IIIII)V",
-		garbageValue = "-1577543669"
+		descriptor = "([BI)V",
+		garbageValue = "-932312060"
 	)
-	static final void method6814(WorldView var0, int var1, int var2, int var3, int var4) {
-		int[][][] var5 = var0.tileHeights;
-		int var6 = var0.sizeX - 1;
-		int var7 = var0.sizeY - 1;
-
-		for (int var8 = var2; var8 <= var2 + var4; ++var8) {
-			for (int var9 = var1; var9 <= var3 + var1; ++var9) {
-				if (var9 >= 0 && var9 < var5[0].length - 1 && var8 >= 0 && var8 < var5[0][0].length - 1) {
-					Script.Tiles_underlays2[0][var9][var8] = 127;
-					if (var9 == var1 && var9 > 0) {
-						var5[0][var9][var8] = var5[0][var9 - 1][var8];
-					}
-
-					if (var9 == var3 + var1 && var9 < var6) {
-						var5[0][var9][var8] = var5[0][var9 + 1][var8];
-					}
-
-					if (var8 == var2 && var8 > 0) {
-						var5[0][var9][var8] = var5[0][var9][var8 - 1];
-					}
-
-					if (var2 + var4 == var8 && var8 < var7) {
-						var5[0][var9][var8] = var5[0][var9][var8 + 1];
+	@Export("ByteArrayPool_release")
+	public static void ByteArrayPool_release(byte[] var0) {
+		synchronized(ByteArrayPool.field5369) {
+			if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < ByteArrayPool.field5374) {
+				ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0;
+			} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < ByteArrayPool.field5373) {
+				ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0;
+			} else if (var0.length == 10000 && ByteArrayPool.ByteArrayPool_largeCount < ByteArrayPool.field5376) {
+				ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0;
+			} else if (var0.length == 30000 && ByteArrayPool.field5383 < ByteArrayPool.field5377) {
+				ByteArrayPool.field5381[++ByteArrayPool.field5383 - 1] = var0;
+			} else {
+				if (AbstractWorldMapData.ByteArrayPool_arrays != null) {
+					for (int var2 = 0; var2 < WorldMapDecoration.ByteArrayPool_alternativeSizes.length; ++var2) {
+						if (var0.length == WorldMapDecoration.ByteArrayPool_alternativeSizes[var2] && class159.ByteArrayPool_altSizeArrayCounts[var2] < AbstractWorldMapData.ByteArrayPool_arrays[var2].length) {
+							AbstractWorldMapData.ByteArrayPool_arrays[var2][class159.ByteArrayPool_altSizeArrayCounts[var2]++] = var0;
+							return;
+						}
 					}
 				}
+
 			}
 		}
-
 	}
 
-	@ObfuscatedName("in")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1604750526"
+		descriptor = "(IIB)I",
+		garbageValue = "92"
 	)
-	static final void method6815() {
-		++Client.viewportDrawCount;
-		class7.topLevelWorldView.scene.cycle = Client.cycle;
-		if (class27.localPlayer.x >> 7 == Client.destinationX && class27.localPlayer.y >> 7 == Client.destinationY) {
-			Client.destinationX = 0;
+	public static int method6845(int var0, int var1) {
+		int var2 = var0 >>> 31;
+		return (var0 + var2) / var1 - var2;
+	}
+
+	@ObfuscatedName("as")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "1914951288"
+	)
+	static final int method6843(int var0, int var1) {
+		int var2 = PacketBufferNode.method7043(45365 + var0, var1 + 91923, 4) - 128 + (PacketBufferNode.method7043(var0 + 10294, var1 + 37821, 2) - 128 >> 1) + (PacketBufferNode.method7043(var0, var1, 1) - 128 >> 2);
+		var2 = (int)((double)var2 * 0.3D) + 35;
+		if (var2 < 10) {
+			var2 = 10;
+		} else if (var2 > 60) {
+			var2 = 60;
 		}
 
-		WorldView var0 = class7.topLevelWorldView;
-		if (Client.field307 > 0) {
-			int var1 = Client.field308 * 128;
-			class462.method9530(var0, var1, Archive.field4803);
-		}
-
-		WorldView var7 = class7.topLevelWorldView;
-		int var2 = Client.menu.menuOptionsCount - 1;
-		int var4;
-		if (var7 == class7.topLevelWorldView && var2 >= 0 && Client.menu.menuOpcodes[var2] == 60) {
-			var4 = Client.menu.menuIdentifiers[var2] * 128;
-			class462.method9530(var7, var4, class177.field1939);
-		}
-
-		WorldView var8 = class7.topLevelWorldView;
-		if (Client.renderSelf) {
-			InvDefinition.addPlayerToScene(var8, Client.localPlayerIndex, false);
-		}
-
-		Archive.method8323(class7.topLevelWorldView);
-		class31.method499(class7.topLevelWorldView);
-		class152.method3811(class7.topLevelWorldView, class391.TOKEN);
-		class152.method3811(class7.topLevelWorldView, class391.field4700);
-		AbstractArchive.addNpcsToScene(class7.topLevelWorldView, true);
-		WorldView var9 = class7.topLevelWorldView;
-		var4 = Client.playerUpdateManager.playerCount;
-		int[] var5 = Client.playerUpdateManager.playerIndices;
-
-		for (int var6 = 0; var6 < var4; ++var6) {
-			if (var5[var6] != Client.combatTargetPlayerIndex && var5[var6] != Client.localPlayerIndex) {
-				InvDefinition.addPlayerToScene(var9, var5[var6], true);
-			}
-		}
-
-		AbstractArchive.addNpcsToScene(class7.topLevelWorldView, false);
-
-		for (Projectile var10 = (Projectile)Client.projectiles.last(); var10 != null; var10 = (Projectile)Client.projectiles.previous()) {
-			if (Client.cycle > var10.cycleEnd) {
-				var10.remove();
-			} else if (Client.cycle >= var10.cycleStart) {
-				var10.setDestination(Client.worldViewManager, Client.cycle, Client.graphicsCycle);
-				class7.topLevelWorldView.scene.drawEntity(var10.sourceLevel, (int)var10.x, (int)var10.y, (int)var10.z, 60, var10, var10.orientation, -1L, false);
-			}
-		}
-
-		class322.method7010(class7.topLevelWorldView);
-		class152.method3811(class7.topLevelWorldView, class391.field4696);
+		return var2;
 	}
 }

@@ -4,31 +4,31 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("qn")
+@ObfuscatedName("qo")
 @Implements("GrandExchangeEvent")
 public class GrandExchangeEvent {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = -792903551
+		intValue = -2100278039
 	)
 	@Export("world")
 	public final int world;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		longValue = 6213705572771981795L
+		longValue = 7632065372937797571L
 	)
 	@Export("age")
 	public final long age;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Lqz;"
+		descriptor = "Lqe;"
 	)
 	@Export("grandExchangeOffer")
 	public final GrandExchangeOffer grandExchangeOffer;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@Export("offerName")
 	String offerName;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("previousOfferName")
 	String previousOfferName;
 
@@ -43,8 +43,8 @@ public class GrandExchangeEvent {
 		int var4 = var1.readInt();
 		int var5 = var1.readInt();
 		this.grandExchangeOffer = new GrandExchangeOffer();
-		this.grandExchangeOffer.method8544(2);
-		this.grandExchangeOffer.method8548(var2);
+		this.grandExchangeOffer.method8584(2);
+		this.grandExchangeOffer.method8585(var2);
 		this.grandExchangeOffer.unitPrice = var4;
 		this.grandExchangeOffer.totalQuantity = var5;
 		this.grandExchangeOffer.currentQuantity = 0;
@@ -52,23 +52,43 @@ public class GrandExchangeEvent {
 		this.grandExchangeOffer.id = var3;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-875325289"
+		garbageValue = "1445448445"
 	)
 	@Export("getOfferName")
 	public String getOfferName() {
 		return this.offerName;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/String;",
-		garbageValue = "1"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-261236548"
 	)
 	@Export("getPreviousOfferName")
 	public String getPreviousOfferName() {
 		return this.previousOfferName;
+	}
+
+	@ObfuscatedName("aw")
+	@ObfuscatedSignature(
+		descriptor = "(Ltl;III)V",
+		garbageValue = "-1962533056"
+	)
+	public static void method8573(DynamicArray var0, int var1, int var2) {
+		PacketBufferNode.method7052(var0, (class572)null, true);
+		if (var1 != 0) {
+			if (var2 >= 0 && var2 < var0.size * 479682119 && var1 >= 0 && var2 + var1 <= var0.size * 479682119) {
+				if (var2 < var0.size * 479682119 - var1) {
+					class167.method4091(var0, var2 + var1, var0, var2, var0.size * 479682119 - (var2 + var1));
+				}
+
+				var0.method10440(var0.size * 479682119 - var1);
+			} else {
+				throw new RuntimeException();
+			}
+		}
 	}
 }

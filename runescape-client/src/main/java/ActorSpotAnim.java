@@ -1,33 +1,32 @@
-import java.io.File;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ty")
+@ObfuscatedName("tc")
 @Implements("ActorSpotAnim")
 public class ActorSpotAnim extends Node {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 1871773193
+		intValue = 1372363555
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lrk;"
+		descriptor = "Lrl;"
 	)
 	@Export("animationSequence")
 	public final AnimationSequence animationSequence;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -767202117
+		intValue = 821279425
 	)
-	public int field5339;
-	@ObfuscatedName("av")
+	public int field5510;
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 363369293
+		intValue = 1694685743
 	)
 	@Export("height")
 	public int height;
@@ -35,28 +34,14 @@ public class ActorSpotAnim extends Node {
 	public ActorSpotAnim(int var1, int var2, int var3) {
 		this.id = -1;
 		this.animationSequence = new AnimationSequence();
-		this.field5339 = 0;
+		this.field5510 = 0;
 		this.height = 0;
 		this.id = var1;
 		this.height = var2;
-		this.field5339 = var3;
+		this.field5510 = var3;
 		if (this.id >= 0) {
-			this.animationSequence.setSequence(Skeleton.SpotAnimationDefinition_get(this.id).sequence);
+			this.animationSequence.setSequence(class535.SpotAnimationDefinition_get(this.id).sequence);
 		}
 
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/io/File;I)V",
-		garbageValue = "1621488757"
-	)
-	static void method10193(File var0) {
-		FileSystem.FileSystem_cacheDir = var0;
-		if (!FileSystem.FileSystem_cacheDir.exists()) {
-			throw new RuntimeException("");
-		} else {
-			FileSystem.FileSystem_hasPermissions = true;
-		}
 	}
 }

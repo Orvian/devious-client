@@ -1,87 +1,107 @@
+import java.util.ArrayList;
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("sb")
+@ObfuscatedName("ss")
 public class class470 extends SongTask {
-	@ObfuscatedName("ix")
-	@ObfuscatedGetter(
-		intValue = -1120464947
-	)
-	@Export("Players_count")
-	static int Players_count;
+	@ObfuscatedName("ab")
+	ArrayList field5338;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lsj;)V"
+		descriptor = "(Lsw;Ljava/util/ArrayList;)V"
 	)
-	public class470(SongTask var1) {
+	public class470(SongTask var1, ArrayList var2) {
 		super(var1);
-		super.field5191 = "StartSongTask";
+		super.field5350 = "ClearRequestTask";
+		this.field5338 = var2;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1329200530"
+		garbageValue = "-1369867803"
 	)
-	public boolean vmethod9672() {
-		Iterator var1 = class337.midiRequests.iterator();
+	public boolean vmethod9763() {
+		if (this.field5338.isEmpty()) {
+			return true;
+		} else {
+			Iterator var1 = this.field5338.iterator();
 
-		while (var1.hasNext()) {
-			MidiRequest var2 = (MidiRequest)var1.next();
-			if (var2 != null && !var2.field3908 && var2.midiPcmStream != null) {
+			while (var1.hasNext()) {
+				MidiRequest var2 = (MidiRequest)var1.next();
+
 				try {
-					var2.midiPcmStream.method7134();
-					var2.midiPcmStream.setPcmStreamVolume(0);
-					if (var2.field3920 != null) {
-						var2.midiPcmStream.setMusicTrack(var2.field3920, var2.musicTrackBoolean);
-					}
+					if (class338.midiRequests.contains(var2)) {
+						if (var2 == null) {
+							class338.midiRequests.remove(var2);
+						} else {
+							if (var2.midiPcmStream.field3910 > 0) {
+								--var2.midiPcmStream.field3910;
+							}
 
-					var2.field3920 = null;
-					var2.field3919 = null;
-					var2.musicTrackArchive = null;
-					var2.field3908 = true;
+							if (var2.midiPcmStream.field3910 == 0) {
+								var2.midiPcmStream.clear();
+								var2.midiPcmStream.method7225();
+								var2.midiPcmStream.setPcmStreamVolume(0);
+							}
+
+							class163.method4069(var2.musicTrackGroupId, var2.musicTrackFileId);
+							class338.midiRequests.remove(var2);
+						}
+					}
 				} catch (Exception var4) {
-					class559.RunException_sendStackTrace((String)null, var4);
-					this.method9654(var4.getMessage());
+					ArchiveDiskActionHandler.RunException_sendStackTrace((String)null, var4);
+					this.method9741(var4.getMessage());
+					class338.midiRequests.clear();
 					return true;
 				}
 			}
-		}
 
-		super.field5188 = true;
-		return true;
+			return true;
+		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "([BB)V",
-		garbageValue = "14"
+		descriptor = "(Ltl;B)I",
+		garbageValue = "-94"
 	)
-	@Export("ByteArrayPool_release")
-	public static void ByteArrayPool_release(byte[] var0) {
-		synchronized(ByteArrayPool.field5210) {
-			if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < ByteArrayPool.field5212) {
-				ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0;
-			} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < ByteArrayPool.field5213) {
-				ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0;
-			} else if (var0.length == 10000 && ByteArrayPool.ByteArrayPool_largeCount < ByteArrayPool.field5214) {
-				ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0;
-			} else if (var0.length == 30000 && ByteArrayPool.field5206 < ByteArrayPool.field5215) {
-				ByteArrayPool.field5219[++ByteArrayPool.field5206 - 1] = var0;
-			} else {
-				if (WorldMapData_1.ByteArrayPool_arrays != null) {
-					for (int var2 = 0; var2 < class566.ByteArrayPool_alternativeSizes.length; ++var2) {
-						if (var0.length == class566.ByteArrayPool_alternativeSizes[var2] && FriendSystem.ByteArrayPool_altSizeArrayCounts[var2] < WorldMapData_1.ByteArrayPool_arrays[var2].length) {
-							WorldMapData_1.ByteArrayPool_arrays[var2][FriendSystem.ByteArrayPool_altSizeArrayCounts[var2]++] = var0;
-							return;
-						}
-					}
-				}
+	public static int method9706(DynamicArray var0) {
+		IntHashTable.method9896(var0);
+		byte var1 = 0;
+		int var2 = var0.method10433();
+		int var3 = -1;
+		int var8;
+		if (var0.field5571 == class572.field5879) {
+			int[] var4 = var0.method10430();
 
+			for (var8 = var1; var8 < var2; ++var8) {
+				if (var3 == -1 || var4[var8] < var4[var3]) {
+					var3 = var8;
+				}
+			}
+		} else if (var0.field5571 == class572.field5878) {
+			long[] var9 = var0.method10431();
+
+			for (var8 = var1; var8 < var2; ++var8) {
+				if (var3 == -1 || var9[var8] < var9[var3]) {
+					var3 = var8;
+				}
+			}
+		} else if (var0.field5571 == class572.field5877) {
+			String var10 = null;
+			Object[] var5 = var0.method10428();
+
+			for (int var6 = var1; var6 < var2; ++var6) {
+				String var7 = (String)var5[var6];
+				if (var3 == -1 || var7 != null && var7.compareTo(var10) < 0) {
+					var3 = var6;
+					var10 = var7;
+				}
 			}
 		}
+
+		return var3;
 	}
 }

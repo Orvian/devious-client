@@ -1,34 +1,35 @@
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nt")
+@ObfuscatedName("nz")
 public class class360 {
-	@ObfuscatedName("qz")
+	@ObfuscatedName("af")
+	public static short[][] field4079;
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		descriptor = "[Lxv;"
+		descriptor = "Lpe;"
 	)
-	@Export("crossSprites")
-	static SpritePixels[] crossSprites;
-	@ObfuscatedName("ui")
-	static boolean field3971;
+	@Export("HitSplatDefinition_fontsArchive")
+	static AbstractArchive HitSplatDefinition_fontsArchive;
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("pi")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Loy;",
-		garbageValue = "-891426596"
+		descriptor = "(B)V",
+		garbageValue = "-83"
 	)
-	public static StudioGame[] method7503() {
-		return new StudioGame[]{StudioGame.game4, StudioGame.game3, StudioGame.stellardawn, StudioGame.oldscape, StudioGame.runescape, StudioGame.game5};
-	}
+	static void method7519() {
+		if (Occluder.field2830 != null) {
+			Client.field363 = Client.cycle;
+			Occluder.field2830.method8604();
+			Iterator var0 = class547.topLevelWorldView.players.iterator();
 
-	@ObfuscatedName("hq")
-	@ObfuscatedSignature(
-		descriptor = "(I)J",
-		garbageValue = "-910940668"
-	)
-	@Export("getUserHash")
-	static long getUserHash() {
-		return Client.userHash;
+			while (var0.hasNext()) {
+				Player var1 = (Player)var0.next();
+				Occluder.field2830.method8608((var1.x >> 7) + class547.topLevelWorldView.baseX, (var1.y >> 7) + class547.topLevelWorldView.baseY);
+			}
+		}
+
 	}
 }

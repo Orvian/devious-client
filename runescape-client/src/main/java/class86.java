@@ -1,70 +1,42 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("du")
-final class class86 implements class355 {
-	@ObfuscatedName("pj")
-	@Export("xteaKeys")
-	static int[][] xteaKeys;
+@ObfuscatedName("df")
+final class class86 implements class356 {
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Lok;"
 	)
 	final Widget val$item;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lox;)V"
+		descriptor = "(Lok;)V"
 	)
 	class86(Widget var1) {
 		this.val$item = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1845830227"
+		garbageValue = "603869602"
 	)
-	public void vmethod7454() {
-		if (this.val$item.method7931().field3987 != null) {
+	public void vmethod7479() {
+		if (this.val$item.method7964().field4091 != null) {
 			ScriptEvent var1 = new ScriptEvent();
-			var1.method2124(this.val$item);
-			var1.setArgs(this.val$item.method7931().field3987);
-			HttpJsonRequestBody.method10535().addFirst(var1);
+			var1.method2172(this.val$item);
+			var1.setArgs(this.val$item.method7964().field4091);
+			class215.method4888().addFirst(var1);
 		}
 
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lwf;",
-		garbageValue = "41"
+		descriptor = "(I)[Ltj;",
+		garbageValue = "1387764070"
 	)
-	@Export("getDbRowType")
-	public static DbRowType getDbRowType(int var0) {
-		DbRowType var1 = (DbRowType)DbRowType.DBRowType_cache.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = DbRowType.field5741.takeFile(38, var0);
-			var1 = new DbRowType();
-			if (var2 != null) {
-				var1.method11105(new Buffer(var2));
-			}
-
-			var1.method11108();
-			DbRowType.DBRowType_cache.put(var1, (long)var0);
-			return var1;
-		}
-	}
-
-	@ObfuscatedName("ap")
-	@ObfuscatedSignature(
-		descriptor = "(B)Lbg;",
-		garbageValue = "126"
-	)
-	@Export("getNextWorldListWorld")
-	static World getNextWorldListWorld() {
-		return World.World_listCount < World.World_count ? World.World_worlds[++World.World_listCount - 1] : null;
+	public static class514[] method2928() {
+		return new class514[]{class514.field5546, class514.field5547, class514.field5544, class514.field5545};
 	}
 }

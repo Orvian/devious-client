@@ -11,21 +11,21 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("es")
+@ObfuscatedName("eu")
 @Implements("UrlRequester")
 public abstract class UrlRequester implements Runnable {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("requestThread")
 	final Thread requestThread;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("isClosed")
 	volatile boolean isClosed;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@Export("requests")
 	Queue requests;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 656273093
+		intValue = -327261475
 	)
 	@Export("clientRevision")
 	int clientRevision;
@@ -38,21 +38,21 @@ public abstract class UrlRequester implements Runnable {
 		this.clientRevision = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Leu;I)V",
-		garbageValue = "2043617507"
+		descriptor = "(Lez;I)V",
+		garbageValue = "-2003495708"
 	)
 	@Export("openConnection")
 	abstract void openConnection(UrlRequest var1) throws IOException;
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URLConnection;I)I",
-		garbageValue = "272061531"
+		descriptor = "(Ljava/net/URLConnection;B)I",
+		garbageValue = "62"
 	)
-	int method3425(URLConnection var1) {
-		int var2 = UrlRequest.field1535;
+	int method3566(URLConnection var1) {
+		int var2 = UrlRequest.field1554;
 		if (var1 != null) {
 			try {
 				if (var1 instanceof HttpURLConnection) {
@@ -65,10 +65,10 @@ public abstract class UrlRequester implements Runnable {
 		return var2;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/net/URLConnection;I)V",
-		garbageValue = "-2120062495"
+		garbageValue = "613793787"
 	)
 	@Export("setDefaultRequestProperties")
 	void setDefaultRequestProperties(URLConnection var1) {
@@ -79,12 +79,12 @@ public abstract class UrlRequester implements Runnable {
 		var1.setRequestProperty("User-Agent", "OldSchoolRuneScape/" + this.clientRevision);
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URLConnection;Leu;B)V",
-		garbageValue = "-122"
+		descriptor = "(Ljava/net/URLConnection;Lez;I)V",
+		garbageValue = "16711935"
 	)
-	void method3429(URLConnection var1, UrlRequest var2) {
+	void method3556(URLConnection var1, UrlRequest var2) {
 		DataInputStream var3 = null;
 
 		try {
@@ -96,38 +96,39 @@ public abstract class UrlRequester implements Runnable {
 				var3.readFully(var4);
 			} else {
 				var4 = new byte[0];
-				byte[] var6 = SceneTilePaint.method5667(5000);
+				byte[] var6 = GrandExchangeOffer.ByteArrayPool_getArrayBool(5000, false);
+				byte[] var7 = var6;
 
-				for (int var7 = var3.read(var6); var7 > -1; var7 = var3.read(var6)) {
-					byte[] var8 = new byte[var4.length + var7];
-					System.arraycopy(var4, 0, var8, 0, var4.length);
-					System.arraycopy(var6, 0, var8, var4.length, var7);
-					var4 = var8;
+				for (int var8 = var3.read(var6); var8 > -1; var8 = var3.read(var7)) {
+					byte[] var9 = new byte[var4.length + var8];
+					System.arraycopy(var4, 0, var9, 0, var4.length);
+					System.arraycopy(var7, 0, var9, var4.length, var8);
+					var4 = var9;
 				}
 
-				class470.ByteArrayPool_release(var6);
+				WorldMapID.ByteArrayPool_release(var7);
 			}
 
 			var2.response0 = var4;
-		} catch (IOException var14) {
+		} catch (IOException var15) {
 			var2.response0 = null;
 		} finally {
-			var2.field1536 = this.method3425(var1);
+			var2.field1559 = this.method3566(var1);
 		}
 
 		if (var3 != null) {
 			try {
 				var3.close();
-			} catch (IOException var13) {
+			} catch (IOException var14) {
 			}
 		}
 
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;I)Leu;",
-		garbageValue = "301697495"
+		descriptor = "(Ljava/net/URL;I)Lez;",
+		garbageValue = "-1750629389"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
@@ -139,10 +140,10 @@ public abstract class UrlRequester implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2009968182"
+		garbageValue = "1060901814"
 	)
 	@Export("close")
 	public void close() {
@@ -176,206 +177,7 @@ public abstract class UrlRequester implements Runnable {
 
 				this.openConnection(var1);
 			} catch (Exception var7) {
-				class559.RunException_sendStackTrace((String)null, var7);
-			}
-		}
-
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lfa;",
-		garbageValue = "-1028985220"
-	)
-	static class138[] method3446() {
-		return new class138[]{class138.field1664, class138.field1663, class138.field1666, class138.field1662, class138.field1659, class138.field1661};
-	}
-
-	@ObfuscatedName("ac")
-	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/String;[IIII)V",
-		garbageValue = "-972178847"
-	)
-	@Export("quicksortStringsWithCorrespondingIntegers")
-	public static void quicksortStringsWithCorrespondingIntegers(String[] var0, int[] var1, int var2, int var3) {
-		if (var2 < var3) {
-			int var4 = (var3 + var2) / 2;
-			int var5 = var2;
-			String var6 = var0[var4];
-			var0[var4] = var0[var3];
-			var0[var3] = var6;
-			int var7 = var1[var4];
-			var1[var4] = var1[var3];
-			var1[var3] = var7;
-
-			for (int var8 = var2; var8 < var3; ++var8) {
-				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) {
-					String var9 = var0[var8];
-					var0[var8] = var0[var5];
-					var0[var5] = var9;
-					int var10 = var1[var8];
-					var1[var8] = var1[var5];
-					var1[var5++] = var10;
-				}
-			}
-
-			var0[var3] = var0[var5];
-			var0[var5] = var6;
-			var1[var3] = var1[var5];
-			var1[var5] = var7;
-			quicksortStringsWithCorrespondingIntegers(var0, var1, var2, var5 - 1);
-			quicksortStringsWithCorrespondingIntegers(var0, var1, var5 + 1, var3);
-		}
-
-	}
-
-	@ObfuscatedName("ku")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIII)V",
-		garbageValue = "-372118387"
-	)
-	@Export("drawObject")
-	static final void drawObject(int var0, int var1, int var2, int var3, int var4) {
-		Scene var5 = class7.topLevelWorldView.scene;
-		long var6 = var5.getBoundaryObjectTag(var0, var1, var2);
-		int var8;
-		int var9;
-		int var10;
-		int var11;
-		int var14;
-		int var15;
-		if (var6 != 0L) {
-			var8 = var5.getObjectFlags(var0, var1, var2, var6);
-			var9 = var8 >> 6 & 3;
-			var10 = var8 & 31;
-			var11 = var3;
-			boolean var12 = 0L != var6 && !Varcs.method2848(var6);
-			if (var12) {
-				var11 = var4;
-			}
-
-			int[] var13 = Script.sceneMinimapSprite.pixels;
-			var14 = var1 * 4 + (103 - var2) * 2048 + 24624;
-			var15 = class70.Entity_unpackID(var6);
-			ObjectComposition var16 = SpriteMask.getObjectDefinition(var15);
-			if (var16.mapSceneId != -1) {
-				IndexedSprite var17 = Bounds.mapSceneSprites[var16.mapSceneId];
-				if (var17 != null) {
-					int var18 = (var16.sizeX * 4 - var17.subWidth) / 2;
-					int var19 = (var16.sizeY * 4 - var17.subHeight) / 2;
-					var17.drawAt(var1 * 4 + var18 + 48, (104 - var2 - var16.sizeY) * 4 + var19 + 48);
-				}
-			} else {
-				if (var10 == 0 || var10 == 2) {
-					if (var9 == 0) {
-						var13[var14] = var11;
-						var13[var14 + 512] = var11;
-						var13[var14 + 1024] = var11;
-						var13[var14 + 1536] = var11;
-					} else if (var9 == 1) {
-						var13[var14] = var11;
-						var13[var14 + 1] = var11;
-						var13[var14 + 2] = var11;
-						var13[var14 + 3] = var11;
-					} else if (var9 == 2) {
-						var13[var14 + 3] = var11;
-						var13[var14 + 512 + 3] = var11;
-						var13[var14 + 1024 + 3] = var11;
-						var13[var14 + 1536 + 3] = var11;
-					} else if (var9 == 3) {
-						var13[var14 + 1536] = var11;
-						var13[var14 + 1536 + 1] = var11;
-						var13[var14 + 1536 + 2] = var11;
-						var13[var14 + 1536 + 3] = var11;
-					}
-				}
-
-				if (var10 == 3) {
-					if (var9 == 0) {
-						var13[var14] = var11;
-					} else if (var9 == 1) {
-						var13[var14 + 3] = var11;
-					} else if (var9 == 2) {
-						var13[var14 + 1536 + 3] = var11;
-					} else if (var9 == 3) {
-						var13[var14 + 1536] = var11;
-					}
-				}
-
-				if (var10 == 2) {
-					if (var9 == 3) {
-						var13[var14] = var11;
-						var13[var14 + 512] = var11;
-						var13[var14 + 1024] = var11;
-						var13[var14 + 1536] = var11;
-					} else if (var9 == 0) {
-						var13[var14] = var11;
-						var13[var14 + 1] = var11;
-						var13[var14 + 2] = var11;
-						var13[var14 + 3] = var11;
-					} else if (var9 == 1) {
-						var13[var14 + 3] = var11;
-						var13[var14 + 512 + 3] = var11;
-						var13[var14 + 1024 + 3] = var11;
-						var13[var14 + 1536 + 3] = var11;
-					} else if (var9 == 2) {
-						var13[var14 + 1536] = var11;
-						var13[var14 + 1536 + 1] = var11;
-						var13[var14 + 1536 + 2] = var11;
-						var13[var14 + 1536 + 3] = var11;
-					}
-				}
-			}
-		}
-
-		var6 = var5.getGameObjectTag(var0, var1, var2);
-		if (0L != var6) {
-			var8 = var5.getObjectFlags(var0, var1, var2, var6);
-			var9 = var8 >> 6 & 3;
-			var10 = var8 & 31;
-			var11 = class70.Entity_unpackID(var6);
-			ObjectComposition var20 = SpriteMask.getObjectDefinition(var11);
-			if (var20.mapSceneId != -1) {
-				IndexedSprite var27 = Bounds.mapSceneSprites[var20.mapSceneId];
-				if (var27 != null) {
-					var14 = (var20.sizeX * 4 - var27.subWidth) / 2;
-					var15 = (var20.sizeY * 4 - var27.subHeight) / 2;
-					var27.drawAt(var1 * 4 + var14 + 48, var15 + (104 - var2 - var20.sizeY) * 4 + 48);
-				}
-			} else if (var10 == 9) {
-				int var21 = 15658734;
-				boolean var28 = 0L != var6 && !Varcs.method2848(var6);
-				if (var28) {
-					var21 = 15597568;
-				}
-
-				int[] var22 = Script.sceneMinimapSprite.pixels;
-				int var23 = var1 * 4 + (103 - var2) * 2048 + 24624;
-				if (var9 != 0 && var9 != 2) {
-					var22[var23] = var21;
-					var22[var23 + 1 + 512] = var21;
-					var22[var23 + 1024 + 2] = var21;
-					var22[var23 + 1536 + 3] = var21;
-				} else {
-					var22[var23 + 1536] = var21;
-					var22[var23 + 1 + 1024] = var21;
-					var22[var23 + 512 + 2] = var21;
-					var22[var23 + 3] = var21;
-				}
-			}
-		}
-
-		var6 = var5.getFloorDecorationTag(var0, var1, var2);
-		if (var6 != 0L) {
-			var8 = class70.Entity_unpackID(var6);
-			ObjectComposition var24 = SpriteMask.getObjectDefinition(var8);
-			if (var24.mapSceneId != -1) {
-				IndexedSprite var25 = Bounds.mapSceneSprites[var24.mapSceneId];
-				if (var25 != null) {
-					var11 = (var24.sizeX * 4 - var25.subWidth) / 2;
-					int var26 = (var24.sizeY * 4 - var25.subHeight) / 2;
-					var25.drawAt(var1 * 4 + var11 + 48, var26 + (104 - var2 - var24.sizeY) * 4 + 48);
-				}
+				ArchiveDiskActionHandler.RunException_sendStackTrace((String)null, var7);
 			}
 		}
 

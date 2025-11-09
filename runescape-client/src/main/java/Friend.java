@@ -1,23 +1,29 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("se")
+@ObfuscatedName("tt")
 @Implements("Friend")
 public class Friend extends Buddy {
-	@ObfuscatedName("al")
-	boolean field5280;
+	@ObfuscatedName("bb")
+	@ObfuscatedGetter(
+		intValue = 1744899475
+	)
+	static int field5441;
 	@ObfuscatedName("ab")
-	boolean field5281;
+	boolean field5439;
+	@ObfuscatedName("at")
+	boolean field5440;
 
 	Friend() {
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lse;I)I",
-		garbageValue = "142130783"
+		descriptor = "(Ltt;I)I",
+		garbageValue = "1265388769"
 	)
 	@Export("compareToFriend")
 	int compareToFriend(Friend var1) {
@@ -29,23 +35,23 @@ public class Friend extends Buddy {
 			return -1;
 		} else if (var1.world != 0 && super.world == 0) {
 			return 1;
-		} else if (this.field5280 && !var1.field5280) {
+		} else if (this.field5439 && !var1.field5439) {
 			return -1;
-		} else if (!this.field5280 && var1.field5280) {
+		} else if (!this.field5439 && var1.field5439) {
 			return 1;
-		} else if (this.field5281 && !var1.field5281) {
+		} else if (this.field5440 && !var1.field5440) {
 			return -1;
-		} else if (!this.field5281 && var1.field5281) {
+		} else if (!this.field5440 && var1.field5440) {
 			return 1;
 		} else {
 			return super.world != 0 ? super.int2 - var1.int2 : var1.int2 - super.int2;
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Ltb;B)I",
-		garbageValue = "73"
+		descriptor = "(Ltk;I)I",
+		garbageValue = "1282880775"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
@@ -54,5 +60,20 @@ public class Friend extends Buddy {
 
 	public int compareTo(Object var1) {
 		return this.compareToFriend((Friend)var1);
+	}
+
+	@ObfuscatedName("ap")
+	@ObfuscatedSignature(
+		descriptor = "(Lpe;III)Z",
+		garbageValue = "1011313855"
+	)
+	public static boolean method10009(AbstractArchive var0, int var1, int var2) {
+		byte[] var3 = var0.takeFile(var1, var2);
+		if (var3 == null) {
+			return false;
+		} else {
+			PlayerUpdateManager.SpriteBuffer_decode(var3);
+			return true;
+		}
 	}
 }

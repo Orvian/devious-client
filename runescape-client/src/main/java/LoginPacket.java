@@ -3,77 +3,76 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fx")
+@ObfuscatedName("fe")
 @Implements("LoginPacket")
-public class LoginPacket extends class149 {
-	@ObfuscatedName("kg")
-	@ObfuscatedSignature(
-		descriptor = "Lpo;"
-	)
-	static Archive field1743;
-	@ObfuscatedName("al")
-	@ObfuscatedGetter(
-		longValue = -263207229019276879L
-	)
-	long field1739;
+public class LoginPacket extends class150 {
 	@ObfuscatedName("ab")
-	String field1737;
+	@ObfuscatedGetter(
+		longValue = 2388692783052772727L
+	)
+	long field1763;
+	@ObfuscatedName("at")
+	String field1762;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lfg;"
+		descriptor = "Lfh;"
 	)
-	final class152 this$0;
+	final class153 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lfg;)V"
+		descriptor = "(Lfh;)V"
 	)
-	LoginPacket(class152 var1) {
+	LoginPacket(class153 var1) {
 		this.this$0 = var1;
-		this.field1739 = -1L;
-		this.field1737 = null;
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(Lwj;I)V",
-		garbageValue = "1324754926"
-	)
-	void vmethod4086(Buffer var1) {
-		if (var1.readUnsignedByte() != 255) {
-			--var1.offset;
-			this.field1739 = var1.readLong();
-		}
-
-		this.field1737 = var1.readStringCp1252NullTerminatedOrNull();
+		this.field1763 = -1L;
+		this.field1762 = null;
 	}
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lgk;I)V",
-		garbageValue = "1924878263"
+		descriptor = "(Lwj;I)V",
+		garbageValue = "1804820754"
 	)
-	void vmethod4088(ClanSettings var1) {
-		var1.method3897(this.field1739, this.field1737, 0);
+	void vmethod4162(Buffer var1) {
+		if (var1.readUnsignedByte() != 255) {
+			--var1.offset;
+			this.field1763 = var1.readLong();
+		}
+
+		this.field1762 = var1.readStringCp1252NullTerminatedOrNull();
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lhm;",
-		garbageValue = "-1600957457"
+		descriptor = "(Lgh;I)V",
+		garbageValue = "1850606911"
 	)
-	public static VarcInt method3765(int var0) {
-		VarcInt var1 = (VarcInt)VarcInt.VarcInt_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = VarcInt.VarcInt_archive.takeFile(19, var0);
-			var1 = new VarcInt();
-			if (var2 != null) {
-				var1.method4195(new Buffer(var2));
-			}
+	void vmethod4163(ClanSettings var1) {
+		var1.method3987(this.field1763, this.field1762, 0);
+	}
 
-			VarcInt.VarcInt_cached.put(var1, (long)var0);
-			return var1;
+	@ObfuscatedName("aa")
+	@ObfuscatedSignature(
+		descriptor = "(B)Lxl;",
+		garbageValue = "59"
+	)
+	static SpritePixels method3890() {
+		SpritePixels var0 = new SpritePixels();
+		var0.width = class604.SpriteBuffer_spriteWidth;
+		var0.height = class604.SpriteBuffer_spriteHeight;
+		var0.xOffset = class604.SpriteBuffer_xOffsets[0];
+		var0.yOffset = class604.SpriteBuffer_yOffsets[0];
+		var0.subWidth = class604.SpriteBuffer_spriteWidths[0];
+		var0.subHeight = ItemContainer.SpriteBuffer_spriteHeights[0];
+		int var1 = var0.subWidth * var0.subHeight;
+		byte[] var2 = class604.SpriteBuffer_pixels[0];
+		var0.pixels = new int[var1];
+
+		for (int var3 = 0; var3 < var1; ++var3) {
+			var0.pixels[var3] = class604.SpriteBuffer_spritePalette[var2[var3] & 255];
 		}
+
+		class366.method7888();
+		return var0;
 	}
 }

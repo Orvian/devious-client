@@ -3,83 +3,84 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jc")
+@ObfuscatedName("jk")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Liq;"
+		descriptor = "Liy;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Liq;"
+		descriptor = "Liy;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		longValue = -1360717247176388875L
+		longValue = 5377812239843171079L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 355786887
+		intValue = 290260849
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = 1661396665
+		intValue = 296287657
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -68301323
+		intValue = -429627473
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = -499550773
+		intValue = 272329847
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = 738440143
+		intValue = 466978823
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = 1001841007
+		intValue = -490026635
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = 103501313
+		intValue = -309778379
 	)
-	int field2974;
-	@ObfuscatedName("ag")
+	int field3046;
+	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
-		intValue = 588140379
+		intValue = -1427268267
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ad")
 	@ObfuscatedGetter(
-		intValue = 2061198463
+		intValue = -1074292649
 	)
-	int field2985;
-	@ObfuscatedName("aa")
+	int field3044;
+	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = 1931344609
+		intValue = 1633565455
 	)
 	@Export("flags")
 	int flags;
@@ -89,14 +90,14 @@ public final class WallDecoration {
 		this.flags = 0;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)V",
-		garbageValue = "22"
+		garbageValue = "73"
 	)
-	void method5785(int var1, int var2) {
+	void method5847(int var1, int var2) {
 		this.yOffset = var1;
-		this.field2974 = var2;
+		this.field3046 = var2;
 		switch(this.orientation) {
 		case 1:
 			++var1;
@@ -117,64 +118,20 @@ public final class WallDecoration {
 		}
 
 		this.xOffset = var1;
-		this.field2985 = var2;
+		this.field3044 = var2;
 	}
 
-	@ObfuscatedName("am")
+	@ObfuscatedName("br")
 	@ObfuscatedSignature(
-		descriptor = "([BIII)Z",
-		garbageValue = "-2130616148"
+		descriptor = "(ILcj;ZB)I",
+		garbageValue = "12"
 	)
-	static final boolean method5786(byte[] var0, int var1, int var2) {
-		boolean var3 = true;
-		Buffer var4 = new Buffer(var0);
-		int var5 = -1;
-
-		label68:
-		while (true) {
-			int var6 = var4.readIncrSmallSmart();
-			if (var6 == 0) {
-				return var3;
-			}
-
-			var5 += var6;
-			int var7 = 0;
-			boolean var8 = false;
-
-			while (true) {
-				int var9;
-				while (!var8) {
-					var9 = var4.readUShortSmart();
-					if (var9 == 0) {
-						continue label68;
-					}
-
-					var7 += var9 - 1;
-					int var10 = var7 & 63;
-					int var11 = var7 >> 6 & 63;
-					int var12 = var4.readUnsignedByte() >> 2;
-					int var13 = var11 + var1;
-					int var14 = var10 + var2;
-					if (var13 > 0 && var14 > 0 && var13 < 103 && var14 < 103) {
-						ObjectComposition var15 = SpriteMask.getObjectDefinition(var5);
-						if (var12 != 22 || !Client.isLowDetail || var15.int1 != 0 || var15.interactType == 1 || var15.boolean2) {
-							if (!var15.needsModelFiles()) {
-								++Client.field391;
-								var3 = false;
-							}
-
-							var8 = true;
-						}
-					}
-				}
-
-				var9 = var4.readUShortSmart();
-				if (var9 == 0) {
-					break;
-				}
-
-				var4.readUnsignedByte();
-			}
+	static int method5849(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.LOGOUT) {
+			Client.logoutTimer = 250;
+			return 1;
+		} else {
+			return 2;
 		}
 	}
 }

@@ -4,13 +4,24 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("aq")
+@ObfuscatedName("ao")
 @Implements("AsyncHttpResponse")
 public class AsyncHttpResponse {
-	@ObfuscatedName("al")
+	@ObfuscatedName("af")
+	@ObfuscatedSignature(
+		descriptor = "Lpe;"
+	)
+	static AbstractArchive field76;
+	@ObfuscatedName("po")
+	@ObfuscatedSignature(
+		descriptor = "[Lxl;"
+	)
+	@Export("mapDotSprites")
+	static SpritePixels[] mapDotSprites;
+	@ObfuscatedName("ab")
 	@Export("responseFuture")
 	Future responseFuture;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("errorMessage")
 	String errorMessage;
 
@@ -19,25 +30,25 @@ public class AsyncHttpResponse {
 	}
 
 	AsyncHttpResponse(String var1) {
-		this.method276(var1);
+		this.method260(var1);
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/String;",
-		garbageValue = "-109"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-1332602771"
 	)
 	@Export("getErrorMessage")
 	public final String getErrorMessage() {
 		return this.errorMessage;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)V",
-		garbageValue = "-58"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-2023470045"
 	)
-	void method276(String var1) {
+	void method260(String var1) {
 		if (var1 == null) {
 			var1 = "";
 		}
@@ -50,30 +61,30 @@ public class AsyncHttpResponse {
 
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1705950708"
+		garbageValue = "1718799629"
 	)
 	@Export("hasError")
 	public boolean hasError() {
 		return this.errorMessage != null || this.responseFuture == null;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(S)Z",
-		garbageValue = "1460"
+		descriptor = "(B)Z",
+		garbageValue = "-68"
 	)
 	@Export("hasFinished")
 	public final boolean hasFinished() {
 		return this.hasError() ? true : this.responseFuture.isDone();
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(I)Laz;",
-		garbageValue = "-1661549847"
+		descriptor = "(I)Lan;",
+		garbageValue = "1233802171"
 	)
 	@Export("await")
 	public final HttpResponse await() {
@@ -87,142 +98,306 @@ public class AsyncHttpResponse {
 			} catch (Exception var3) {
 				String var2 = "Error retrieving REST request reply";
 				System.err.println(var2 + "\r\n" + var3);
-				this.method276(var2);
+				this.method260(var2);
 				return new HttpResponse(var2);
 			}
 		}
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Liz;",
-		garbageValue = "-2"
+		descriptor = "(IIII)I",
+		garbageValue = "1487547134"
 	)
-	@Export("SequenceDefinition_get")
-	public static SequenceDefinition SequenceDefinition_get(int var0) {
-		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0);
-		if (var1 != null) {
+	public static int method278(int var0, int var1, int var2) {
+		var2 &= 3;
+		if (var2 == 0) {
+			return var0;
+		} else if (var2 == 1) {
 			return var1;
 		} else {
-			byte[] var2 = class172.SequenceDefinition_archive.takeFile(12, var0);
-			var1 = new SequenceDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
+			return var2 == 2 ? 7 - var0 : 7 - var1;
+		}
+	}
+
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(IIS)Lbx;",
+		garbageValue = "8598"
+	)
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0);
+		return var2.getMessage(var1);
+	}
+
+	@ObfuscatedName("aa")
+	@ObfuscatedSignature(
+		descriptor = "([J[JIII)V",
+		garbageValue = "-1200921626"
+	)
+	public static void method259(long[] var0, long[] var1, int var2, int var3) {
+		if (var2 < var3) {
+			int var4 = (var3 + var2) / 2;
+			int var5 = var2;
+			long var6 = var0[var4];
+			var0[var4] = var0[var3];
+			var0[var3] = var6;
+			long var8 = var1[var4];
+			var1[var4] = var1[var3];
+			var1[var3] = var8;
+			long var10 = var6 == Long.MAX_VALUE ? 0L : 1L;
+
+			for (int var12 = var2; var12 < var3; ++var12) {
+				if (var0[var12] < var6 + ((long)var12 & var10)) {
+					long var13 = var0[var12];
+					var0[var12] = var0[var5];
+					var0[var5] = var13;
+					long var15 = var1[var12];
+					var1[var12] = var1[var5];
+					var1[var5++] = var15;
+				}
 			}
 
-			var1.postDecode();
-			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0);
-			return var1;
+			var0[var3] = var0[var5];
+			var0[var5] = var6;
+			var1[var3] = var1[var5];
+			var1[var5] = var8;
+			method259(var0, var1, var2, var5 - 1);
+			method259(var0, var1, var5 + 1, var3);
 		}
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lfw;",
-		garbageValue = "-77"
+		descriptor = "(Ldm;I)V",
+		garbageValue = "-1667987006"
 	)
-	static class139 method284(int var0) {
-		class139[] var1 = new class139[]{class139.field1670, class139.field1689, class139.field1671, class139.field1672, class139.field1673, class139.field1685, class139.field1675, class139.field1676, class139.field1677, class139.field1669, class139.field1679, class139.field1680, class139.field1681, class139.field1682, class139.field1683, class139.field1684, class139.field1690};
-		class139 var2 = (class139)HealthBarConfig.findEnumerated(var1, var0);
-		if (var2 == null) {
-			var2 = class139.field1670;
-		}
+	static void method280(WorldView var0) {
+		int var1 = var0.sizeX;
+		int var2 = var0.sizeY;
+		int[][][] var3 = var0.tileHeights;
+		Scene var4 = var0.scene;
+		int var5 = 1;
+		int var6 = 2;
+		int var7 = 4;
 
-		return var2;
-	}
+		for (int var8 = 0; var8 < 4; ++var8) {
+			if (var8 > 0) {
+				var5 <<= 3;
+				var6 <<= 3;
+				var7 <<= 3;
+			}
 
-	@ObfuscatedName("ah")
-	@ObfuscatedSignature(
-		descriptor = "(Ldj;Lwj;IIIIIII)V",
-		garbageValue = "447761742"
-	)
-	@Export("loadTerrain")
-	static final void loadTerrain(WorldView var0, Buffer var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		int[][][] var8 = var0.tileHeights;
-		byte[][][] var9 = var0.tileSettings;
-		if (var2 >= 0 && var2 < 4 && var3 >= 0 && var3 < var8[0].length - 1 && var4 >= 0 && var4 < var8[0][0].length - 1) {
-			var9[var2][var3][var4] = 0;
+			for (int var9 = 0; var9 <= var8; ++var9) {
+				for (int var10 = 0; var10 <= var2; ++var10) {
+					for (int var11 = 0; var11 <= var1; ++var11) {
+						int var12;
+						int var13;
+						int var14;
+						int var15;
+						int var16;
+						int[] var10000;
+						short var17;
+						int var18;
+						int var19;
+						int var20;
+						int var21;
+						if ((MusicPatch.field3967[var9][var11][var10] & var5) != 0) {
+							var12 = var10;
+							var13 = var10;
+							var14 = var9;
 
-			while (true) {
-				int var10 = var1.readUnsignedShort();
-				if (var10 == 0) {
-					if (var2 == 0) {
-						var8[0][var3][var4] = -VarpDefinition.method4155(var5 + 932731, var6 + 556238) * 8;
-					} else {
-						var8[var2][var3][var4] = var8[var2 - 1][var3][var4] - 240;
+							for (var15 = var9; var12 > 0 && (MusicPatch.field3967[var9][var11][var12 - 1] & var5) != 0; --var12) {
+							}
+
+							while (var13 < var2 && (MusicPatch.field3967[var9][var11][var13 + 1] & var5) != 0) {
+								++var13;
+							}
+
+							label189:
+							while (var14 > 0) {
+								for (var16 = var12; var16 <= var13; ++var16) {
+									if ((MusicPatch.field3967[var14 - 1][var11][var16] & var5) == 0) {
+										break label189;
+									}
+								}
+
+								--var14;
+							}
+
+							label178:
+							while (var15 < var8) {
+								for (var16 = var12; var16 <= var13; ++var16) {
+									if ((MusicPatch.field3967[var15 + 1][var11][var16] & var5) == 0) {
+										break label178;
+									}
+								}
+
+								++var15;
+							}
+
+							var16 = (var15 + 1 - var14) * (var13 - var12 + 1);
+							if (var16 >= 8) {
+								var17 = 240;
+								var18 = var3[var15][var11][var12] - var17;
+								var19 = var3[var14][var11][var12];
+								var4.Scene_addOccluder(var8, 1, var11 * 128, var11 * 128, var12 * 128, var13 * 128 + 128, var18, var19);
+
+								for (var20 = var14; var20 <= var15; ++var20) {
+									for (var21 = var12; var21 <= var13; ++var21) {
+										var10000 = MusicPatch.field3967[var20][var11];
+										var10000[var21] &= ~var5;
+									}
+								}
+							}
+						}
+
+						if ((MusicPatch.field3967[var9][var11][var10] & var6) != 0) {
+							var12 = var11;
+							var13 = var11;
+							var14 = var9;
+
+							for (var15 = var9; var12 > 0 && (MusicPatch.field3967[var9][var12 - 1][var10] & var6) != 0; --var12) {
+							}
+
+							while (var13 < var1 && (MusicPatch.field3967[var9][var13 + 1][var10] & var6) != 0) {
+								++var13;
+							}
+
+							label242:
+							while (var14 > 0) {
+								for (var16 = var12; var16 <= var13; ++var16) {
+									if ((MusicPatch.field3967[var14 - 1][var16][var10] & var6) == 0) {
+										break label242;
+									}
+								}
+
+								--var14;
+							}
+
+							label231:
+							while (var15 < var8) {
+								for (var16 = var12; var16 <= var13; ++var16) {
+									if ((MusicPatch.field3967[var15 + 1][var16][var10] & var6) == 0) {
+										break label231;
+									}
+								}
+
+								++var15;
+							}
+
+							var16 = (var13 - var12 + 1) * (var15 + 1 - var14);
+							if (var16 >= 8) {
+								var17 = 240;
+								var18 = var3[var15][var12][var10] - var17;
+								var19 = var3[var14][var12][var10];
+								var4.Scene_addOccluder(var8, 2, var12 * 128, var13 * 128 + 128, var10 * 128, var10 * 128, var18, var19);
+
+								for (var20 = var14; var20 <= var15; ++var20) {
+									for (var21 = var12; var21 <= var13; ++var21) {
+										var10000 = MusicPatch.field3967[var20][var21];
+										var10000[var10] &= ~var6;
+									}
+								}
+							}
+						}
+
+						if ((MusicPatch.field3967[var9][var11][var10] & var7) != 0) {
+							var12 = var11;
+							var13 = var11;
+							var14 = var10;
+
+							for (var15 = var10; var14 > 0 && (MusicPatch.field3967[var9][var11][var14 - 1] & var7) != 0; --var14) {
+							}
+
+							while (var15 < var2 && (MusicPatch.field3967[var9][var11][var15 + 1] & var7) != 0) {
+								++var15;
+							}
+
+							label295:
+							while (var12 > 0) {
+								for (var16 = var14; var16 <= var15; ++var16) {
+									if ((MusicPatch.field3967[var9][var12 - 1][var16] & var7) == 0) {
+										break label295;
+									}
+								}
+
+								--var12;
+							}
+
+							label284:
+							while (var13 < var1) {
+								for (var16 = var14; var16 <= var15; ++var16) {
+									if ((MusicPatch.field3967[var9][var13 + 1][var16] & var7) == 0) {
+										break label284;
+									}
+								}
+
+								++var13;
+							}
+
+							if ((var13 - var12 + 1) * (var15 - var14 + 1) >= 4) {
+								var16 = var3[var9][var12][var14];
+								var4.Scene_addOccluder(var8, 4, var12 * 128, var13 * 128 + 128, var14 * 128, var15 * 128 + 128, var16, var16);
+
+								for (int var22 = var12; var22 <= var13; ++var22) {
+									for (var18 = var14; var18 <= var15; ++var18) {
+										var10000 = MusicPatch.field3967[var9][var22];
+										var10000[var18] &= ~var7;
+									}
+								}
+							}
+						}
 					}
+				}
+			}
+		}
+
+	}
+
+	@ObfuscatedName("kn")
+	@ObfuscatedSignature(
+		descriptor = "(Ldm;IIIIIB)V",
+		garbageValue = "44"
+	)
+	static void method275(WorldView var0, int var1, int var2, int var3, int var4, int var5) {
+		NodeDeque var6 = var0.groundItems[var1][var2][var3];
+		if (var6 != null) {
+			for (TileItem var7 = (TileItem)var6.last(); var7 != null; var7 = (TileItem)var6.previous()) {
+				if ((var4 & 32767) == var7.id && var5 == var7.quantity) {
+					var7.remove();
 					break;
 				}
+			}
 
-				if (var10 == 1) {
-					int var11 = var1.readUnsignedByte();
-					if (var11 == 1) {
-						var11 = 0;
-					}
+			if (var6.last() == null) {
+				var0.groundItems[var1][var2][var3] = null;
+			}
 
-					if (var2 == 0) {
-						var8[0][var3][var4] = -var11 * 8;
-					} else {
-						var8[var2][var3][var4] = var8[var2 - 1][var3][var4] - var11 * 8;
-					}
-					break;
-				}
+			class263.updateItemPile2(var0, var1, var2, var3);
+		}
 
-				if (var10 <= 49) {
-					Tiles.Tiles_overlays[var2][var3][var4] = (short)var1.readShort();
-					class28.Tiles_shapes[var2][var3][var4] = (byte)((var10 - 2) / 4);
-					ChatChannel.field806[var2][var3][var4] = (byte)(var10 - 2 + var7 & 3);
-				} else if (var10 <= 81) {
-					var9[var2][var3][var4] = (byte)(var10 - 49);
-				} else {
-					AABB.Tiles_underlays[var2][var3][var4] = (short)(var10 - 81);
+	}
+
+	@ObfuscatedName("os")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "2008015941"
+	)
+	static final void method276(int var0, int var1) {
+		if (Client.currentClanChannels[var0] != null) {
+			if (var1 >= 0 && var1 < Client.currentClanChannels[var0].method4121()) {
+				ClanChannelMember var2 = (ClanChannelMember)Client.currentClanChannels[var0].members.get(var1);
+				if (var2.rank == -1) {
+					PacketBufferNode var3 = HorizontalAlignment.getPacketBufferNode(ClientPacket.CLAN_SETTINGS_ADD_BANNED_FROM_CHANNEL, Client.packetWriter.isaacCipher);
+					var3.packetBuffer.writeByte(3 + WorldMapArea.stringCp1252NullTerminatedByteSize(var2.username.getName()));
+					var3.packetBuffer.writeByte(var0);
+					var3.packetBuffer.writeShort(var1);
+					var3.packetBuffer.writeStringCp1252NullTerminated(var2.username.getName());
+					Client.packetWriter.addNode(var3);
 				}
 			}
-		} else {
-			Projectile.method1932(var1);
 		}
-
-	}
-
-	@ObfuscatedName("aq")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-1496063891"
-	)
-	static final int method283(int var0, int var1) {
-		int var2 = class366.method7884(var0 - 1, var1 - 1) + class366.method7884(var0 + 1, var1 - 1) + class366.method7884(var0 - 1, var1 + 1) + class366.method7884(1 + var0, var1 + 1);
-		int var3 = class366.method7884(var0 - 1, var1) + class366.method7884(1 + var0, var1) + class366.method7884(var0, var1 - 1) + class366.method7884(var0, var1 + 1);
-		int var4 = class366.method7884(var0, var1);
-		return var2 / 16 + var3 / 8 + var4 / 4;
-	}
-
-	@ObfuscatedName("lq")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "56"
-	)
-	public static final void method297(int var0, int var1, int var2, int var3) {
-		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) {
-			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) {
-				Client.validRootWidgets[var4] = true;
-			}
-		}
-
-	}
-
-	@ObfuscatedName("pd")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lwr;",
-		garbageValue = "-841948047"
-	)
-	@Export("getDbTable")
-	static DbTable getDbTable(int var0) {
-		DbTable var1 = (DbTable)Client.DBTableIndex_cache.get((long)var0);
-		if (var1 == null) {
-			var1 = new DbTable(ScriptEvent.field871, class101.method3102(var0), ApproximateRouteStrategy.method801(var0));
-			Client.DBTableIndex_cache.put(var1, (long)var0);
-		}
-
-		return var1;
 	}
 }

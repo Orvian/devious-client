@@ -1,279 +1,248 @@
-import java.io.IOException;
-import java.net.URL;
-import net.runelite.mapping.ObfuscatedGetter;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import org.json.JSONObject;
 
-@ObfuscatedName("kg")
-public class class263 {
-	@ObfuscatedName("au")
+@ObfuscatedName("kr")
+public class class263 extends class269 {
+	@ObfuscatedName("ab")
+	String field3133;
+	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lkg;"
+		descriptor = "Lkt;"
 	)
-	static final class263 field3059;
-	@ObfuscatedName("as")
-	final int field3067;
-	@ObfuscatedName("ah")
-	final int field3058;
-	@ObfuscatedName("ap")
-	String field3060;
-	@ObfuscatedName("am")
-	String field3057;
-	@ObfuscatedName("aj")
-	String field3064;
-	@ObfuscatedName("ag")
-	String field3065;
-	@ObfuscatedName("ay")
-	@ObfuscatedGetter(
-		longValue = -2951284067633946481L
-	)
-	long field3071;
-	@ObfuscatedName("aa")
-	@ObfuscatedSignature(
-		descriptor = "Lak;"
-	)
-	AsyncRestClient field3073;
-	@ObfuscatedName("ai")
-	@ObfuscatedSignature(
-		descriptor = "Laq;"
-	)
-	AsyncHttpResponse field3068;
-	@ObfuscatedName("ak")
-	@ObfuscatedGetter(
-		intValue = 479328391
-	)
-	int field3069;
-	@ObfuscatedName("ar")
-	@ObfuscatedGetter(
-		intValue = 1670025807
-	)
-	int field3070;
-	@ObfuscatedName("at")
-	String field3062;
-	@ObfuscatedName("ax")
-	boolean field3072;
+	final class266 this$0;
 
-	static {
-		field3059 = new class263();
-	}
-
-	class263() {
-		this.field3067 = 1;
-		this.field3058 = 2;
-		this.field3060 = "";
-		this.field3057 = "";
-		this.field3064 = "";
-		this.field3065 = "";
-		this.field3071 = -1L;
-		this.field3069 = 1;
-		this.field3070 = 0;
+	@ObfuscatedSignature(
+		descriptor = "(Lkt;Ljava/lang/String;Ljava/lang/String;)V"
+	)
+	class263(class266 var1, String var2, String var3) {
+		super(var1, var2);
+		this.this$0 = var1;
+		this.field3133 = var3;
 	}
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;I)V",
-		garbageValue = "-845766756"
+		descriptor = "(I)I",
+		garbageValue = "-1493842566"
 	)
-	public void method5945(int var1, String var2) {
-		this.field3070 = var1;
-		this.field3062 = var2;
+	public int vmethod6072() {
+		return 1;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "838107298"
+		descriptor = "(B)Ljava/lang/String;",
+		garbageValue = "25"
 	)
-	public void method5937(boolean var1) {
-		this.field3072 = var1;
-		this.field3073 = new AsyncRestClient("crmsession", 1, 1);
+	public String vmethod6071() {
+		return this.field3133;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "1758595307"
+		descriptor = "(II)I",
+		garbageValue = "2081778864"
 	)
-	void method5938(String var1, String var2, String var3) {
-		if (this.field3069 != 2) {
-			this.field3060 = var1;
-			this.field3057 = var2;
-			this.field3064 = var3;
-			if (!this.field3060.endsWith("/")) {
-				this.field3060 = this.field3060 + "/";
-			}
-
-			if (!this.field3057.equals("")) {
-				String var4 = this.field3060;
-				var4 = var4 + "session/open/" + this.field3057;
-				if (this.field3064.equals("")) {
-				}
-
-				var4 = var4 + "?userHash=" + this.field3064;
-
-				try {
-					this.field3068 = this.method5944(var4);
-					this.field3071 = UserComparator7.method3496();
-				} catch (IOException var6) {
-					this.field3068 = null;
-					this.field3057 = "";
-					this.field3064 = "";
-				}
-
-			}
-		}
+	static int method5980(int var0) {
+		return -var0 - 1;
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2022406769"
+		descriptor = "(IIB)V",
+		garbageValue = "57"
 	)
-	public void method5940() {
-		if (this.field3068 == null) {
-			if (!this.field3065.isEmpty() && this.field3069 == 1) {
-				long var1 = UserComparator7.method3496();
-				long var3 = var1 - this.field3071;
-				String var5 = this.field3060;
-				var5 = var5 + "session/close/" + this.field3057 + "/" + this.field3065;
-				if (this.field3064.isEmpty()) {
-					var5 = var5 + "?sessionDuration=" + var3;
-				} else {
-					var5 = var5 + "?userHash=" + this.field3064 + "&sessionDuration=" + var3;
-				}
-
-				try {
-					this.field3068 = this.method5944(var5);
-				} catch (IOException var7) {
-					this.field3069 = 1;
-				}
-			}
-
-		}
-	}
-
-	@ObfuscatedName("as")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "16"
-	)
-	public void method5961() {
-		if (this.field3073 != null) {
-			this.field3073.shutdown();
+	public static void method5982(int var0, int var1) {
+		VarbitComposition var2 = class275.method6241(var0);
+		int var3 = var2.baseVar;
+		int var4 = var2.startBit;
+		int var5 = var2.endBit;
+		int var6 = Varps.Varps_masks[var5 - var4];
+		if (var1 < 0 || var1 > var6) {
+			var1 = 0;
 		}
 
+		var6 <<= var4;
+		Varps.Varps_main[var3] = Varps.Varps_main[var3] & ~var6 | var1 << var4 & var6;
 	}
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2081795308"
+		descriptor = "(IIZI)Ljava/lang/String;",
+		garbageValue = "-1589619253"
 	)
-	void method5941() {
-		if (!this.field3065.isEmpty()) {
-			String var1 = "";
-			switch(this.field3070) {
-			case 1:
-				var1 = "events/click";
-				break;
-			case 2:
-				var1 = "events/dismissed";
-				break;
-			case 3:
-				var1 = "events/impression";
-			}
+	static String method5981(int var0, int var1, boolean var2) {
+		if (var1 >= 2 && var1 <= 36) {
+			if (var2 && var0 >= 0) {
+				int var3 = 2;
 
-			if (!this.field3062.isEmpty()) {
-				String var2 = this.field3060;
-				var2 = var2 + var1 + "/" + this.field3057 + "/" + this.field3065 + "/" + this.field3062 + "?userHash=" + this.field3064;
-
-				try {
-					this.field3068 = this.method5944(var2);
-				} catch (IOException var4) {
-					this.field3069 = 1;
+				for (int var4 = var0 / var1; var4 != 0; ++var3) {
+					var4 /= var1;
 				}
 
-				this.field3069 = 1;
-				this.field3070 = 0;
-			}
-		}
-	}
+				char[] var5 = new char[var3];
+				var5[0] = '+';
 
-	@ObfuscatedName("ap")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-286155393"
-	)
-	public void method5942() {
-		if (this.field3068 != null && this.field3068.hasFinished()) {
-			if (this.field3068.hasFinished() && this.field3068.await().getResponseCode() == 200 && this.field3065.isEmpty()) {
-				String var1 = this.field3068.await().getResponseBody();
-				if (var1.isEmpty()) {
-					return;
+				for (int var6 = var3 - 1; var6 > 0; --var6) {
+					int var7 = var0;
+					var0 /= var1;
+					int var8 = var7 - var0 * var1;
+					if (var8 >= 10) {
+						var5[var6] = (char)(var8 + 87);
+					} else {
+						var5[var6] = (char)(var8 + 48);
+					}
 				}
 
-				this.field3065 = var1;
+				return new String(var5);
+			} else {
+				return Integer.toString(var0, var1);
 			}
-
-			if (this.field3070 != 0) {
-				this.method5941();
-			}
-
-		}
-	}
-
-	@ObfuscatedName("am")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)Z",
-		garbageValue = "799359058"
-	)
-	public boolean method5939(String var1) {
-		this.method5945(2, var1);
-		return true;
-	}
-
-	@ObfuscatedName("aj")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)Laq;",
-		garbageValue = "-3"
-	)
-	AsyncHttpResponse method5944(String var1) throws IOException {
-		URL var2 = new URL(var1);
-		HttpRequest var3 = new HttpRequest(var2, HttpMethod.POST, this.field3072);
-
-		try {
-			JSONObject var4 = new JSONObject();
-			var3.setPayload(new HttpJsonRequestBody(var4));
-		} catch (Exception var5) {
-		}
-
-		return this.field3073.submitRequest(var3);
-	}
-
-	@ObfuscatedName("ar")
-	@ObfuscatedSignature(
-		descriptor = "(Lkm;Lkm;FLkm;I)V",
-		garbageValue = "657773853"
-	)
-	static void method5968(WorldEntityCoord var0, WorldEntityCoord var1, float var2, WorldEntityCoord var3) {
-		var2 = SoundSystem.method3067(0.0F, 1.0F, var2);
-		int var4 = var1.getX() - var0.getX();
-		int var5 = var1.getY() - var0.getY();
-		var4 = (int)((float)var4 * var2);
-		var5 = (int)((float)var5 * var2);
-		var3.method6256(var0.getX() + var4, var0.getY() + var5);
-		int var7 = var0.getCurrentRotationAngle();
-		int var8 = var1.getCurrentRotationAngle();
-		int var9 = var8 - var7 & 2047;
-		int var6;
-		if (var9 > 1024) {
-			var6 = -(2048 - var9);
 		} else {
-			var6 = var9;
+			throw new IllegalArgumentException("" + var1);
 		}
+	}
 
-		var9 = (int)((float)var6 * var2);
-		var3.setCurrentRotationAngle(var0.getCurrentRotationAngle() + var9);
+	@ObfuscatedName("aa")
+	@ObfuscatedSignature(
+		descriptor = "(Ltl;II)V",
+		garbageValue = "-1234623695"
+	)
+	public static void method5975(DynamicArray var0, int var1) {
+		PacketBufferNode.method7052(var0, (class572)null, true);
+		int var2 = var0.method10433();
+		if (var2 > 1) {
+			var1 %= var2;
+			if (var1 != 0) {
+				if (var1 < 0) {
+					var1 += var2;
+				}
+
+				if (var0.field5571 == class572.field5879) {
+					int[] var3 = var0.method10430();
+					class167.method4104(var3, 0, var2 - 1);
+					class167.method4104(var3, 0, var1 - 1);
+					class167.method4104(var3, var1, var2 - 1);
+				} else if (var0.field5571 == class572.field5878) {
+					long[] var4 = var0.method10431();
+					class149.method3896(var4, 0, var2 - 1);
+					class149.method3896(var4, 0, var1 - 1);
+					class149.method3896(var4, var1, var2 - 1);
+				} else {
+					Object[] var5 = var0.method10428();
+					class67.method2192(var5, 0, var2 - 1);
+					class67.method2192(var5, 0, var1 - 1);
+					class67.method2192(var5, var1, var2 - 1);
+				}
+
+			}
+		}
+	}
+
+	@ObfuscatedName("li")
+	@ObfuscatedSignature(
+		descriptor = "(Ldm;IIII)V",
+		garbageValue = "224458319"
+	)
+	@Export("updateItemPile2")
+	static final void updateItemPile2(WorldView var0, int var1, int var2, int var3) {
+		NodeDeque var4 = var0.groundItems[var1][var2][var3];
+		if (var4 == null) {
+			var0.scene.removeGroundItemPile(var1, var2, var3);
+		} else {
+			long var5 = -99999999L;
+			TileItem var7 = null;
+
+			TileItem var8;
+			for (var8 = (TileItem)var4.last(); var8 != null; var8 = (TileItem)var4.previous()) {
+				ItemComposition var9 = WorldMapIcon_1.ItemDefinition_get(var8.id);
+				long var35 = (long)var9.price;
+				if (var9.isStackable == 1) {
+					var35 *= var8.quantity < Integer.MAX_VALUE ? (long)(var8.quantity + 1) : (long)var8.quantity;
+				}
+
+				if (var35 > var5) {
+					var5 = var35;
+					var7 = var8;
+				}
+			}
+
+			if (var7 == null) {
+				var0.scene.removeGroundItemPile(var1, var2, var3);
+			} else {
+				var4.addLast(var7);
+				TileItem var37 = null;
+				TileItem var10 = null;
+
+				for (var8 = (TileItem)var4.last(); var8 != null; var8 = (TileItem)var4.previous()) {
+					if (var7.id != var8.id) {
+						if (var37 == null) {
+							var37 = var8;
+						}
+
+						if (var37.id != var8.id && var10 == null) {
+							var10 = var8;
+						}
+					}
+				}
+
+				int var12 = var2 * 128;
+				int var13 = var3 * 128;
+				class450 var14 = IndexCheck.method6169((float)var12, (float)var0.tileHeights[var1][var2][var3], (float)var13);
+				class450 var15 = IndexCheck.method6169((float)(var12 + 128), (float)var0.tileHeights[var1][var2 + 1][var3], (float)var13);
+				class450 var16 = IndexCheck.method6169((float)(var12 + 128), (float)var0.tileHeights[var1][var2 + 1][var3 + 1], (float)(var13 + 128));
+				class450 var17 = IndexCheck.method6169((float)var12, (float)var0.tileHeights[var1][var2][var3 + 1], (float)(var13 + 128));
+				class450 var11;
+				if (var15.field5218 == var14.field5218 && var16.field5218 == var14.field5218 && var14.field5218 == var17.field5218) {
+					var14.method9065();
+					var15.method9065();
+					var16.method9065();
+					var17.method9065();
+					var11 = class450.field5220;
+				} else {
+					class450 var19 = NPC.method2793(var15);
+					var19.method9073(var14);
+					class450 var21 = NPC.method2793(var17);
+					var21.method9073(var14);
+					class450 var22 = NPC.method2851(var19, var21);
+					var19.method9065();
+					var21.method9065();
+					class450 var24 = NPC.method2793(var15);
+					var24.method9073(var16);
+					class450 var26 = NPC.method2793(var17);
+					var26.method9073(var16);
+					class450 var27 = NPC.method2851(var26, var24);
+					var24.method9065();
+					var26.method9065();
+					var14.method9065();
+					var15.method9065();
+					var16.method9065();
+					var17.method9065();
+					class450 var28 = class302.method6840(var22, var27);
+					var22.method9065();
+					var27.method9065();
+					class450 var30 = class147.method3882();
+					float var31 = 1.0F / var28.method9076();
+					var30.field5216 = var28.field5216 * var31;
+					var30.field5218 = var31 * var28.field5218;
+					var30.field5219 = var31 * var28.field5219;
+					var28.method9065();
+					var11 = var30;
+				}
+
+				var7.method2891(var11);
+				if (var37 != null) {
+					var37.method2891(var11);
+				}
+
+				if (var10 != null) {
+					var10.method2891(var11);
+				}
+
+				long var33 = ClanChannelMember.calculateTag(var1, var2, var3, 3, false, 0, var0.id);
+				var0.scene.newGroundItemPile(var1, var2, var3, class280.getTileHeight(var0, Coord.method7425(var2), Coord.method7425(var3), var1), var7, var33, var37, var10);
+			}
+		}
 	}
 }

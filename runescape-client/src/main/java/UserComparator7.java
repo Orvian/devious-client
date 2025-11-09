@@ -3,10 +3,10 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ed")
+@ObfuscatedName("ep")
 @Implements("UserComparator7")
 public class UserComparator7 extends AbstractUserComparator {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,10 +14,10 @@ public class UserComparator7 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lto;Lto;I)I",
-		garbageValue = "1952908541"
+		descriptor = "(Ltu;Ltu;S)I",
+		garbageValue = "150"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -32,36 +32,12 @@ public class UserComparator7 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(I)J",
-		garbageValue = "-803418968"
+		descriptor = "(I)[Lht;",
+		garbageValue = "-1995989375"
 	)
-	public static final synchronized long method3496() {
-		long var0 = System.currentTimeMillis();
-		if (var0 < class332.field3738) {
-			class332.field3736 += class332.field3738 - var0;
-		}
-
-		class332.field3738 = var0;
-		return class332.field3736 + var0;
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lfe;",
-		garbageValue = "-2141190015"
-	)
-	static class145[] method3500() {
-		return new class145[]{class145.field1729, class145.field1719, class145.field1718, class145.field1721, class145.field1724, class145.field1723, class145.field1720, class145.field1725, class145.field1722};
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lcp;",
-		garbageValue = "-507016441"
-	)
-	static class67[] method3492() {
-		return new class67[]{class67.field907, class67.field905, class67.field910, class67.field904, class67.field908, class67.field909, class67.field913};
+	static VerticalAlignment[] method3617() {
+		return new VerticalAlignment[]{VerticalAlignment.field2154, VerticalAlignment.field2155, VerticalAlignment.VerticalAlignment_centered};
 	}
 }

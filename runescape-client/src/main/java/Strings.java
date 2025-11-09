@@ -2,41 +2,34 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ph")
+@ObfuscatedName("pr")
 @Implements("Strings")
 public class Strings {
-	@ObfuscatedName("fl")
-	public static String field4627;
-	@ObfuscatedName("kj")
-	public static String field4648;
-	@ObfuscatedName("kr")
-	public static String field4649;
-	@ObfuscatedName("lv")
-	public static String field4518;
+	@ObfuscatedName("fe")
+	public static String field4686;
+	@ObfuscatedName("kp")
+	public static String field4777;
+	@ObfuscatedName("ka")
+	public static String field4626;
+	@ObfuscatedName("lz")
+	public static String field4779;
 
 	static {
-		field4627 = "Please visit the support page for assistance.";
-		field4648 = "";
-		field4649 = "Page has opened in the browser.";
-		field4518 = "";
+		field4686 = "Please visit the support page for assistance.";
+		field4777 = "";
+		field4626 = "Page has opened in the browser.";
+		field4779 = "";
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("je")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "831200484"
+		descriptor = "(B)V",
+		garbageValue = "-91"
 	)
-	public static void method8206() {
-		synchronized(MouseHandler.MouseHandler_instance) {
-			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile;
-			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile;
-			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile;
-			MouseHandler.MouseHandler_millis = MouseHandler.MouseHandler_lastMovedVolatile;
-			MouseHandler.MouseHandler_lastButton = MouseHandler.MouseHandler_lastButtonVolatile;
-			MouseHandler.MouseHandler_lastPressedX = MouseHandler.MouseHandler_lastPressedXVolatile;
-			MouseHandler.MouseHandler_lastPressedY = MouseHandler.MouseHandler_lastPressedYVolatile;
-			MouseHandler.MouseHandler_lastPressedTimeMillis = MouseHandler.MouseHandler_lastPressedTimeMillisVolatile;
-			MouseHandler.MouseHandler_lastButtonVolatile = 0;
+	static void method8218() {
+		if (class159.localPlayer.x >> 7 == Client.destinationX && class159.localPlayer.y >> 7 == Client.destinationY) {
+			Client.destinationX = 0;
 		}
+
 	}
 }

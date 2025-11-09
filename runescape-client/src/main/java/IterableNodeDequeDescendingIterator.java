@@ -7,34 +7,34 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("qt")
 @Implements("IterableNodeDequeDescendingIterator")
 public class IterableNodeDequeDescendingIterator implements Iterator {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lqm;"
+		descriptor = "Lqh;"
 	)
 	@Export("deque")
 	IterableNodeDeque deque;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Luj;"
+		descriptor = "Lum;"
 	)
-	Node field5009;
-	@ObfuscatedName("ac")
+	Node field5155;
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Luj;"
+		descriptor = "Lum;"
 	)
-	Node field5011;
+	Node field5154;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lqm;)V"
+		descriptor = "(Lqh;)V"
 	)
 	IterableNodeDequeDescendingIterator(IterableNodeDeque var1) {
-		this.field5011 = null;
+		this.field5154 = null;
 		this.setDeque(var1);
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lqm;)V"
+		descriptor = "(Lqh;)V"
 	)
 	@Export("setDeque")
 	void setDeque(IterableNodeDeque var1) {
@@ -42,36 +42,36 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 		this.start();
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("start")
 	void start() {
-		this.field5009 = this.deque != null ? this.deque.sentinel.previous : null;
-		this.field5011 = null;
+		this.field5155 = this.deque != null ? this.deque.sentinel.previous : null;
+		this.field5154 = null;
 	}
 
 	public boolean hasNext() {
-		return this.deque.sentinel != this.field5009 && this.field5009 != null;
+		return this.deque.sentinel != this.field5155 && this.field5155 != null;
 	}
 
 	public Object next() {
-		Node var1 = this.field5009;
+		Node var1 = this.field5155;
 		if (var1 == this.deque.sentinel) {
 			var1 = null;
-			this.field5009 = null;
+			this.field5155 = null;
 		} else {
-			this.field5009 = var1.previous;
+			this.field5155 = var1.previous;
 		}
 
-		this.field5011 = var1;
+		this.field5154 = var1;
 		return var1;
 	}
 
 	public void remove() {
-		if (this.field5011 == null) {
+		if (this.field5154 == null) {
 			throw new IllegalStateException();
 		} else {
-			this.field5011.remove();
-			this.field5011 = null;
+			this.field5154.remove();
+			this.field5154 = null;
 		}
 	}
 }

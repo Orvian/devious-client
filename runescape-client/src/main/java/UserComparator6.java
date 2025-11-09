@@ -1,22 +1,12 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("em")
+@ObfuscatedName("ej")
 @Implements("UserComparator6")
 public class UserComparator6 extends AbstractUserComparator {
-	@ObfuscatedName("lh")
-	@ObfuscatedGetter(
-		intValue = 332407637
-	)
-	@Export("worldPort")
-	static int worldPort;
-	@ObfuscatedName("pf")
-	@Export("regionMapArchives")
-	static byte[][] regionMapArchives;
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -24,10 +14,10 @@ public class UserComparator6 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lto;Lto;I)I",
-		garbageValue = "1616549487"
+		descriptor = "(Ltu;Ltu;I)I",
+		garbageValue = "-152629337"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -42,17 +32,64 @@ public class UserComparator6 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("al")
-	public static int method3559(int var0, double var1) {
-		double var3 = (double)(var0 >> 16 & 255) / 256.0D;
-		double var5 = (double)(var0 >> 8 & 255) / 256.0D;
-		double var7 = (double)(var0 & 255) / 256.0D;
-		var3 = Math.pow(var3, var1);
-		var5 = Math.pow(var5, var1);
-		var7 = Math.pow(var7, var1);
-		int var9 = (int)(256.0D * var3);
-		int var10 = (int)(var5 * 256.0D);
-		int var11 = (int)(256.0D * var7);
-		return var11 + (var10 << 8) + (var9 << 16) + -16777216;
+	@ObfuscatedName("kp")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIII)Z",
+		garbageValue = "-177478253"
+	)
+	static boolean method3659(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		Scene var7 = class32.worldView.scene;
+		int var9;
+		if (var5 == class394.field4857.field4855) {
+			BoundaryObject var8 = var7.getBoundaryObject(var0, var1, var2);
+			if (var8 != null) {
+				var9 = BuddyRankComparator.Entity_unpackID(var8.tag);
+				if (var3 == WorldMapDecorationType.field4355.id) {
+					var8.renderable1 = new DynamicObject(class32.worldView, var9, 2, var4 + 4, var0, var1, var2, var6, false, var8.renderable1);
+					var8.renderable2 = new DynamicObject(class32.worldView, var9, 2, var4 + 1 & 3, var0, var1, var2, var6, false, var8.renderable2);
+				} else {
+					var8.renderable1 = new DynamicObject(class32.worldView, var9, var3, var4, var0, var1, var2, var6, false, var8.renderable1);
+				}
+
+				return true;
+			}
+		} else if (var5 == class394.field4854.field4855) {
+			WallDecoration var10 = var7.getWallDecoration(var0, var1, var2);
+			if (var10 != null) {
+				var9 = BuddyRankComparator.Entity_unpackID(var10.tag);
+				if (var3 != WorldMapDecorationType.field4358.id && var3 != WorldMapDecorationType.field4359.id) {
+					if (var3 == WorldMapDecorationType.field4353.id) {
+						var10.renderable1 = new DynamicObject(class32.worldView, var9, 4, var4 + 4, var0, var1, var2, var6, false, var10.renderable1);
+					} else if (var3 == WorldMapDecorationType.field4361.id) {
+						var10.renderable1 = new DynamicObject(class32.worldView, var9, 4, (var4 + 2 & 3) + 4, var0, var1, var2, var6, false, var10.renderable1);
+					} else if (var3 == WorldMapDecorationType.field4356.id) {
+						var10.renderable1 = new DynamicObject(class32.worldView, var9, 4, var4 + 4, var0, var1, var2, var6, false, var10.renderable1);
+						var10.renderable2 = new DynamicObject(class32.worldView, var9, 4, (var4 + 2 & 3) + 4, var0, var1, var2, var6, false, var10.renderable2);
+					}
+				} else {
+					var10.renderable1 = new DynamicObject(class32.worldView, var9, 4, var4, var0, var1, var2, var6, false, var10.renderable1);
+				}
+
+				return true;
+			}
+		} else if (var5 == class394.field4856.field4855) {
+			GameObject var11 = var7.getGameObject(var0, var1, var2);
+			if (var3 == WorldMapDecorationType.field4374.id) {
+				var3 = WorldMapDecorationType.field4369.id;
+			}
+
+			if (var11 != null) {
+				var11.renderable = new DynamicObject(class32.worldView, BuddyRankComparator.Entity_unpackID(var11.tag), var3, var4, var0, var1, var2, var6, false, var11.renderable);
+				return true;
+			}
+		} else if (var5 == class394.field4858.field4855) {
+			FloorDecoration var12 = var7.getFloorDecoration(var0, var1, var2);
+			if (var12 != null) {
+				var12.renderable = new DynamicObject(class32.worldView, BuddyRankComparator.Entity_unpackID(var12.tag), 22, var4, var0, var1, var2, var6, false, var12.renderable);
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

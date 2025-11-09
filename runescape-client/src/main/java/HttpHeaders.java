@@ -11,16 +11,16 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("st")
+@ObfuscatedName("sj")
 @Implements("HttpHeaders")
 public class HttpHeaders {
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@Export("headers")
 	final Map headers;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("acceptHeaderValues")
 	final Map acceptHeaderValues;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@Export("decimalFormat")
 	final DecimalFormat decimalFormat;
 
@@ -31,10 +31,10 @@ public class HttpHeaders {
 		this.decimalFormat.setMaximumFractionDigits(2);
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Ljavax/net/ssl/HttpsURLConnection;I)V",
-		garbageValue = "-1337746036"
+		descriptor = "(Ljavax/net/ssl/HttpsURLConnection;B)V",
+		garbageValue = "97"
 	)
 	@Export("setRequestProperties")
 	public void setRequestProperties(HttpsURLConnection var1) {
@@ -47,20 +47,20 @@ public class HttpHeaders {
 
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/util/Map;",
-		garbageValue = "25"
+		descriptor = "(I)Ljava/util/Map;",
+		garbageValue = "-1600533894"
 	)
 	@Export("getHeaders")
 	public Map getHeaders() {
 		return this.headers;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-2123114261"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;B)V",
+		garbageValue = "59"
 	)
 	@Export("header")
 	public void header(String var1, String var2) {
@@ -70,10 +70,10 @@ public class HttpHeaders {
 
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "243154931"
+		garbageValue = "-472325101"
 	)
 	@Export("removeHeader")
 	public void removeHeader(String var1) {
@@ -83,10 +83,10 @@ public class HttpHeaders {
 
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(Lsi;Ljava/lang/String;I)V",
-		garbageValue = "1403791264"
+		descriptor = "(Lse;Ljava/lang/String;I)V",
+		garbageValue = "1068980034"
 	)
 	@Export("authenticationHeader")
 	void authenticationHeader(HttpAuthenticationHeader var1, String var2) {
@@ -94,60 +94,60 @@ public class HttpHeaders {
 		this.header("Authorization", var3);
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-740346597"
+		garbageValue = "-2676136"
 	)
 	@Export("basicAuthentication")
 	public void basicAuthentication(String var1) {
 		this.authenticationHeader(HttpAuthenticationHeader.BASIC, var1);
 	}
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-1384263832"
+		garbageValue = "741371983"
 	)
 	@Export("bearerToken")
 	public void bearerToken(String var1) {
 		this.authenticationHeader(HttpAuthenticationHeader.BEARER, var1);
 	}
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		descriptor = "(Lum;I)V",
-		garbageValue = "-1985241676"
+		descriptor = "(Luw;B)V",
+		garbageValue = "-99"
 	)
 	@Export("contentType")
 	public void contentType(HttpContentType var1) {
 		this.headers.put("Content-Type", var1.getValue());
 	}
 
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1962742440"
+		descriptor = "(B)V",
+		garbageValue = "4"
 	)
 	@Export("removeContentType")
 	public void removeContentType() {
 		this.headers.remove("Content-Type");
 	}
 
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		descriptor = "(Lum;I)V",
-		garbageValue = "1220318113"
+		descriptor = "(Luw;B)V",
+		garbageValue = "100"
 	)
 	@Export("accept")
 	public void accept(HttpContentType var1) {
 		this.acceptWithFactor(var1, 1.0F);
 	}
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(Lum;FI)V",
-		garbageValue = "-1820344986"
+		descriptor = "(Luw;FB)V",
+		garbageValue = "0"
 	)
 	@Export("acceptWithFactor")
 	void acceptWithFactor(HttpContentType var1, float var2) {
@@ -155,10 +155,10 @@ public class HttpHeaders {
 		this.updateAcceptHeader();
 	}
 
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-10439"
+		descriptor = "(I)V",
+		garbageValue = "569557150"
 	)
 	@Export("updateAcceptHeader")
 	void updateAcceptHeader() {
@@ -169,15 +169,15 @@ public class HttpHeaders {
 
 	}
 
-	@ObfuscatedName("aa")
+	@ObfuscatedName("av")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-784719034"
+		garbageValue = "1662532201"
 	)
 	@Export("getAcceptHeaderValue")
 	String getAcceptHeaderValue() {
 		ArrayList var1 = new ArrayList(this.acceptHeaderValues.entrySet());
-		Collections.sort(var1, new class481(this));
+		Collections.sort(var1, new class483(this));
 		StringBuilder var2 = new StringBuilder();
 		Iterator var3 = var1.iterator();
 
@@ -196,25 +196,5 @@ public class HttpHeaders {
 		}
 
 		return var2.toString();
-	}
-
-	@ObfuscatedName("ao")
-	@ObfuscatedSignature(
-		descriptor = "(Ltn;II)Ljava/lang/Object;",
-		garbageValue = "-970472589"
-	)
-	public static Object method9794(DynamicArray var0, int var1) {
-		class150.method3792(var0, (class570)null, true);
-		if (var1 >= 0 && var1 < var0.size * -519676011) {
-			Object var2 = var0.method10352(var1);
-			if (var1 < var0.size * -519676011 - 1) {
-				class401.method8272(var0, var1 + 1, var0, var1, var0.size * -519676011 - (var1 + 1));
-			}
-
-			var0.method10358(var0.size * -519676011 - 1);
-			return var2;
-		} else {
-			throw new RuntimeException();
-		}
 	}
 }

@@ -492,6 +492,7 @@ public final class SpriteID
 	public static final int INVISIBLE_FONT = 6315;
 	public static final int HEADICONS_ET = 6405;
 	public static final int TEXTURE_THATCHED02 = 6408;
+	public static final int FARMING_UNDEAD_ICON = 6414;
 
 	public static final class _2XStandardSpellsOn
 	{
@@ -5798,6 +5799,9 @@ public final class SpriteID
 		public static final int _2 = 2849;
 		public static final int _3 = 2850;
 		public static final int _4 = 2851;
+		public static final int _5 = 6411;
+		public static final int _6 = 6412;
+		public static final int _7 = 6413;
 	}
 
 	public static final class SettingsSlider
@@ -9817,5 +9821,11 @@ public final class SpriteID
 	{
 		public static final int _0 = 6406;
 		public static final int _1 = 6407;
+	}
+
+	public static final class GeModify
+	{
+		public static final int _0 = 6409;
+		public static final int _1 = 6410;
 	}
 }

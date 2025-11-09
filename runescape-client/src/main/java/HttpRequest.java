@@ -3,94 +3,97 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ag")
+@ObfuscatedName("ap")
 @Implements("HttpRequest")
 public class HttpRequest {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("connection")
 	final HttpsURLConnection connection;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lst;"
+		descriptor = "Lsj;"
 	)
 	@Export("httpHeaders")
 	final HttpHeaders httpHeaders;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Laa;"
 	)
-	final HttpMethod field45;
-	@ObfuscatedName("av")
+	final HttpMethod field46;
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "Lue;"
+		descriptor = "Lub;"
 	)
 	@Export("httpPayload")
 	HttpPayload httpPayload;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("requestInitialized")
 	boolean requestInitialized;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@Export("followRedirects")
 	boolean followRedirects;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 325775401
+		intValue = 1750908413
 	)
 	@Export("connectionTimeout")
 	int connectionTimeout;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;Laj;Lst;Z)V"
+		descriptor = "(Ljava/net/URL;Laa;Lsj;Z)V"
 	)
 	public HttpRequest(URL var1, HttpMethod var2, HttpHeaders var3, boolean var4) throws IOException {
 		this.requestInitialized = false;
 		this.followRedirects = false;
 		this.connectionTimeout = 300000;
-		if (!var2.method72()) {
+		if (!var2.method71()) {
 			throw new UnsupportedEncodingException("Unsupported request method used " + var2.getName());
 		} else {
 			this.connection = (HttpsURLConnection)var1.openConnection();
 			if (!var4) {
-				this.connection.setSSLSocketFactory(SecureRandomSSLSocketFactory.method177());
+				HttpsURLConnection var5 = this.connection;
+				if (SecureRandomSSLSocketFactory.INSTANCE == null) {
+					SecureRandomSSLSocketFactory.INSTANCE = new SecureRandomSSLSocketFactory();
+				}
+
+				SecureRandomSSLSocketFactory var6 = SecureRandomSSLSocketFactory.INSTANCE;
+				var5.setSSLSocketFactory(var6);
 			}
 
-			this.field45 = var2;
+			this.field46 = var2;
 			this.httpHeaders = var3 != null ? var3 : new HttpHeaders();
 		}
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;Laj;Z)V"
+		descriptor = "(Ljava/net/URL;Laa;Z)V"
 	)
 	public HttpRequest(URL var1, HttpMethod var2, boolean var3) throws IOException {
 		this(var1, var2, new HttpHeaders(), var3);
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lst;",
-		garbageValue = "-714089106"
+		descriptor = "(I)Lsj;",
+		garbageValue = "-1026271624"
 	)
 	@Export("getHeaders")
 	public HttpHeaders getHeaders() {
 		return this.httpHeaders;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Lue;I)V",
-		garbageValue = "-1707768348"
+		descriptor = "(Lub;I)V",
+		garbageValue = "-1118838459"
 	)
 	@Export("setPayload")
 	public void setPayload(HttpPayload var1) {
@@ -110,17 +113,17 @@ public class HttpRequest {
 		}
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-705255554"
+		garbageValue = "-1654479410"
 	)
 	@Export("initializeRequest")
 	void initializeRequest() throws ProtocolException {
 		if (!this.requestInitialized) {
-			this.connection.setRequestMethod(this.field45.getName());
+			this.connection.setRequestMethod(this.field46.getName());
 			this.httpHeaders.setRequestProperties(this.connection);
-			if (this.field45.method75() && this.httpPayload != null) {
+			if (this.field46.method68() && this.httpPayload != null) {
 				this.connection.setDoOutput(true);
 				ByteArrayOutputStream var1 = new ByteArrayOutputStream();
 
@@ -145,10 +148,10 @@ public class HttpRequest {
 		}
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-639598270"
+		descriptor = "(B)Z",
+		garbageValue = "96"
 	)
 	@Export("connect")
 	boolean connect() throws IOException {
@@ -160,10 +163,10 @@ public class HttpRequest {
 		return this.connection.getResponseCode() == -1;
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(I)Laz;",
-		garbageValue = "-896233224"
+		descriptor = "(I)Lan;",
+		garbageValue = "1763344068"
 	)
 	@Export("getResponse")
 	HttpResponse getResponse() {
@@ -189,99 +192,164 @@ public class HttpRequest {
 		return var3;
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "91262493"
+		descriptor = "(ILcj;ZB)I",
+		garbageValue = "-41"
 	)
-	static void method101(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var1 != null) {
-			var1.remove();
-		}
-	}
+	static int method99(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == ScriptOpcodes.OC_NAME) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+			Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).name;
+			return 1;
+		} else {
+			int var8;
+			ItemComposition var10;
+			if (var0 == ScriptOpcodes.OC_OP) {
+				UrlRequest.Interpreter_intStackSize -= 2;
+				var3 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize];
+				var8 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize + 1];
+				var10 = WorldMapIcon_1.ItemDefinition_get(var3);
+				if (var8 >= 1 && var8 <= 5 && var10.groundActions[var8 - 1] != null) {
+					Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = var10.groundActions[var8 - 1];
+				} else {
+					Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = "";
+				}
 
-	@ObfuscatedName("ah")
-	@ObfuscatedSignature(
-		descriptor = "(FFFFLfn;I)V",
-		garbageValue = "-286155393"
-	)
-	static void method102(float var0, float var1, float var2, float var3, class137 var4) {
-		float var5 = var1 - var0;
-		float var6 = var2 - var1;
-		float var7 = var3 - var2;
-		float var8 = var6 - var5;
-		var4.field1649 = var7 - var6 - var8;
-		var4.field1637 = var8 + var8 + var8;
-		var4.field1647 = var5 + var5 + var5;
-		var4.field1651 = var0;
-	}
+				return 1;
+			} else if (var0 == ScriptOpcodes.OC_IOP) {
+				UrlRequest.Interpreter_intStackSize -= 2;
+				var3 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize];
+				var8 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize + 1];
+				var10 = WorldMapIcon_1.ItemDefinition_get(var3);
+				if (var8 >= 1 && var8 <= 5 && var10.inventoryActions[var8 - 1] != null) {
+					Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = var10.inventoryActions[var8 - 1];
+				} else {
+					Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = "";
+				}
 
-	@ObfuscatedName("ag")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-372510360"
-	)
-	static boolean method89() {
-		Date var0;
-		try {
-			SimpleDateFormat var2 = new SimpleDateFormat("ddMMyyyyHH", Locale.ENGLISH);
-			var2.setLenient(false);
-			StringBuilder var3 = new StringBuilder();
-			String[] var4 = Login.field706;
-			int var5 = 0;
+				return 1;
+			} else if (var0 == 4222) {
+				UrlRequest.Interpreter_intStackSize -= 3;
+				var3 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize];
+				var8 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize + 1];
+				int var5 = Interpreter.Interpreter_intStack[UrlRequest.Interpreter_intStackSize + 2];
+				ItemComposition var6 = WorldMapIcon_1.ItemDefinition_get(var3);
+				String var7 = null;
+				if (var8 >= 1 && var8 <= 5 && var6.inventoryActions[var8 - 1] != null && var6.subOps != null && var6.subOps[var8 - 1] != null && var5 >= 1 && var5 <= var6.subOps[var8 - 1].length) {
+					var7 = var6.subOps[var8 - 1][var5 - 1];
+				}
 
-			while (true) {
-				Date var1;
-				if (var5 < var4.length) {
-					String var6 = var4[var5];
-					if (var6 != null) {
-						var3.append(var6);
-						++var5;
-						continue;
+				Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = var7 != null ? var7 : "";
+				return 1;
+			} else if (var0 == ScriptOpcodes.OC_COST) {
+				var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+				Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).price;
+				return 1;
+			} else if (var0 == ScriptOpcodes.OC_STACKABLE) {
+				var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+				Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).isStackable == 1 ? 1 : 0;
+				return 1;
+			} else {
+				ItemComposition var4;
+				if (var0 == ScriptOpcodes.OC_CERT) {
+					var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+					var4 = WorldMapIcon_1.ItemDefinition_get(var3);
+					if (var4.noteTemplate == -1 && var4.note >= 0) {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var4.note;
+					} else {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var3;
 					}
 
-					DynamicObject.method1987(7);
-					class460.setLoginResponseString("Date not valid.", "Please ensure all characters are populated.", "");
-					var1 = null;
+					return 1;
+				} else if (var0 == ScriptOpcodes.OC_UNCERT) {
+					var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+					var4 = WorldMapIcon_1.ItemDefinition_get(var3);
+					if (var4.noteTemplate >= 0 && var4.note >= 0) {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var4.note;
+					} else {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var3;
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.OC_MEMBERS) {
+					var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+					Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).isMembersOnly ? 1 : 0;
+					return 1;
+				} else if (var0 == ScriptOpcodes.OC_PLACEHOLDER) {
+					var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+					var4 = WorldMapIcon_1.ItemDefinition_get(var3);
+					if (var4.placeholderTemplate == -1 && var4.placeholder >= 0) {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var4.placeholder;
+					} else {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var3;
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.OC_UNPLACEHOLDER) {
+					var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+					var4 = WorldMapIcon_1.ItemDefinition_get(var3);
+					if (var4.placeholderTemplate >= 0 && var4.placeholder >= 0) {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var4.placeholder;
+					} else {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var3;
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.OC_FIND) {
+					String var9 = (String)Interpreter.Interpreter_objectStack[--Message.Interpreter_objectStackSize];
+					var8 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+					class48.findItemDefinitions(var9, var8 == 1);
+					Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = PlayerCompositionColorTextureOverride.foundItemIdCount;
+					return 1;
+				} else if (var0 != ScriptOpcodes.OC_FINDNEXT) {
+					if (var0 == ScriptOpcodes.OC_FINDRESET) {
+						WorldMapRenderer.foundItemIndex = 0;
+						return 1;
+					} else if (var0 == 4213) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+						var8 = WorldMapIcon_1.ItemDefinition_get(var3).getShiftClickIndex();
+						if (var8 == -1) {
+							Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var8;
+						} else {
+							Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var8 + 1;
+						}
+
+						return 1;
+					} else if (var0 == 4214) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).maleModel;
+						return 1;
+					} else if (var0 == 4215) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).maleModel1;
+						return 1;
+					} else if (var0 == 4216) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).maleModel2;
+						return 1;
+					} else if (var0 == 4217) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+						var4 = WorldMapIcon_1.ItemDefinition_get(var3);
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = var4.field2420;
+						return 1;
+					} else if (var0 == 4218) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+						Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = WorldMapIcon_1.ItemDefinition_get(var3).examine;
+						return 1;
+					} else {
+						return 2;
+					}
 				} else {
-					var3.append("12");
-					var1 = var2.parse(var3.toString());
+					if (class114.foundItemIds != null && WorldMapRenderer.foundItemIndex < PlayerCompositionColorTextureOverride.foundItemIdCount) {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = class114.foundItemIds[++WorldMapRenderer.foundItemIndex - 1] & '\uffff';
+					} else {
+						Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = -1;
+					}
+
+					return 1;
 				}
-
-				var0 = var1;
-				break;
-			}
-		} catch (ParseException var10) {
-			DynamicObject.method1987(7);
-			class460.setLoginResponseString("Date not valid.", "Please ensure date follows the format", "DD/MM/YYYY and is after 01/01/1900");
-			return false;
-		}
-
-		if (var0 == null) {
-			return false;
-		} else {
-			java.util.Calendar var11 = java.util.Calendar.getInstance();
-			var11.set(1, var11.get(1) - 13);
-			var11.set(5, var11.get(5) + 1);
-			var11.set(11, 0);
-			var11.set(12, 0);
-			var11.set(13, 0);
-			var11.set(14, 0);
-			Date var12 = var11.getTime();
-			boolean var7 = var0.before(var12);
-			boolean var9 = MusicPatchNode.method7352(var0);
-			if (!var9) {
-				class254.method5872("Date not valid.", "Please ensure date follows the format", "DD/MM/YYYY and is after 01/01/1900");
-				return false;
-			} else {
-				if (!var7) {
-					Skeleton.field2625 = 8388607;
-				} else {
-					Skeleton.field2625 = (int)(var0.getTime() / 86400000L - 11745L);
-				}
-
-				return true;
 			}
 		}
 	}

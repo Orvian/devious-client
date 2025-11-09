@@ -1,63 +1,69 @@
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hp")
+@ObfuscatedName("hd")
 @Implements("EnumComposition")
 public class EnumComposition extends DualNode {
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lpe;"
+	)
+	@Export("EnumDefinition_archive")
+	static AbstractArchive EnumDefinition_archive;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
 	)
 	@Export("EnumDefinition_cached")
-	public static EvictingDualNodeHashTable EnumDefinition_cached;
-	@ObfuscatedName("vl")
-	@ObfuscatedGetter(
-		intValue = 1532580053
-	)
-	static int field2034;
-	@ObfuscatedName("ac")
+	static EvictingDualNodeHashTable EnumDefinition_cached;
+	@ObfuscatedName("ag")
 	@Export("inputType")
 	public char inputType;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@Export("outputType")
 	public char outputType;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -1245976595
+		intValue = -232799901
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = -1195541527
+		intValue = 224222619
 	)
 	@Export("outputCount")
 	public int outputCount;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@Export("keys")
 	public int[] keys;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@Export("intVals")
 	public int[] intVals;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@Export("strVals")
 	public String[] strVals;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "Ltn;"
+		descriptor = "Ltl;"
 	)
-	DynamicArray field2048;
-	@ObfuscatedName("ay")
+	DynamicArray field2064;
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		descriptor = "Ltn;"
+		descriptor = "Ltl;"
 	)
-	DynamicArray field2040;
+	DynamicArray field2056;
 
 	static {
 		EnumDefinition_cached = new EvictingDualNodeHashTable(64);
@@ -68,10 +74,10 @@ public class EnumComposition extends DualNode {
 		this.outputCount = 0;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;B)V",
-		garbageValue = "0"
+		descriptor = "(Lwj;I)V",
+		garbageValue = "313082121"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -85,10 +91,10 @@ public class EnumComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
 		descriptor = "(Lwj;II)V",
-		garbageValue = "-433756535"
+		garbageValue = "-1051106566"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -125,43 +131,82 @@ public class EnumComposition extends DualNode {
 
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-11975984"
+		descriptor = "(B)I",
+		garbageValue = "18"
 	)
 	@Export("size")
 	public int size() {
 		return this.outputCount;
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ltn;",
-		garbageValue = "854540047"
+		descriptor = "(S)Ltl;",
+		garbageValue = "-23304"
 	)
-	public DynamicArray method4288() {
-		if (this.field2048 == null) {
-			this.field2048 = Occluder.method5374(this.keys);
+	public DynamicArray method4339() {
+		if (this.field2064 == null) {
+			this.field2064 = class151.method3914(this.keys);
 		}
 
-		return this.field2048;
+		return this.field2064;
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ltn;",
-		garbageValue = "1460195907"
+		descriptor = "(I)Ltl;",
+		garbageValue = "2043665788"
 	)
-	public DynamicArray method4272() {
-		if (this.field2040 == null) {
+	public DynamicArray method4351() {
+		if (this.field2056 == null) {
 			if (this.outputType == 's') {
-				this.field2040 = class458.method9410(this.strVals);
+				this.field2056 = class393.method8268(this.strVals);
 			} else {
-				this.field2040 = Occluder.method5374(this.intVals);
+				this.field2056 = class151.method3914(this.intVals);
 			}
 		}
 
-		return this.field2040;
+		return this.field2056;
+	}
+
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "([BB)Lxl;",
+		garbageValue = "-114"
+	)
+	@Export("readSpritePixelsFromBytes")
+	public static final SpritePixels readSpritePixelsFromBytes(byte[] var0) {
+		BufferedImage var1 = null;
+
+		try {
+			Class var2 = ImageIO.class;
+			synchronized(ImageIO.class) {
+				var1 = ImageIO.read(new ByteArrayInputStream(var0));
+			}
+
+			if (var1 != null) {
+				int var6 = var1.getWidth();
+				int var7 = var1.getHeight();
+				int[] var4 = new int[var6 * var7];
+				PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var6, var7, var4, 0, var6);
+				var5.grabPixels();
+				return new SpritePixels(var4, var6, var7);
+			}
+		} catch (IOException var9) {
+		} catch (InterruptedException var10) {
+		}
+
+		return null;
+	}
+
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(II)Z",
+		garbageValue = "1990362405"
+	)
+	public static boolean method4360(int var0) {
+		return (var0 >> 20 & 1) != 0;
 	}
 }

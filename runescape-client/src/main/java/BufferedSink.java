@@ -1,45 +1,49 @@
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.management.GarbageCollectorMXBean;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("td")
+@ObfuscatedName("tv")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ay")
+	@Export("garbageCollector")
+	static GarbageCollectorMXBean garbageCollector;
+	@ObfuscatedName("ab")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -1012560119
+		intValue = 1368632429
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -1085238445
+		intValue = 1405650747
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -2119777421
+		intValue = 2073959049
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@Export("closed")
 	boolean closed;
 
@@ -54,10 +58,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1454953580"
+		garbageValue = "-201806137"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -79,10 +83,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "([BIII)V",
-		garbageValue = "812774422"
+		descriptor = "([BIIB)V",
+		garbageValue = "17"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -119,10 +123,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1010231708"
+		garbageValue = "1272257782"
 	)
 	@Export("close")
 	void close() {
@@ -198,32 +202,19 @@ public class BufferedSink implements Runnable {
 
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lxe;",
-		garbageValue = "-2089442022"
+		descriptor = "(IIII)I",
+		garbageValue = "-1581134065"
 	)
-	static PrivateChatMode[] method10278() {
-		return new PrivateChatMode[]{PrivateChatMode.field5972, PrivateChatMode.field5970, PrivateChatMode.field5971};
-	}
-
-	@ObfuscatedName("am")
-	@ObfuscatedSignature(
-		descriptor = "(Ltn;B)V",
-		garbageValue = "114"
-	)
-	public static void method10274(DynamicArray var0) {
-		class150.method3792(var0, (class570)null, true);
-		int var1 = var0.method10351();
-		if (var1 > 1) {
-			if (var0.field5399 == class570.field5721) {
-				class50.method1869(var0.method10348(), 0, var1 - 1);
-			} else if (var0.field5399 == class570.field5724) {
-				class505.method10192(var0.method10377(), 0, var1 - 1);
-			} else {
-				class361.method7510(var0.method10393(), 0, var1 - 1);
-			}
-
+	public static int method10371(int var0, int var1, int var2) {
+		var2 &= 3;
+		if (var2 == 0) {
+			return var1;
+		} else if (var2 == 1) {
+			return 7 - var0;
+		} else {
+			return var2 == 2 ? 7 - var1 : var0;
 		}
 	}
 }

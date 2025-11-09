@@ -4,99 +4,57 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("tl")
+@ObfuscatedName("tf")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	AbstractSocket() {
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "2130905796"
+		garbageValue = "1953664786"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1013495030"
+		descriptor = "(S)I",
+		garbageValue = "-24730"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-760552642"
+		descriptor = "(B)I",
+		garbageValue = "66"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)I",
-		garbageValue = "-37"
+		descriptor = "([BIII)I",
+		garbageValue = "1372440030"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "([BIIS)V",
-		garbageValue = "-11244"
+		descriptor = "([BIII)V",
+		garbageValue = "1102756849"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "115773402"
+		garbageValue = "-207149320"
 	)
 	@Export("close")
 	public abstract void close();
-
-	@ObfuscatedName("at")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2048096921"
-	)
-	static void method10221() {
-		Login.Login_username = Login.Login_username.trim();
-		if (Login.Login_username.isEmpty()) {
-			class460.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address.");
-		} else {
-			long var1 = RouteStrategy.method6210();
-			int var0;
-			if (0L == var1) {
-				var0 = 5;
-			} else {
-				var0 = class31.method496(var1, Login.Login_username);
-			}
-
-			switch(var0) {
-			case 2:
-				class460.setLoginResponseString(Strings.field4648, Strings.field4649, Strings.field4518);
-				DynamicObject.method1987(6);
-				break;
-			case 3:
-				class460.setLoginResponseString("", "Error connecting to server.", "");
-				break;
-			case 4:
-				class460.setLoginResponseString("The part of the website you are trying", "to connect to is offline at the moment.", "Please try again later.");
-				break;
-			case 5:
-				class460.setLoginResponseString("Sorry, there was an error trying to", "log you in to this part of the website.", "Please try again later.");
-				break;
-			case 6:
-				class460.setLoginResponseString("", "Error connecting to server.", "");
-				break;
-			case 7:
-				class460.setLoginResponseString("You must enter a valid login to proceed. For accounts", "created after 24th November 2010, please use your", "email address. Otherwise please use your username.");
-			}
-
-		}
-	}
 }

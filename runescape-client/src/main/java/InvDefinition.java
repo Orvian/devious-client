@@ -4,24 +4,29 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gs")
+@ObfuscatedName("gm")
 @Implements("InvDefinition")
 public class InvDefinition extends DualNode {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lpx;"
+		descriptor = "Lpe;"
 	)
 	@Export("InvDefinition_archive")
 	static AbstractArchive InvDefinition_archive;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lme;"
 	)
 	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("cn")
+	@ObfuscatedSignature(
+		descriptor = "Lxc;"
+	)
+	static IndexedSprite field1954;
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -2135600203
+		intValue = 1593634333
 	)
 	@Export("size")
 	public int size;
@@ -34,10 +39,10 @@ public class InvDefinition extends DualNode {
 		this.size = 0;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;S)V",
-		garbageValue = "255"
+		descriptor = "(Lwj;B)V",
+		garbageValue = "71"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -51,10 +56,10 @@ public class InvDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;IB)V",
-		garbageValue = "-64"
+		descriptor = "(Lwj;II)V",
+		garbageValue = "547961759"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -64,47 +69,18 @@ public class InvDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("jf")
+	@ObfuscatedName("po")
 	@ObfuscatedSignature(
-		descriptor = "(Ldj;IZI)V",
-		garbageValue = "-1306681092"
+		descriptor = "(IB)V",
+		garbageValue = "62"
 	)
-	@Export("addPlayerToScene")
-	static void addPlayerToScene(WorldView var0, int var1, boolean var2) {
-		Player var3 = (Player)var0.players.get((long)var1);
-		if (var3 != null && var3.isVisible() && !var3.isHidden) {
-			int var4 = var3.plane;
-			var3.isUnanimated = false;
-			if ((Client.isLowDetail && Client.playerUpdateManager.playerCount > 50 || Client.playerUpdateManager.playerCount > 200) && var2 && var3.method2382() == var3.idleSequence) {
-				var3.isUnanimated = true;
+	static void method4188(int var0) {
+		SequenceDefinition var1 = class171.SequenceDefinition_get(var0);
+		if (var1.isCachedModelIdSet()) {
+			if (class150.method3908(var1.SequenceDefinition_cachedModelId) == 2) {
+				Client.field595.add(var1.SequenceDefinition_cachedModelId);
 			}
 
-			int var5 = var3.x >> 7;
-			int var6 = var3.y >> 7;
-			if (0 <= var5 && var5 < 104 && 0 <= var6 && var6 < 104) {
-				long var7 = Skills.calculateTag(0, 0, 0, 0, false, var3.index, var0.id);
-				if (var3.model0 != null && Client.cycle >= var3.animationCycleStart && Client.cycle < var3.animationCycleEnd) {
-					var3.isUnanimated = false;
-					var3.tileHeight = WorldMapRegion.method6545(var0, var3.x, var3.y, var4, var3.vmethod2682());
-					var3.tileHeight -= var3.method2442();
-					var3.playerCycle = Client.cycle;
-					var0.scene.addNullableObject(var4, var3.x, var3.y, var3.tileHeight, 60, var3, var3.rotation, var7, var3.minX, var3.minY, var3.maxX, var3.maxY);
-				} else {
-					if ((var3.x & 127) == 64 && (var3.y & 127) == 64) {
-						if (var0.tileLastDrawnActor[var5][var6] == Client.viewportDrawCount) {
-							return;
-						}
-
-						var0.tileLastDrawnActor[var5][var6] = Client.viewportDrawCount;
-					}
-
-					var3.tileHeight = WorldMapRegion.method6545(var0, var3.x, var3.y, var4, var3.vmethod2682());
-					var3.tileHeight -= var3.method2442();
-					var3.playerCycle = Client.cycle;
-					var0.scene.drawEntity(var4, var3.x, var3.y, var3.tileHeight, 60, var3, var3.rotation, var7, var3.isWalking);
-				}
-			}
 		}
-
 	}
 }

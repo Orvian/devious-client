@@ -3,22 +3,22 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ah")
+@ObfuscatedName("ae")
 public enum class6 implements Enum {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lah;"
+		descriptor = "Lae;"
 	)
 	field16(0, 0);
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 866126915
+		intValue = -1503257161
 	)
 	public final int field14;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 2089926171
+		intValue = 1913006529
 	)
 	final int field15;
 
@@ -30,21 +30,19 @@ public enum class6 implements Enum {
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-164877066"
+		garbageValue = "-1012656358"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.field15;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "98"
+		descriptor = "(I)V",
+		garbageValue = "-825469743"
 	)
-	static void method32() {
-		ItemComposition.ItemDefinition_cached.clear();
-		ItemComposition.ItemDefinition_cachedModels.clear();
-		ItemComposition.ItemDefinition_cachedSprites.clear();
+	public static void method39() {
+		class180.field1851.clear();
 	}
 }

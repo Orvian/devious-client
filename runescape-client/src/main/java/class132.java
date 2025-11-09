@@ -2,61 +2,96 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fr")
+@ObfuscatedName("fj")
 public class class132 {
-	@ObfuscatedName("ck")
-	@ObfuscatedSignature(
-		descriptor = "Lxa;"
-	)
-	static IndexedSprite field1588;
-	@ObfuscatedName("al")
-	@ObfuscatedGetter(
-		intValue = -1696998483
-	)
-	int field1597;
 	@ObfuscatedName("ab")
-	float field1589;
-	@ObfuscatedName("ac")
-	float field1590;
-	@ObfuscatedName("av")
-	float field1591;
-	@ObfuscatedName("au")
-	float field1592;
-	@ObfuscatedName("as")
-	float field1593;
-	@ObfuscatedName("ah")
-	@ObfuscatedSignature(
-		descriptor = "Lfr;"
+	@ObfuscatedGetter(
+		intValue = -1245693589
 	)
-	class132 field1595;
+	int field1607;
+	@ObfuscatedName("at")
+	float field1605;
+	@ObfuscatedName("ag")
+	float field1604;
+	@ObfuscatedName("aj")
+	float field1606;
+	@ObfuscatedName("ah")
+	float field1608;
+	@ObfuscatedName("af")
+	float field1609;
+	@ObfuscatedName("ae")
+	@ObfuscatedSignature(
+		descriptor = "Lfj;"
+	)
+	class132 field1613;
 
 	class132() {
-		this.field1590 = Float.MAX_VALUE;
-		this.field1591 = Float.MAX_VALUE;
-		this.field1592 = Float.MAX_VALUE;
-		this.field1593 = Float.MAX_VALUE;
+		this.field1604 = Float.MAX_VALUE;
+		this.field1606 = Float.MAX_VALUE;
+		this.field1608 = Float.MAX_VALUE;
+		this.field1609 = Float.MAX_VALUE;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;II)V",
-		garbageValue = "441301286"
+		descriptor = "(Lwj;IB)V",
+		garbageValue = "-75"
 	)
-	void method3571(Buffer var1, int var2) {
-		this.field1597 = var1.readShort();
-		this.field1589 = var1.method11235();
-		this.field1590 = var1.method11235();
-		this.field1591 = var1.method11235();
-		this.field1592 = var1.method11235();
-		this.field1593 = var1.method11235();
+	void method3669(Buffer var1, int var2) {
+		this.field1607 = var1.readShort();
+		this.field1605 = var1.method11385();
+		this.field1604 = var1.method11385();
+		this.field1606 = var1.method11385();
+		this.field1608 = var1.method11385();
+		this.field1609 = var1.method11385();
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lpr;",
-		garbageValue = "-1456099192"
+		descriptor = "(II)Ljava/lang/String;",
+		garbageValue = "-1996534181"
 	)
-	public static class392[] method3574() {
-		return new class392[]{class392.field4705, class392.field4703, class392.field4701, class392.field4702};
+	static String method3671(int var0) {
+		return "<img=" + var0 + ">";
+	}
+
+	@ObfuscatedName("ax")
+	@ObfuscatedSignature(
+		descriptor = "(Ltl;IB)Ljava/lang/Object;",
+		garbageValue = "-89"
+	)
+	public static Object method3673(DynamicArray var0, int var1) {
+		PacketBufferNode.method7052(var0, (class572)null, true);
+		if (var1 >= 0 && var1 < var0.size * 479682119) {
+			Object var2 = var0.method10434(var1);
+			if (var1 < var0.size * 479682119 - 1) {
+				class167.method4091(var0, var1 + 1, var0, var1, var0.size * 479682119 - (var1 + 1));
+			}
+
+			var0.method10440(var0.size * 479682119 - 1);
+			return var2;
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	@ObfuscatedName("nc")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "-862222793"
+	)
+	static final void method3672(int var0) {
+		if (class35.widgetDefinition.loadInterface(var0)) {
+			Widget[] var1 = class35.widgetDefinition.Widget_interfaceComponents[var0];
+
+			for (int var2 = 0; var2 < var1.length; ++var2) {
+				Widget var3 = var1[var2];
+				if (var3 != null) {
+					var3.modelFrame = 0;
+					var3.modelFrameCycle = 0;
+				}
+			}
+
+		}
 	}
 }

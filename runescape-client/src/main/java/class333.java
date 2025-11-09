@@ -1,46 +1,77 @@
-import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ml")
-public class class333 {
-	@ObfuscatedName("as")
-	@Export("SpriteBuffer_spriteWidths")
-	public static int[] SpriteBuffer_spriteWidths;
-
-	@ObfuscatedName("as")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "328759584"
+@ObfuscatedName("mp")
+public final class class333 {
+	@ObfuscatedName("ab")
+	@ObfuscatedGetter(
+		longValue = -9205144743388651051L
 	)
-	@Export("iLog")
-	public static int iLog(int var0) {
-		int var1 = 0;
-		if (var0 < 0 || var0 >= 65536) {
-			var0 >>>= 16;
-			var1 += 16;
-		}
+	static long field3842;
+	@ObfuscatedName("at")
+	@ObfuscatedGetter(
+		longValue = -4656341478693028815L
+	)
+	static long field3841;
 
-		if (var0 >= 256) {
-			var0 >>>= 8;
-			var1 += 8;
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "(Lvt;B)I",
+		garbageValue = "35"
+	)
+	static final int method7072(LoginType var0) {
+		if (var0 == null) {
+			return 12;
+		} else {
+			switch(var0.field5840) {
+			case 4:
+				return 20;
+			default:
+				return 12;
+			}
 		}
+	}
 
-		if (var0 >= 16) {
-			var0 >>>= 4;
-			var1 += 4;
-		}
+	@ObfuscatedName("ab")
+	public static int method7074(int var0, double var1) {
+		double var3 = (double)(var0 >> 16 & 255) / 256.0D;
+		double var5 = (double)(var0 >> 8 & 255) / 256.0D;
+		double var7 = (double)(var0 & 255) / 256.0D;
+		var3 = Math.pow(var3, var1);
+		var5 = Math.pow(var5, var1);
+		var7 = Math.pow(var7, var1);
+		int var9 = (int)(256.0D * var3);
+		int var10 = (int)(var5 * 256.0D);
+		int var11 = (int)(var7 * 256.0D);
+		return var11 + (var10 << 8) + (var9 << 16) + -16777216;
+	}
 
-		if (var0 >= 4) {
-			var0 >>>= 2;
-			var1 += 2;
-		}
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "1967352087"
+	)
+	public static void method7075(int var0) {
+		Varps.Varps_temp = new int[var0];
+		Varps.Varps_main = new int[var0];
+	}
 
-		if (var0 >= 1) {
-			var0 >>>= 1;
-			++var1;
-		}
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "2137089095"
+	)
+	static final void method7076() {
+		Frames.method5459("Your friend list is full. Max of 200 for free users, and 400 for members");
+	}
 
-		return var0 + var1;
+	@ObfuscatedName("ps")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-279878845"
+	)
+	static void method7077(String var0) {
+		HttpAuthenticationHeader.field5389 = var0;
 	}
 }

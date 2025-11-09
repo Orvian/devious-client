@@ -1,54 +1,53 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("vp")
+@ObfuscatedName("vq")
 @Implements("FontName")
 public class FontName {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lvp;"
+		descriptor = "Lvq;"
 	)
 	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lvp;"
+		descriptor = "Lvq;"
 	)
 	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Lvp;"
+		descriptor = "Lvq;"
 	)
 	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "Lvp;"
+		descriptor = "Lvq;"
 	)
 	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "Lvp;"
+		descriptor = "Lvq;"
 	)
 	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "Lvp;"
+		descriptor = "Lvq;"
 	)
 	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
-	@ObfuscatedName("bd")
-	@ObfuscatedGetter(
-		intValue = -1714928913
+	@ObfuscatedName("tt")
+	@ObfuscatedSignature(
+		descriptor = "[Lok;"
 	)
-	static int field5650;
-	@ObfuscatedName("ah")
+	static Widget[] field5818;
+	@ObfuscatedName("ae")
 	@Export("name")
 	String name;
 
@@ -65,60 +64,128 @@ public class FontName {
 		this.name = var1;
 	}
 
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lvp;",
-		garbageValue = "1437619795"
-	)
-	public static FontName[] method10903() {
-		return new FontName[]{FontName_plain12, FontName_verdana15, FontName_bold12, FontName_verdana11, FontName_verdana13, FontName_plain11};
-	}
-
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1266463018"
+		descriptor = "(III)I",
+		garbageValue = "2081656857"
 	)
-	public static void method10904() {
-		HealthBarDefinition.HealthBarDefinition_cached.clear();
-		HealthBarDefinition.HealthBarDefinition_cachedSprites.clear();
+	public static int method11001(int var0, int var1) {
+		return (int)(Math.atan2((double)var0, (double)var1) * 325.94932345220167D) & 2047;
 	}
 
-	@ObfuscatedName("ax")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(Ltn;Ljava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "-1677319468"
+		descriptor = "(FFFI)F",
+		garbageValue = "-582328390"
 	)
-	public static String method10901(DynamicArray var0, String var1) {
-		class267.method6013(var0, class570.field5718);
-		int var2 = var0.method10351();
-		String[] var3 = (String[])((String[])var0.method10393());
-		if (var2 == 0) {
-			return "";
-		} else if (var2 == 1) {
-			return var3[0];
+	public static float method11000(float var0, float var1, float var2) {
+		if (var1 < var0) {
+			throw new IllegalArgumentException("max: " + var1 + " can not be lower than min: " + var0);
 		} else {
-			int var4 = var1.length();
-			int var5 = var4 * (var2 - 1);
+			return Math.max(var0, Math.min(var2, var1));
+		}
+	}
 
-			for (int var6 = 0; var6 < var2; ++var6) {
-				var5 += var3[var6].length();
+	@ObfuscatedName("ld")
+	@ObfuscatedSignature(
+		descriptor = "(Ldm;IIIIIIIII)V",
+		garbageValue = "-2147429721"
+	)
+	@Export("addPendingSpawnToScene")
+	static final void addPendingSpawnToScene(WorldView var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+		Scene var9 = var0.scene;
+		if (var3 >= 1 && var4 >= 1 && var3 <= var0.sizeX - 2 && var4 <= var0.sizeY - 2) {
+			if (Client.isLowDetail && var0.plane != var1) {
+				return;
 			}
 
-			char[] var9 = new char[var5];
-			int var7 = 0;
+			Renderable var10 = null;
+			Renderable var11 = null;
+			int var12 = -1;
+			long var13 = 0L;
+			boolean var15 = false;
+			boolean var16 = false;
+			if (var2 == 0) {
+				var13 = var9.getBoundaryObjectTag(var1, var3, var4);
+			}
 
-			for (int var8 = 0; var8 < var2; ++var8) {
-				if (var8 > 0) {
-					var1.getChars(0, var4, var9, var7);
-					var7 += var4;
+			if (var2 == 1) {
+				var13 = var9.getWallDecorationTag(var1, var3, var4);
+			}
+
+			if (var2 == 2) {
+				var13 = var9.getGameObjectTag(var1, var3, var4);
+			}
+
+			if (var2 == 3) {
+				var13 = var9.getFloorDecorationTag(var1, var3, var4);
+			}
+
+			int var17;
+			ObjectComposition var18;
+			if (0L != var13) {
+				var17 = var9.getObjectFlags(var1, var3, var4, var13);
+				var12 = BuddyRankComparator.Entity_unpackID(var13);
+				int var20 = var17 & 31;
+				int var21 = var17 >> 6 & 3;
+				var18 = TileItem.getObjectDefinition(var12);
+				var0.method2744(var1, var3, var4, var18, var21);
+				if (var2 == 0) {
+					BoundaryObject var19 = var9.getBoundaryObject(var1, var3, var4);
+					var10 = var19.renderable1;
+					var11 = var19.renderable2;
+					var9.removeBoundaryObject(var1, var3, var4);
+					if (var18.interactType != 0) {
+						var0.collisionMaps[var1].method6189(var3, var4, var20, var21, var18.boolean1);
+					}
 				}
 
-				var3[var8].getChars(0, var3[var8].length(), var9, var7);
-				var7 += var3[var8].length();
+				if (var2 == 1) {
+					WallDecoration var22 = var9.getWallDecoration(var1, var3, var4);
+					var10 = var22.renderable1;
+					var11 = var22.renderable2;
+					var9.removeWallDecoration(var1, var3, var4);
+				}
+
+				if (var2 == 2) {
+					var10 = var9.getGameObject(var1, var3, var4).renderable;
+					var9.removeGameObject(var1, var3, var4);
+					if (var3 + var18.sizeX > var0.sizeX - 1 || var4 + var18.sizeX > var0.sizeY - 1 || var3 + var18.sizeY > var0.sizeX - 1 || var4 + var18.sizeY > var0.sizeY - 1) {
+						return;
+					}
+
+					if (var18.interactType != 0) {
+						var0.collisionMaps[var1].setFlagOffNonSquare(var3, var4, var18.sizeX, var18.sizeY, var21, var18.boolean1);
+					}
+				}
+
+				if (var2 == 3) {
+					var10 = var9.getFloorDecoration(var1, var3, var4).renderable;
+					var9.removeFloorDecoration(var1, var3, var4);
+					if (var18.interactType == 1) {
+						var0.collisionMaps[var1].method6190(var3, var4);
+					}
+				}
 			}
 
-			return new String(var9);
+			if (var5 >= 0) {
+				var17 = var1;
+				if (var1 < 3 && (var0.tileSettings[1][var3][var4] & 2) == 2) {
+					var17 = var1 + 1;
+				}
+
+				if (var5 != var12) {
+					var10 = null;
+					var11 = null;
+				}
+
+				class293.method6752(var0, var1, var17, var3, var4, var5, var6, var7, var8, var0.collisionMaps[var1], var10, var11);
+				var18 = TileItem.getObjectDefinition(var5);
+				if (var18 != null && var18.hasSound()) {
+					var0.createObjectSound(var17, var3, var4, var18, var6);
+				}
+			}
 		}
+
 	}
 }

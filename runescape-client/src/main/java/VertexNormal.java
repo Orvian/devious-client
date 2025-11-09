@@ -4,30 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jh")
+@ObfuscatedName("jj")
 @Implements("VertexNormal")
 public class VertexNormal {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 2021150823
+		intValue = 945087929
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = -1101315455
+		intValue = 44300847
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 2035190653
+		intValue = -1101225631
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 757047759
+		intValue = 713480281
 	)
 	@Export("magnitude")
 	int magnitude;
@@ -36,7 +36,7 @@ public class VertexNormal {
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljh;)V"
+		descriptor = "(Ljj;)V"
 	)
 	VertexNormal(VertexNormal var1) {
 		this.x = var1.x;
@@ -45,12 +45,60 @@ public class VertexNormal {
 		this.magnitude = var1.magnitude;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;B)V",
-		garbageValue = "17"
+		descriptor = "(I)V",
+		garbageValue = "2013294913"
 	)
-	public static void method5648(AbstractArchive var0) {
-		VarbitComposition.VarbitDefinition_archive = var0;
+	static void method5725() {
+		class586.field5967[0] = 0;
+
+		for (int var0 = 0; var0 < 2048; var0 += 128) {
+			int var1 = (var0 >> 7) + 1;
+			int var3 = 0;
+			if (var0 > 0 && var0 < 1024) {
+				var3 |= 272;
+			}
+
+			if (var0 > 512 && var0 < 1536) {
+				var3 |= 1088;
+			}
+
+			if (var0 > 1024) {
+				var3 |= 544;
+			}
+
+			if (var0 > 1536 || var0 < 512) {
+				var3 |= 2176;
+			}
+
+			if (var0 == 0 || var0 == 1024) {
+				var3 |= 48;
+			}
+
+			if (var0 == 512 || var0 == 1536) {
+				var3 |= 1152;
+			}
+
+			class586.field5967[var1] = var3;
+		}
+
+	}
+
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "1944780185"
+	)
+	@Export("clearItemContainer")
+	static void clearItemContainer(int var0) {
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var1 != null) {
+			for (int var2 = 0; var2 < var1.ids.length; ++var2) {
+				var1.ids[var2] = -1;
+				var1.quantities[var2] = 0;
+			}
+
+		}
 	}
 }

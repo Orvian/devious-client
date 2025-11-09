@@ -1,63 +1,83 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ky")
+@ObfuscatedName("kv")
 @Implements("Clock")
 public abstract class Clock {
 	Clock() {
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1103629739"
+		descriptor = "(B)V",
+		garbageValue = "1"
 	)
 	@Export("mark")
 	public abstract void mark();
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "2018679037"
+		descriptor = "(IIB)I",
+		garbageValue = "125"
 	)
 	@Export("wait")
 	public abstract int wait(int var1, int var2);
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "100"
+		descriptor = "(IIB)V",
+		garbageValue = "1"
 	)
-	public static void method6052() {
-		class195.field2100.clear();
-	}
+	public static void method6092(int var0, int var1) {
+		class338.musicPlayerStatus = var0;
+		class338.field3899 = var1;
+		class338.field3896 = 0;
+		class338.field3901 = 0;
+		class338.field3891.clear();
+		class338.field3897.clear();
+		if (class338.midiRequests.isEmpty() || var0 == 0 && var1 == 0) {
+			Iterator var2 = class338.midiRequests.iterator();
 
-	@ObfuscatedName("mh")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIII)V",
-		garbageValue = "-792903551"
-	)
-	@Export("drawWidgets")
-	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (class167.widgetDefinition.loadInterface(var0)) {
-			Canvas.field104 = null;
-			WorldView.drawInterface(class167.widgetDefinition.Widget_interfaceComponents[var0], 0, class167.widgetDefinition.Widget_interfaceComponents[var0].length - 1, -1, -1, var1, var2, var3, var4, var5, var6, var7);
-			if (Canvas.field104 != null) {
-				WorldView.drawInterface(Canvas.field104, 0, Canvas.field104.length - 1, -1412584499, -1412584499, var1, var2, var3, var4, PcmPlayer.field1311, UserComparator5.field1553, var7);
-				Canvas.field104 = null;
-			}
+			while (true) {
+				MidiRequest var10;
+				do {
+					if (!var2.hasNext()) {
+						class338.midiRequests.clear();
+						return;
+					}
 
-		} else {
-			if (var7 != -1) {
-				Client.validRootWidgets[var7] = true;
-			} else {
-				for (int var8 = 0; var8 < 100; ++var8) {
-					Client.validRootWidgets[var8] = true;
+					var10 = (MidiRequest)var2.next();
+				} while(var10 == null);
+
+				var10.midiPcmStream.clear();
+				var10.midiPcmStream.method7225();
+				var10.midiPcmStream.setPcmStreamVolume(0);
+				var10.midiPcmStream.field3910 = 0;
+				int var4 = var10.musicTrackGroupId;
+				int var5 = var10.musicTrackFileId;
+				Iterator var6 = class338.field3892.iterator();
+
+				while (var6.hasNext()) {
+					class344 var7 = (class344)var6.next();
+					var7.vmethod7348(var4, var5);
 				}
 			}
+		} else {
+			class338.field3897.add(new DelayFadeTask((SongTask)null, class338.musicPlayerStatus));
+			class338.field3897.add(new FadeOutTask((SongTask)null, 0, false, class338.field3899));
+			ArrayList var3 = new ArrayList();
+			Iterator var8 = class338.midiRequests.iterator();
 
+			while (var8.hasNext()) {
+				MidiRequest var9 = (MidiRequest)var8.next();
+				var3.add(var9);
+			}
+
+			class338.field3897.add(new class470((SongTask)null, var3));
 		}
 	}
 }

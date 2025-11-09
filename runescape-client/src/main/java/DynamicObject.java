@@ -1,75 +1,75 @@
-import java.util.Iterator;
+import java.util.ArrayList;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ci")
+@ObfuscatedName("ce")
 @Implements("DynamicObject")
 public class DynamicObject extends Renderable {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Ldj;"
+		descriptor = "Ldm;"
 	)
 	@Export("worldView")
 	final WorldView worldView;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 117616549
+		intValue = 113093739
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 1370420631
+		intValue = -1036644641
 	)
 	@Export("type")
 	final int type;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 533161513
+		intValue = -1825508121
 	)
 	@Export("orientation")
 	final int orientation;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -1169014325
+		intValue = 1174921109
 	)
 	@Export("plane")
 	final int plane;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -723908345
+		intValue = -692508821
 	)
 	@Export("x")
 	final int x;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = -202053319
+		intValue = -447773189
 	)
 	@Export("y")
 	final int y;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		descriptor = "Lrk;"
+		descriptor = "Lrl;"
 	)
-	final AnimationSequence field797;
-	@ObfuscatedName("am")
+	final AnimationSequence field785;
+	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		descriptor = "Lrk;"
+		descriptor = "Lrl;"
 	)
 	@Export("animationSequence")
 	final AnimationSequence animationSequence;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = -1451529473
+		intValue = -1422708209
 	)
 	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldj;IIIIIIIZLiq;)V"
+		descriptor = "(Ldm;IIIIIIIZLiy;)V"
 	)
 	DynamicObject(WorldView var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, boolean var9, Renderable var10) {
 		this.worldView = var1;
@@ -79,44 +79,44 @@ public class DynamicObject extends Renderable {
 		this.plane = var5;
 		this.x = var6;
 		this.y = var7;
-		this.field797 = new AnimationSequence();
+		this.field785 = new AnimationSequence();
 		this.animationSequence = new AnimationSequence();
 		if (var8 != -1) {
-			this.field797.setSequence(var8);
+			this.field785.setSequence(var8);
 			this.animationSequence.setSequence(var8);
-			SequenceDefinition var11 = this.field797.getSequenceDefinition();
+			SequenceDefinition var11 = this.field785.getSequenceDefinition();
 			this.cycleStart = Client.cycle - 1;
 			if (var9 && var11.frameCount != -1) {
-				this.field797.method9613();
+				this.field785.method9638();
 			}
 
 			if (var10 instanceof DynamicObject) {
 				DynamicObject var12 = (DynamicObject)var10;
-				if (var12.field797.getId() == var8) {
+				if (var12.field785.getId() == var8) {
 					if (var11.restartMode == 0) {
-						this.field797.setSequence(var12.field797);
+						this.field785.setSequence(var12.field785);
 						this.cycleStart = var12.cycleStart;
 					}
 
 					this.animationSequence.setSequence(var12.animationSequence);
-				} else if (!var12.field797.method9581()) {
+				} else if (!var12.field785.method9635()) {
 					this.animationSequence.setSequence(var12.animationSequence);
 				} else {
-					this.animationSequence.setSequence(var12.field797);
+					this.animationSequence.setSequence(var12.field785);
 				}
 			}
 		}
 
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljx;",
-		garbageValue = "15"
+		descriptor = "(I)Ljd;",
+		garbageValue = "-461042632"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		ObjectComposition var1 = SpriteMask.getObjectDefinition(this.id);
+		ObjectComposition var1 = TileItem.getObjectDefinition(this.id);
 		if (var1.transforms != null) {
 			var1 = var1.transform();
 		}
@@ -139,129 +139,85 @@ public class DynamicObject extends Renderable {
 			int var6 = (var3 >> 1) + this.y;
 			int var7 = (var3 + 1 >> 1) + this.y;
 			int[][] var8 = this.worldView.tileHeights[this.plane];
-			int var9 = var8[var5][var7] + var8[var4][var6] + var8[var5][var6] + var8[var4][var7] >> 2;
+			int var9 = var8[var5][var6] + var8[var4][var6] + var8[var4][var7] + var8[var5][var7] >> 2;
 			int var10 = (this.x << 7) + (var2 << 6);
 			int var11 = (this.y << 7) + (var3 << 6);
 			int var12 = Client.cycle - this.cycleStart;
 			this.cycleStart = Client.cycle;
-			Client.field426.method10913(this.worldView, var10, var11, false);
-			int var13 = AttackOption.method2764(this.field797, var12, Client.field426);
-			Client.field426.method10914();
+			Client.field472.method11014(this.worldView, var10, var11, false);
+			int var13 = CollisionMap.method6234(this.field785, var12, Client.field472);
+			Client.field472.method11013();
 			if ((var13 & 1) != 0 && (var13 & 8) != 0) {
-				this.field797.reset();
+				this.field785.reset();
 			}
 
-			if (this.field797.method9601(30)) {
+			if (this.field785.method9634(30)) {
 				if (this.animationSequence.isActive()) {
-					int var14 = AttackOption.method2764(this.animationSequence, var12, (class464)null);
+					int var14 = CollisionMap.method6234(this.animationSequence, var12, (class466)null);
 					if ((var14 & 1) != 0 && (var14 & 8) != 0) {
 						this.animationSequence.reset();
 					}
 
-					if (!this.animationSequence.method9601(30)) {
+					if (!this.animationSequence.method9634(30)) {
 						return var1.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.animationSequence.getSequenceDefinition(), this.animationSequence.getFrame());
 					}
 				}
 
 				return null;
 			} else {
-				return var1.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.field797.getSequenceDefinition(), this.field797.getFrame());
+				return var1.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.field785.getSequenceDefinition(), this.field785.getFrame());
 			}
 		}
 	}
 
-	@ObfuscatedName("am")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-86"
+		descriptor = "(B)Z",
+		garbageValue = "16"
 	)
-	static void method1988() {
-		Iterator var0 = Messages.Messages_hashTable.iterator();
-
-		while (var0.hasNext()) {
-			Message var1 = (Message)var0.next();
-			var1.clearIsFromIgnored();
+	protected boolean vmethod5447() {
+		ObjectComposition var1 = TileItem.getObjectDefinition(this.id);
+		if (var1.transforms != null) {
+			var1 = var1.transform();
 		}
 
-	}
-
-	@ObfuscatedName("an")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "2092670116"
-	)
-	static void method1987(int var0) {
-		if (var0 != Login.loginIndex) {
-			Login.loginIndex = var0;
-		}
-	}
-
-	@ObfuscatedName("jj")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2135382816"
-	)
-	static void method1984() {
-		for (class271 var0 = (class271)Client.field416.last(); var0 != null; var0 = (class271)Client.field416.previous()) {
-			var0.remove();
-		}
-
-	}
-
-	@ObfuscatedName("ld")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)Lkq;",
-		garbageValue = "-24"
-	)
-	static RouteStrategy method1990(int var0, int var1) {
-		Client.field590.approxDestinationX = var0;
-		Client.field590.approxDestinationY = var1;
-		Client.field590.approxDestinationSizeX = 1;
-		Client.field590.approxDestinationSizeY = 1;
-		return Client.field590;
-	}
-
-	@ObfuscatedName("nn")
-	@ObfuscatedSignature(
-		descriptor = "(Lox;I)Z",
-		garbageValue = "-1061158720"
-	)
-	static final boolean method1989(Widget var0) {
-		int var1 = var0.contentType;
-		if (var1 == 205) {
-			Client.logoutTimer = 250;
+		if (var1 == null) {
+			return false;
+		} else if (this.field785.isActive() && this.field785.getSequenceDefinition().method4823(this.field785.getFrame())) {
+			return true;
+		} else if (this.animationSequence.isActive() && this.animationSequence.getSequenceDefinition().method4823(this.animationSequence.getFrame())) {
 			return true;
 		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) {
-				var2 = (var1 - 300) / 2;
-				var3 = var1 & 1;
-				Client.playerAppearance.changeAppearance(var2, var3 == 1);
+			Model var2 = var1.getModelDynamic(this.type, this.orientation, (int[][])null, 0, 0, 0, (SequenceDefinition)null, -1);
+			return var2 != null && var2.faceAlphas != null;
+		}
+	}
+
+	@ObfuscatedName("iq")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/util/ArrayList;IIIII)V",
+		garbageValue = "-1485830663"
+	)
+	@Export("playSong")
+	static void playSong(ArrayList var0, int var1, int var2, int var3, int var4) {
+		if (!var0.isEmpty()) {
+			int var5 = (Integer)var0.get(0);
+			if (var5 == -1 && !Client.playingJingle) {
+				Clock.method6092(0, 0);
+			} else if (var5 != -1 && !WorldMapData_0.method6385(var5) && class154.clientPreferences.getMusicVolume() != 0) {
+				ArrayList var6 = new ArrayList();
+
+				for (int var7 = 0; var7 < var0.size(); ++var7) {
+					var6.add(new MidiRequest(class443.field5180, (Integer)var0.get(var7), 0, class154.clientPreferences.getMusicVolume(), false));
+				}
+
+				if (Client.playingJingle) {
+					class108.method3468(var6, var1, var2, var3, var4);
+				} else {
+					TextureProvider.method5489(var6, var1, var2, var3, var4, false);
+				}
 			}
 
-			if (var1 >= 314 && var1 <= 323) {
-				var2 = (var1 - 314) / 2;
-				var3 = var1 & 1;
-				Client.playerAppearance.method7516(var2, var3 == 1);
-			}
-
-			if (var1 == 324) {
-				Client.playerAppearance.method7517(0);
-			}
-
-			if (var1 == 325) {
-				Client.playerAppearance.method7517(1);
-			}
-
-			if (var1 == 326) {
-				PacketBufferNode var4 = class291.getPacketBufferNode(ClientPacket.UPDATE_PLAYER_MODEL, Client.packetWriter.isaacCipher);
-				Client.playerAppearance.write(var4.packetBuffer);
-				Client.packetWriter.addNode(var4);
-				return true;
-			} else {
-				return false;
-			}
 		}
 	}
 }

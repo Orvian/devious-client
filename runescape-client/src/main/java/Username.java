@@ -3,62 +3,62 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("xf")
+@ObfuscatedName("xp")
 @Implements("Username")
 public class Username implements Comparable {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("name")
 	String name;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("cleanName")
 	String cleanName;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Lvy;)V"
+		descriptor = "(Ljava/lang/String;Lvt;)V"
 	)
 	public Username(String var1, LoginType var2) {
 		this.name = var1;
-		this.cleanName = SceneTilePaint.method5664(var1, var2);
+		this.cleanName = class81.method2855(var1, var2);
 	}
 
 	public Username(String var1) {
 		this.name = var1;
-		this.cleanName = SceneTilePaint.method5664(var1, LoginType.oldscape);
+		this.cleanName = class81.method2855(var1, LoginType.oldscape);
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1797967383"
+		garbageValue = "1291704747"
 	)
 	@Export("getName")
 	public String getName() {
 		return this.name;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1477423520"
+		garbageValue = "317451761"
 	)
-	public String method11913() {
+	public String method12080() {
 		return this.cleanName;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-84"
+		descriptor = "(I)Z",
+		garbageValue = "893269947"
 	)
 	@Export("hasCleanName")
 	public boolean hasCleanName() {
 		return this.cleanName != null;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(Lxf;S)I",
-		garbageValue = "-13054"
+		descriptor = "(Lxp;I)I",
+		garbageValue = "-1151037655"
 	)
 	@Export("compareToTyped")
 	public int compareToTyped(Username var1) {

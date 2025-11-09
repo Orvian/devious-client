@@ -4,82 +4,98 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ha")
+@ObfuscatedName("hh")
 @Implements("HealthBarDefinition")
 public class HealthBarDefinition extends DualNode {
-	@ObfuscatedName("au")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lpe;"
+	)
+	@Export("HealthBarDefinition_archive")
+	static AbstractArchive HealthBarDefinition_archive;
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "Lpe;"
+	)
+	static AbstractArchive field2031;
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
 	)
 	@Export("HealthBarDefinition_cached")
-	static EvictingDualNodeHashTable HealthBarDefinition_cached;
-	@ObfuscatedName("as")
+	public static EvictingDualNodeHashTable HealthBarDefinition_cached;
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lme;"
 	)
 	@Export("HealthBarDefinition_cachedSprites")
-	static EvictingDualNodeHashTable HealthBarDefinition_cachedSprites;
-	@ObfuscatedName("lo")
+	public static EvictingDualNodeHashTable HealthBarDefinition_cachedSprites;
+	@ObfuscatedName("bg")
 	@ObfuscatedGetter(
-		intValue = -1107492311
+		intValue = -769175921
 	)
-	@Export("js5Port")
-	static int js5Port;
-	@ObfuscatedName("ah")
+	static int field2044;
+	@ObfuscatedName("lm")
 	@ObfuscatedGetter(
-		intValue = 802420521
+		intValue = 701780559
 	)
-	public int field2015;
-	@ObfuscatedName("ap")
+	@Export("worldPort")
+	static int worldPort;
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 221382165
+		intValue = 645274507
+	)
+	public int field2034;
+	@ObfuscatedName("aq")
+	@ObfuscatedGetter(
+		intValue = 414350947
 	)
 	@Export("int1")
 	public int int1;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = 840361369
+		intValue = -2081477753
 	)
 	@Export("int2")
 	public int int2;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = 292443457
+		intValue = 445246779
 	)
 	@Export("int3")
 	public int int3;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
-		intValue = 349252879
+		intValue = -1828387355
 	)
-	public int field2007;
-	@ObfuscatedName("ay")
+	public int field2040;
+	@ObfuscatedName("ad")
 	@ObfuscatedGetter(
-		intValue = 689026667
+		intValue = 1480998725
 	)
 	@Export("int5")
 	public int int5;
-	@ObfuscatedName("aa")
+	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = -1833373539
+		intValue = -1878057051
 	)
 	@Export("frontSpriteID")
 	int frontSpriteID;
-	@ObfuscatedName("ai")
+	@ObfuscatedName("as")
 	@ObfuscatedGetter(
-		intValue = 1683759989
+		intValue = -1974982281
 	)
 	@Export("backSpriteID")
 	int backSpriteID;
-	@ObfuscatedName("ak")
+	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
-		intValue = -397083115
+		intValue = 1578119937
 	)
 	@Export("width")
 	public int width;
-	@ObfuscatedName("ar")
+	@ObfuscatedName("az")
 	@ObfuscatedGetter(
-		intValue = -1085713115
+		intValue = -1388582271
 	)
 	@Export("widthPadding")
 	public int widthPadding;
@@ -93,7 +109,7 @@ public class HealthBarDefinition extends DualNode {
 		this.int1 = 255;
 		this.int2 = 255;
 		this.int3 = -1;
-		this.field2007 = 1;
+		this.field2040 = 1;
 		this.int5 = 70;
 		this.frontSpriteID = -1;
 		this.backSpriteID = -1;
@@ -101,10 +117,10 @@ public class HealthBarDefinition extends DualNode {
 		this.widthPadding = 0;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;B)V",
-		garbageValue = "9"
+		descriptor = "(Lwj;I)V",
+		garbageValue = "33491820"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -118,10 +134,10 @@ public class HealthBarDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
 		descriptor = "(Lwj;II)V",
-		garbageValue = "1830543019"
+		garbageValue = "1454741063"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -151,10 +167,10 @@ public class HealthBarDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lxv;",
-		garbageValue = "1287339576"
+		descriptor = "(I)Lxl;",
+		garbageValue = "-1171719193"
 	)
 	@Export("getFrontSprite")
 	public SpritePixels getFrontSprite() {
@@ -165,7 +181,7 @@ public class HealthBarDefinition extends DualNode {
 			if (var1 != null) {
 				return var1;
 			} else {
-				var1 = class407.SpriteBuffer_getSprite(class172.field1904, this.frontSpriteID, 0);
+				var1 = class455.SpriteBuffer_getSprite(field2031, this.frontSpriteID, 0);
 				if (var1 != null) {
 					HealthBarDefinition_cachedSprites.put(var1, (long)this.frontSpriteID);
 				}
@@ -175,10 +191,10 @@ public class HealthBarDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lxv;",
-		garbageValue = "48"
+		descriptor = "(B)Lxl;",
+		garbageValue = "27"
 	)
 	@Export("getBackSprite")
 	public SpritePixels getBackSprite() {
@@ -189,7 +205,7 @@ public class HealthBarDefinition extends DualNode {
 			if (var1 != null) {
 				return var1;
 			} else {
-				var1 = class407.SpriteBuffer_getSprite(class172.field1904, this.backSpriteID, 0);
+				var1 = class455.SpriteBuffer_getSprite(field2031, this.backSpriteID, 0);
 				if (var1 != null) {
 					HealthBarDefinition_cachedSprites.put(var1, (long)this.backSpriteID);
 				}
@@ -199,107 +215,101 @@ public class HealthBarDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1906804617"
+		garbageValue = "-186124279"
 	)
-	static void method4257() {
-		synchronized(ArchiveDiskActionHandler.field4796) {
-			if (ArchiveDiskActionHandler.field4795 == 0) {
-				class27.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler());
-				class27.ArchiveDiskActionHandler_thread.setDaemon(true);
-				class27.ArchiveDiskActionHandler_thread.start();
-				class27.ArchiveDiskActionHandler_thread.setPriority(5);
-			}
-
-			ArchiveDiskActionHandler.field4795 = 600;
-		}
+	static void method4316() {
+		Tiles.Tiles_underlays = null;
+		Tiles.Tiles_overlays = null;
+		Frames.Tiles_shapes = null;
+		GrandExchangeEvents.field5045 = null;
+		MusicPatch.field3967 = null;
+		Tiles.Tiles_underlays2 = null;
+		SpriteBufferProperties.field24 = null;
+		class1.Tiles_hue = null;
+		ClanChannel.Tiles_saturation = null;
+		class165.Tiles_lightness = null;
+		class450.Tiles_hueMultiplier = null;
+		Language.field5129 = null;
 	}
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(Ltn;II)I",
-		garbageValue = "-65346655"
+		descriptor = "(III)I",
+		garbageValue = "-2045596187"
 	)
-	public static int method4258(DynamicArray var0, int var1) {
-		class267.method6013(var0, class570.field5721);
-		if (var1 >= 0) {
-			int[] var2 = var0.method10348();
-			int var3 = var0.method10351();
+	public static int method4318(int var0, int var1) {
+		int var2 = var1 - var0 & 2047;
+		return var2 > 1024 ? -(2048 - var2) : var2;
+	}
 
-			for (int var4 = 0; var4 < var3; ++var4) {
-				if (var1 < var2[var4]) {
-					return var4;
+	@ObfuscatedName("ae")
+	@ObfuscatedSignature(
+		descriptor = "(Ldm;Lwj;IIIIIIB)V",
+		garbageValue = "8"
+	)
+	@Export("loadTerrain")
+	static final void loadTerrain(WorldView var0, Buffer var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+		int[][][] var8 = var0.tileHeights;
+		byte[][][] var9 = var0.tileSettings;
+		int var10;
+		if (var2 >= 0 && var2 < 4 && var3 >= 0 && var3 < var8[0].length - 1 && var4 >= 0 && var4 < var8[0][0].length - 1) {
+			var9[var2][var3][var4] = 0;
+
+			while (true) {
+				var10 = var1.readUnsignedShort();
+				if (var10 == 0) {
+					if (var2 == 0) {
+						var8[0][var3][var4] = -WorldMapID.method6843(var5 + 932731, 556238 + var6) * 8;
+					} else {
+						var8[var2][var3][var4] = var8[var2 - 1][var3][var4] - 240;
+					}
+					break;
 				}
 
-				var1 -= var2[var4];
-			}
-		}
+				if (var10 == 1) {
+					int var11 = var1.readUnsignedByte();
+					if (var11 == 1) {
+						var11 = 0;
+					}
 
-		return -1;
-	}
+					if (var2 == 0) {
+						var8[0][var3][var4] = -var11 * 8;
+					} else {
+						var8[var2][var3][var4] = var8[var2 - 1][var3][var4] - var11 * 8;
+					}
+					break;
+				}
 
-	@ObfuscatedName("aw")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)I",
-		garbageValue = "-110"
-	)
-	static final int method4254(int var0, int var1, int var2) {
-		if (var2 > 179) {
-			var1 /= 2;
-		}
-
-		if (var2 > 192) {
-			var1 /= 2;
-		}
-
-		if (var2 > 217) {
-			var1 /= 2;
-		}
-
-		if (var2 > 243) {
-			var1 /= 2;
-		}
-
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2;
-		return var3;
-	}
-
-	@ObfuscatedName("mw")
-	@ObfuscatedSignature(
-		descriptor = "(ILtz;Ldj;I)I",
-		garbageValue = "-813601895"
-	)
-	static int method4252(int var0, WorldEntity var1, WorldView var2) {
-		int var3 = -1;
-		if (var0 == Client.field326) {
-			var3 = var2.plane;
-		} else if (Client.field326 == -1) {
-			var3 = var1.field5320.method4438();
-		} else {
-			WorldEntity var4 = Client.worldViewManager.method2318();
-			WorldView var5 = var4.worldView;
-			if (var5.plane == var4.field5320.method4438()) {
-				if (var0 == -1) {
-					var3 = var4.getX();
+				if (var10 <= 49) {
+					Tiles.Tiles_overlays[var2][var3][var4] = (short)var1.readShort();
+					Frames.Tiles_shapes[var2][var3][var4] = (byte)((var10 - 2) / 4);
+					GrandExchangeEvents.field5045[var2][var3][var4] = (byte)(var10 - 2 + var7 & 3);
+				} else if (var10 <= 81) {
+					var9[var2][var3][var4] = (byte)(var10 - 49);
 				} else {
-					var3 = var1.field5320.method4438();
+					Tiles.Tiles_underlays[var2][var3][var4] = (short)(var10 - 81);
+				}
+			}
+		} else {
+			while (true) {
+				var10 = var1.readUnsignedShort();
+				if (var10 == 0) {
+					break;
+				}
+
+				if (var10 == 1) {
+					var1.readUnsignedByte();
+					break;
+				}
+
+				if (var10 <= 49) {
+					var1.readShort();
 				}
 			}
 		}
 
-		return var3;
-	}
-
-	@ObfuscatedName("mp")
-	@ObfuscatedSignature(
-		descriptor = "(IIIZI)V",
-		garbageValue = "326845586"
-	)
-	static final void method4255(int var0, int var1, int var2, boolean var3) {
-		if (class167.widgetDefinition.loadInterface(var0)) {
-			PcmPlayer.resizeInterface(class167.widgetDefinition.Widget_interfaceComponents[var0], 0, class167.widgetDefinition.Widget_interfaceComponents[var0].length - 1, -1, -1, var1, var2, var3);
-		}
 	}
 }

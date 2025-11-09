@@ -4,11 +4,11 @@ import net.runelite.mapping.Implements;
 
 @Implements("OAuthApi")
 public interface OAuthApi {
-	long getAccountHash();
+	void setRefreshTokenRequester(RefreshAccessTokenRequester var1);
 
 	boolean isOnLoginScreen();
 
-	void setRefreshTokenRequester(RefreshAccessTokenRequester var1);
+	long getAccountHash();
 
 	void setClient(int var1);
 

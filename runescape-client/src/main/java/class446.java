@@ -1,43 +1,102 @@
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ro")
+@ObfuscatedName("rx")
 public class class446 {
-	@ObfuscatedName("as")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "([I[IIII)V",
-		garbageValue = "-1257778455"
+		descriptor = "[Lrx;"
 	)
-	public static void method9011(int[] var0, int[] var1, int var2, int var3) {
-		if (var2 < var3) {
-			int var4 = (var3 + var2) / 2;
-			int var5 = var2;
-			int var6 = var0[var4];
-			var0[var4] = var0[var3];
-			var0[var3] = var6;
-			int var7 = var1[var4];
-			var1[var4] = var1[var3];
-			var1[var3] = var7;
-			int var8 = var6 == Integer.MAX_VALUE ? 0 : 1;
+	static final class446[] field5191;
+	@ObfuscatedName("ah")
+	@ObfuscatedGetter(
+		intValue = -1581373791
+	)
+	static final int field5190;
+	@ObfuscatedName("af")
+	@ObfuscatedGetter(
+		intValue = 1419369225
+	)
+	static int field5195;
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "Lrt;"
+	)
+	public class451 field5197;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "Lre;"
+	)
+	public class450 field5193;
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "Lre;"
+	)
+	public class450 field5192;
 
-			for (int var9 = var2; var9 < var3; ++var9) {
-				if (var0[var9] < (var9 & var8) + var6) {
-					int var10 = var0[var9];
-					var0[var9] = var0[var5];
-					var0[var5] = var10;
-					int var11 = var1[var9];
-					var1[var9] = var1[var5];
-					var1[var5++] = var11;
-				}
+	static {
+		field5195 = 0;
+		field5190 = 16;
+		field5191 = new class446[field5190];
+	}
+
+	class446() {
+		this.field5197 = new class451();
+		this.field5193 = new class450();
+		this.field5192 = new class450(1.0F, 1.0F, 1.0F);
+	}
+
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1567104906"
+	)
+	public void method9005() {
+		synchronized(field5191) {
+			if (field5195 < field5190) {
+				field5191[++field5195 - 1] = this;
 			}
 
-			var0[var3] = var0[var5];
-			var0[var5] = var6;
-			var1[var3] = var1[var5];
-			var1[var5] = var7;
-			method9011(var0, var1, var2, var5 - 1);
-			method9011(var0, var1, var5 + 1, var3);
 		}
+	}
 
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1215827010"
+	)
+	void method9007() {
+		this.field5197.method9144();
+		this.field5193.method9068();
+		this.field5192.field5216 = 1.0F;
+		this.field5192.field5218 = 1.0F;
+		this.field5192.field5219 = 1.0F;
+	}
+
+	public String toString() {
+		return "[" + this.field5197.toString() + "|" + this.field5193.toString() + "|" + this.field5192.toString() + "]";
+	}
+
+	public boolean equals(Object var1) {
+		if (var1 == null) {
+			return false;
+		} else if (this == var1) {
+			return true;
+		} else if (!(var1 instanceof class446)) {
+			return false;
+		} else {
+			class446 var2 = (class446)var1;
+			return this.field5197.equals(var2.field5197) && this.field5193.method9085(var2.field5193) && this.field5192.method9085(var2.field5192);
+		}
+	}
+
+	public int hashCode() {
+		boolean var1 = true;
+		byte var2 = 1;
+		int var3 = 31 * var2 + this.field5197.hashCode();
+		var3 = var3 * 31 + this.field5193.hashCode();
+		var3 = 31 * var3 + this.field5192.hashCode();
+		return var3;
 	}
 }

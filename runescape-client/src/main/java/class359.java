@@ -1,36 +1,41 @@
-import java.util.concurrent.ScheduledExecutorService;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nj")
+@ObfuscatedName("nd")
 public class class359 {
-	@ObfuscatedName("au")
-	@ObfuscatedGetter(
-		intValue = -873958935
-	)
-	public static int field3967;
-	@ObfuscatedName("ak")
-	@Export("soundSystemExecutor")
-	static ScheduledExecutorService soundSystemExecutor;
-
-	@ObfuscatedName("al")
+	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Los;",
-		garbageValue = "856929550"
+		descriptor = "Lok;"
 	)
-	public static class381[] method7492() {
-		return new class381[]{class381.USERNAME_PASSWORD, class381.field4308, class381.field4309};
+	@Export("scriptDotWidget")
+	static Widget scriptDotWidget;
+	@ObfuscatedName("ab")
+	@ObfuscatedGetter(
+		intValue = -790338677
+	)
+	public int field4074;
+	@ObfuscatedName("at")
+	@ObfuscatedGetter(
+		intValue = -1361350001
+	)
+	public int field4069;
+	@ObfuscatedName("ag")
+	@ObfuscatedGetter(
+		intValue = -2110717437
+	)
+	public int field4070;
+
+	class359() {
 	}
 
-	@ObfuscatedName("aa")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "49451840"
+		descriptor = "(Ljava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "698014846"
 	)
-	@Export("isAlphaNumeric")
-	public static boolean isAlphaNumeric(char var0) {
-		return var0 >= '0' && var0 <= '9' || var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z';
+	public static String method7518(String var0) {
+		return var0 != null && !var0.isEmpty() && var0.charAt(0) != '#' ? var0 : "";
 	}
 }

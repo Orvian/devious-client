@@ -1,19 +1,12 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("el")
+@ObfuscatedName("ew")
 @Implements("UserComparator8")
 public class UserComparator8 extends AbstractUserComparator {
-	@ObfuscatedName("vp")
-	@ObfuscatedGetter(
-		intValue = -2069259715
-	)
-	static int field1544;
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -21,10 +14,10 @@ public class UserComparator8 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lto;Lto;I)I",
-		garbageValue = "136115044"
+		descriptor = "(Ltu;Ltu;I)I",
+		garbageValue = "1677368969"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -43,27 +36,12 @@ public class UserComparator8 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("ko")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(ZB)V",
-		garbageValue = "-125"
+		descriptor = "(I)[Lcf;",
+		garbageValue = "1949325251"
 	)
-	static final void method3491(boolean var0) {
-		MouseHandler.method722();
-		++Client.packetWriter.pendingWrites;
-		if (Client.packetWriter.pendingWrites >= 50 || var0) {
-			Client.packetWriter.pendingWrites = 0;
-			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) {
-				PacketBufferNode var1 = class291.getPacketBufferNode(ClientPacket.NO_TIMEOUT, Client.packetWriter.isaacCipher);
-				Client.packetWriter.addNode(var1);
-
-				try {
-					Client.packetWriter.flush();
-				} catch (IOException var3) {
-					Client.hadNetworkError = true;
-				}
-			}
-
-		}
+	static class66[] method3610() {
+		return new class66[]{class66.field893, class66.field896, class66.field900, class66.field899, class66.field895};
 	}
 }

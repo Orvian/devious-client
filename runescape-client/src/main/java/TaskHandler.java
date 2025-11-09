@@ -7,28 +7,28 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jm")
+@ObfuscatedName("jz")
 @Implements("TaskHandler")
 public class TaskHandler implements Runnable {
-	@ObfuscatedName("au")
-	@Export("javaVersion")
-	public static String javaVersion;
-	@ObfuscatedName("as")
+	@ObfuscatedName("aj")
+	@Export("javaVendor")
+	public static String javaVendor;
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "Lkh;"
+		descriptor = "Lkx;"
 	)
 	@Export("current")
 	Task current;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "Lkh;"
+		descriptor = "Lkx;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@Export("isClosed")
 	boolean isClosed;
 
@@ -36,12 +36,12 @@ public class TaskHandler implements Runnable {
 		this.current = null;
 		this.task = null;
 		this.isClosed = false;
-		class358.javaVendor = "Unknown";
-		javaVersion = "1.6";
+		javaVendor = "Unknown";
+		class107.javaVersion = "1.6";
 
 		try {
-			class358.javaVendor = System.getProperty("java.vendor");
-			javaVersion = System.getProperty("java.version");
+			javaVendor = System.getProperty("java.vendor");
+			class107.javaVersion = System.getProperty("java.version");
 		} catch (Exception var2) {
 		}
 
@@ -52,10 +52,10 @@ public class TaskHandler implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-29040167"
+		garbageValue = "-655864944"
 	)
 	@Export("close")
 	public final void close() {
@@ -71,10 +71,10 @@ public class TaskHandler implements Runnable {
 
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(IIILjava/lang/Object;B)Lkh;",
-		garbageValue = "-62"
+		descriptor = "(IIILjava/lang/Object;I)Lkx;",
+		garbageValue = "-687730798"
 	)
 	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
@@ -95,20 +95,20 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;II)Lkh;",
-		garbageValue = "-858955533"
+		descriptor = "(Ljava/lang/String;IB)Lkx;",
+		garbageValue = "-104"
 	)
 	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
 		return this.newTask(1, var2, 0, var1);
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Runnable;II)Lkh;",
-		garbageValue = "-1919232827"
+		descriptor = "(Ljava/lang/Runnable;II)Lkx;",
+		garbageValue = "-1128485977"
 	)
 	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
@@ -163,40 +163,32 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("lx")
 	@ObfuscatedSignature(
-		descriptor = "(Ltz;Ltz;ZI)Z",
-		garbageValue = "-1206219882"
+		descriptor = "(Ldm;Lcs;IILkj;I)V",
+		garbageValue = "766335465"
 	)
-	static boolean method5885(WorldEntity var0, WorldEntity var1, boolean var2) {
-		if (var1 == var0) {
-			return true;
-		} else if (var1 == null) {
-			return true;
-		} else {
-			return var0 == null ? false : var2;
+	static final void method5936(WorldView var0, Player var1, int var2, int var3, MoveSpeed var4) {
+		int var5 = var1.pathX[0];
+		int var6 = var1.pathY[0];
+		int var7 = var1.size;
+		CollisionMap var8 = var0.collisionMaps[var0.plane];
+		if (var5 >= var7 && var5 < var8.method6174() - var7 && var6 >= var7 && var6 < var8.method6175() - var7) {
+			if (var2 >= var7 && var2 < var8.method6174() - var7 && var3 >= var7 && var3 < var8.method6175() - var7) {
+				class281 var9 = Client.field297;
+				Client.field303.approxDestinationX = var2;
+				Client.field303.approxDestinationY = var3;
+				Client.field303.approxDestinationSizeX = 1;
+				Client.field303.approxDestinationSizeY = 1;
+				ApproximateRouteStrategy var13 = Client.field303;
+				int var14 = var9.method6348(var5, var6, var7, var13, var8, true, Client.field578, Client.field579);
+				if (var14 >= 1) {
+					for (int var15 = 0; var15 < var14 - 1; ++var15) {
+						var1.method2527(Client.field578[var15], Client.field579[var15], var4);
+					}
+
+				}
+			}
 		}
-	}
-
-	@ObfuscatedName("mv")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIII)I",
-		garbageValue = "-1866593827"
-	)
-	@Export("insertMenuItemNoShift")
-	public static final int insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
-		return ClanSettings.insertMenuItem(var0, var1, var2, var3, var4, var5, -1, false, -1);
-	}
-
-	@ObfuscatedName("ng")
-	static final void method5886(double var0) {
-		Rasterizer3D.buildPalette(var0);
-		((TextureProvider)Rasterizer3D.clips.Rasterizer3D_textureLoader).setBrightness(var0);
-		if (Skills.worldMap != null) {
-			Skills.worldMap.method10702();
-		}
-
-		class134.method3608();
-		FriendSystem.clientPreferences.updateBrightness(var0);
 	}
 }

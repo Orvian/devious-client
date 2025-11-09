@@ -1,26 +1,32 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("he")
+@ObfuscatedName("iq")
 @Implements("StructComposition")
 public class StructComposition extends DualNode {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lpx;"
-	)
-	@Export("StructDefinition_archive")
-	static AbstractArchive StructDefinition_archive;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lpe;"
+	)
+	@Export("StructDefinition_archive")
+	public static AbstractArchive StructDefinition_archive;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
 	)
 	@Export("StructDefinition_cached")
 	public static EvictingDualNodeHashTable StructDefinition_cached;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("bu")
+	@ObfuscatedGetter(
+		intValue = -1710364831
+	)
+	static int field2267;
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Lqr;"
+		descriptor = "Lqw;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -32,19 +38,19 @@ public class StructComposition extends DualNode {
 	StructComposition() {
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1659096186"
+		descriptor = "(B)V",
+		garbageValue = "3"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(Lwj;I)V",
-		garbageValue = "-463159214"
+		garbageValue = "1307755221"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -58,110 +64,65 @@ public class StructComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;IB)V",
-		garbageValue = "-86"
+		descriptor = "(Lwj;II)V",
+		garbageValue = "1952634247"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 249) {
-			this.params = class391.readStringIntParameters(var1, this.params);
+			this.params = Canvas.readStringIntParameters(var1, this.params);
 		}
 
-	}
-
-	@ObfuscatedName("as")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "1462305799"
-	)
-	@Export("getIntParam")
-	public int getIntParam(int var1, int var2) {
-		return FileSystem.method5911(this.params, var1, var2);
 	}
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "1288460257"
+		descriptor = "(III)I",
+		garbageValue = "-1109091527"
 	)
-	@Export("getStringParam")
-	public String getStringParam(int var1, String var2) {
-		return KeyHandler.method391(this.params, var1, var2);
-	}
-
-	@ObfuscatedName("lm")
-	@ObfuscatedSignature(
-		descriptor = "(Ldj;Lwk;I)V",
-		garbageValue = "1507664363"
-	)
-	static final void method4518(WorldView var0, PacketBuffer var1) {
-		var1.importIndex();
-		int var2 = var1.readBits(8);
+	@Export("getIntParam")
+	public int getIntParam(int var1, int var2) {
+		IterableNodeHashTable var4 = this.params;
 		int var3;
-		int var4;
-		NPC var5;
-		if (var2 < var0.field1150.method9810()) {
-			for (var3 = var2; var3 < var0.field1150.method9810(); ++var3) {
-				var4 = var0.field1150.method9817(var3);
-				Client.field494[++Client.field370 - 1] = var4;
-				var5 = (NPC)var0.npcs.get((long)var4);
-				var5.field1165 = true;
+		if (var4 == null) {
+			var3 = var2;
+		} else {
+			IntegerNode var5 = (IntegerNode)var4.get((long)var1);
+			if (var5 == null) {
+				var3 = var2;
+			} else {
+				var3 = var5.integer;
 			}
 		}
 
-		if (var2 > var0.field1150.method9810()) {
-			throw new RuntimeException("");
+		return var3;
+	}
+
+	@ObfuscatedName("af")
+	@ObfuscatedSignature(
+		descriptor = "(ILjava/lang/String;B)Ljava/lang/String;",
+		garbageValue = "73"
+	)
+	@Export("getStringParam")
+	public String getStringParam(int var1, String var2) {
+		return class85.method2923(this.params, var1, var2);
+	}
+
+	@ObfuscatedName("cy")
+	@ObfuscatedSignature(
+		descriptor = "(ILcj;ZI)I",
+		garbageValue = "-496462737"
+	)
+	static int method4612(int var0, Script var1, boolean var2) {
+		if (var0 == 6809) {
+			int var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+			ObjectComposition var4 = TileItem.getObjectDefinition(var3);
+			Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = var4 != null ? var4.name : "";
+			return 1;
 		} else {
-			var0.field1150.method9809();
-
-			for (var3 = 0; var3 < var2; ++var3) {
-				var4 = var0.field1150.method9817(var3);
-				var5 = (NPC)var0.npcs.get((long)var4);
-				int var6 = var1.readBits(1);
-				if (var6 == 0) {
-					var0.field1150.method9808(var4);
-				} else {
-					int var7 = var1.readBits(2);
-					if (var7 == 0) {
-						var0.field1150.method9808(var4);
-						Client.npcIndices[++Client.npcCount - 1] = var4;
-					} else {
-						int var8;
-						int var9;
-						if (var7 == 1) {
-							var0.field1150.method9808(var4);
-							var8 = var1.readBits(3);
-							var5.method2667(var8, MoveSpeed.field3194);
-							var9 = var1.readBits(1);
-							if (var9 == 1) {
-								Client.npcIndices[++Client.npcCount - 1] = var4;
-							}
-						} else if (var7 == 2) {
-							var0.field1150.method9808(var4);
-							if (var1.readBits(1) == 1) {
-								var8 = var1.readBits(3);
-								var5.method2667(var8, MoveSpeed.field3197);
-								var9 = var1.readBits(3);
-								var5.method2667(var9, MoveSpeed.field3197);
-							} else {
-								var8 = var1.readBits(3);
-								var5.method2667(var8, MoveSpeed.field3192);
-							}
-
-							var8 = var1.readBits(1);
-							if (var8 == 1) {
-								Client.npcIndices[++Client.npcCount - 1] = var4;
-							}
-						} else if (var7 == 3) {
-							Client.field494[++Client.field370 - 1] = var4;
-							var5.field1165 = true;
-						}
-					}
-				}
-			}
-
+			return 2;
 		}
 	}
 }

@@ -1,58 +1,98 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dt")
-final class class85 implements class355 {
+@ObfuscatedName("dl")
+final class class85 implements class356 {
+	@ObfuscatedName("df")
+	@ObfuscatedSignature(
+		descriptor = "[Lxl;"
+	)
+	@Export("worldSelectBackSprites")
+	static SpritePixels[] worldSelectBackSprites;
+	@ObfuscatedName("fx")
+	@ObfuscatedSignature(
+		descriptor = "Lri;"
+	)
+	@Export("fontPlain11")
+	static Font fontPlain11;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Lok;"
 	)
 	final Widget val$item;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lox;)V"
+		descriptor = "(Lok;)V"
 	)
 	class85(Widget var1) {
 		this.val$item = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1845830227"
+		garbageValue = "603869602"
 	)
-	public void vmethod7454() {
-		if (this.val$item.method7931().field3989 != null) {
+	public void vmethod7479() {
+		if (this.val$item.method7964().field4088 != null) {
 			ScriptEvent var1 = new ScriptEvent();
-			var1.method2124(this.val$item);
-			var1.setArgs(this.val$item.method7931().field3989);
-			HttpJsonRequestBody.method10535().addFirst(var1);
+			var1.method2172(this.val$item);
+			var1.setArgs(this.val$item.method7964().field4088);
+			class215.method4888().addFirst(var1);
 		}
 
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-129938385"
+		descriptor = "(Lqw;ILjava/lang/String;B)Ljava/lang/String;",
+		garbageValue = "0"
 	)
-	public static void method2787() {
-		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear();
+	static String method2923(IterableNodeHashTable var0, int var1, String var2) {
+		if (var0 == null) {
+			return var2;
+		} else {
+			ObjectNode var3 = (ObjectNode)var0.get((long)var1);
+			return var3 == null ? var2 : (String)var3.obj;
+		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		descriptor = "(Lrm;I)Lrm;",
-		garbageValue = "1781028013"
+		descriptor = "([I[JIII)V",
+		garbageValue = "-1504533849"
 	)
-	public static class448 method2788(class448 var0) {
-		synchronized(class448.field5055) {
-			if (class448.field5061 == 0) {
-				return new class448(var0);
-			} else {
-				class448.field5055[--class448.field5061].method9057(var0);
-				return class448.field5055[class448.field5061];
+	public static void method2918(int[] var0, long[] var1, int var2, int var3) {
+		if (var2 < var3) {
+			int var4 = (var3 + var2) / 2;
+			int var5 = var2;
+			int var6 = var0[var4];
+			var0[var4] = var0[var3];
+			var0[var3] = var6;
+			long var7 = var1[var4];
+			var1[var4] = var1[var3];
+			var1[var3] = var7;
+			int var9 = var6 == Integer.MAX_VALUE ? 0 : 1;
+
+			for (int var10 = var2; var10 < var3; ++var10) {
+				if (var0[var10] < (var10 & var9) + var6) {
+					int var11 = var0[var10];
+					var0[var10] = var0[var5];
+					var0[var5] = var11;
+					long var12 = var1[var10];
+					var1[var10] = var1[var5];
+					var1[var5++] = var12;
+				}
 			}
+
+			var0[var3] = var0[var5];
+			var0[var5] = var6;
+			var1[var3] = var1[var5];
+			var1[var5] = var7;
+			method2918(var0, var1, var2, var5 - 1);
+			method2918(var0, var1, var5 + 1, var3);
 		}
+
 	}
 }

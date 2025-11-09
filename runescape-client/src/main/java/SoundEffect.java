@@ -1,70 +1,70 @@
-import java.util.Arrays;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dn")
+@ObfuscatedName("dz")
 @Implements("SoundEffect")
 public class SoundEffect {
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lef;"
 	)
-	static class114 field1291;
-	@ObfuscatedName("ap")
-	static int field1294;
-	@ObfuscatedName("al")
-	int field1292;
+	static class114 field1320;
 	@ObfuscatedName("ab")
-	int field1289;
-	@ObfuscatedName("ac")
+	int field1315;
+	@ObfuscatedName("at")
+	int field1319;
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Lee;"
+		descriptor = "Leg;"
 	)
-	class108 field1290;
-	@ObfuscatedName("au")
+	class108 field1316;
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "[Leq;"
+		descriptor = "[Lee;"
 	)
 	@Export("instruments")
 	final Instrument[] instruments;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@Export("start")
 	int start;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@Export("end")
 	int end;
 
 	static {
-		field1291 = new class114();
+		field1320 = new class114();
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;ILee;)V"
+		descriptor = "(Lwj;ILeg;)V"
 	)
 	SoundEffect(Buffer var1, int var2, class108 var3) {
 		this.instruments = new Instrument[10];
-		this.field1289 = var2;
-		this.field1290 = var3;
+		this.field1319 = var2;
+		this.field1316 = var3;
 		if (var2 == 0) {
-			this.method2967(var1);
+			this.method3120(var1);
 		} else {
 			if (var2 != 1) {
 				throw new RuntimeException("Invalid fileId for SFX");
 			}
 
-			var3.method3318(var1);
+			var3.method3444(var1);
+			this.field1315 = var3.method3470();
+			this.start = var3.method3446();
+			this.end = var3.method3449();
 		}
 
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(Lwj;)V"
 	)
-	void method2967(Buffer var1) {
-		this.field1292 = 22050;
+	void method3120(Buffer var1) {
+		this.field1315 = 22050;
 
 		for (int var2 = 0; var2 < 10; ++var2) {
 			int var3 = var1.readUnsignedByte();
@@ -79,26 +79,34 @@ public class SoundEffect {
 		this.end = var1.readUnsignedShort();
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Z)Ldg;"
+		descriptor = "(Z)Ldi;"
 	)
-	public RawSound method2969(boolean var1) {
+	public RawSound method3108(boolean var1) {
 		short[] var2 = this.mix(var1);
-		RawSound var3 = new RawSound(this.field1292, var2, this.field1292 * this.start / 1000, this.field1292 * this.end / 1000, false, var1);
+		RawSound var3 = new RawSound(this.field1315, var2, this.field1315 * this.start / 1000, this.field1315 * this.end / 1000, false, var1);
 		return var3;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "()Ldg;"
+		descriptor = "()Ldi;"
 	)
 	@Export("toRawSound")
 	public RawSound toRawSound() {
-		return this.field1289 == 0 ? this.method2969(false) : this.field1290.method3319();
+		return this.field1319 == 0 ? this.method3108(false) : this.field1316.method3448();
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "(Z)Ldi;"
+	)
+	public RawSound method3110(boolean var1) {
+		return this.field1319 == 0 ? this.method3108(var1) : this.field1316.method3448();
+	}
+
+	@ObfuscatedName("af")
 	@Export("calculateDelay")
 	public final int calculateDelay() {
 		int var1 = 9999999;
@@ -133,7 +141,7 @@ public class SoundEffect {
 		}
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("ae")
 	@Export("mix")
 	final short[] mix(boolean var1) {
 		int var2 = 0;
@@ -148,26 +156,26 @@ public class SoundEffect {
 		if (var2 == 0) {
 			return new short[0];
 		} else {
-			var3 = var2 * this.field1292 / 1000;
+			var3 = var2 * this.field1315 / 1000;
 			short[] var4 = new short[var3];
 
 			for (int var5 = 0; var5 < 10; ++var5) {
 				if (this.instruments[var5] != null) {
-					int var6 = this.instruments[var5].duration * this.field1292 / 1000;
-					int var7 = this.instruments[var5].offset * this.field1292 / 1000;
-					int[] var8 = this.instruments[var5].method3414(var6, this.instruments[var5].duration, this.field1292);
+					int var6 = this.instruments[var5].duration * this.field1315 / 1000;
+					int var7 = this.instruments[var5].offset * this.field1315 / 1000;
+					int[] var8 = this.instruments[var5].method3551(var6, this.instruments[var5].duration, this.field1315);
 					int var9;
 					int var10;
 					if (var1) {
 						for (var9 = 0; var9 < var6; ++var9) {
 							var10 = (var8[var9] >> 8) + var4[var9 + var7];
-							var10 = class146.method3755(-128, 127, var10);
+							var10 = KeyHandler.method396(-128, 127, var10);
 							var4[var9 + var7] = (short)((byte)var10);
 						}
 					} else {
 						for (var9 = 0; var9 < var6; ++var9) {
 							var10 = var8[var9] + var4[var9 + var7];
-							var10 = class146.method3755(-32768, 32767, var10);
+							var10 = KeyHandler.method396(-32768, 32767, var10);
 							var4[var9 + var7] = (short)var10;
 						}
 					}
@@ -178,32 +186,28 @@ public class SoundEffect {
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;II)Ldn;"
+		descriptor = "(Lpe;II)Ldz;"
 	)
 	@Export("readSoundEffect")
 	public static SoundEffect readSoundEffect(AbstractArchive var0, int var1, int var2) {
-		class108 var3 = new class108(field1291);
+		class108 var3 = new class108(field1320);
 		byte[] var4 = var0.takeFile(var1, var2);
 		if (var4 == null) {
-			System.out.println("[Red] empty jagfx.js file. ");
 			return null;
 		} else {
 			Buffer var5 = new Buffer(var4);
 			if (var2 == 1) {
-				if (var4.length <= field1294) {
-					System.out.println("[Red] the data of the jagfx.js is empty. ");
+				if (var4.length < 4) {
 					return null;
 				}
 
-				field1294 = var5.readInt();
-				byte[] var6 = Arrays.copyOfRange(var4, 4, field1294 + 4);
-				var3.method3321(var6);
-				var5.offset = field1294 + 4;
+				int var6 = var5.readInt();
+				var3.method3461(var4, 4);
+				var5.offset = var6 + 4;
 			} else {
 				if (var2 != 0) {
-					System.out.println("[Red] invalid fileId.");
 					return null;
 				}
 

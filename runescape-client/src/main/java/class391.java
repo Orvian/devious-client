@@ -3,197 +3,124 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("pq")
+@ObfuscatedName("ps")
 public enum class391 implements Enum {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lpq;"
-	)
-	field4700(0, 0),
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lpq;"
+		descriptor = "Lps;"
 	)
-	field4696(1, 1),
-	@ObfuscatedName("ac")
+	field4828(0, 0),
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lpq;"
+		descriptor = "Lps;"
+	)
+	field4831(1, 1),
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "Lps;"
 	)
 	@Export("TOKEN")
 	TOKEN(2, 2);
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 458419375
+		intValue = 1853424427
 	)
-	final int field4699;
-	@ObfuscatedName("au")
+	final int field4825;
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -1525146079
+		intValue = 1939815089
 	)
-	final int field4697;
+	final int field4829;
 
 	class391(int var3, int var4) {
-		this.field4699 = var3;
-		this.field4697 = var4;
+		this.field4825 = var3;
+		this.field4829 = var4;
 	}
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-164877066"
+		garbageValue = "-1012656358"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field4697;
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(Lwj;Lqr;I)Lqr;",
-		garbageValue = "-133896480"
-	)
-	@Export("readStringIntParameters")
-	static final IterableNodeHashTable readStringIntParameters(Buffer var0, IterableNodeHashTable var1) {
-		int var2 = var0.readUnsignedByte();
-		int var3;
-		if (var1 == null) {
-			var3 = Huffman.method8114(var2);
-			var1 = new IterableNodeHashTable(var3);
-		}
-
-		for (var3 = 0; var3 < var2; ++var3) {
-			boolean var4 = var0.readUnsignedByte() == 1;
-			int var5 = var0.readMedium();
-			Object var6;
-			if (var4) {
-				var6 = new ObjectNode(var0.readStringCp1252NullTerminated());
-			} else {
-				var6 = new IntegerNode(var0.readInt());
-			}
-
-			var1.put((Node)var6, (long)var5);
-		}
-
-		return var1;
+		return this.field4829;
 	}
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lxj;"
+		descriptor = "(Lpe;I)V",
+		garbageValue = "173537748"
 	)
-	@Export("newRunException")
-	public static RunException newRunException(Throwable var0, String var1) {
-		RunException var2;
-		if (var0 instanceof RunException) {
-			var2 = (RunException)var0;
-			var2.message = var2.message + ' ' + var1;
-		} else {
-			var2 = new RunException(var0, var1);
-		}
+	public static void method8226(AbstractArchive var0) {
+		EnumComposition.EnumDefinition_archive = var0;
+	}
 
-		return var2;
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "(Ltl;II)V",
+		garbageValue = "-191820396"
+	)
+	static void method8223(DynamicArray var0, int var1) {
+		if (var1 < 0 || var1 >= var0.method10433()) {
+			throw new RuntimeException();
+		}
 	}
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		descriptor = "(Lrb;FFFI)F",
-		garbageValue = "364913314"
+		descriptor = "(Ltl;B)V",
+		garbageValue = "66"
 	)
-	static float method8213(class452 var0, float var1, float var2, float var3) {
-		float var4 = JagNetThread.method8467(var0.field5090, var0.field5089, var1);
-		if (Math.abs(var4) < class133.field1600) {
-			return var1;
-		} else {
-			float var5 = JagNetThread.method8467(var0.field5090, var0.field5089, var2);
-			if (Math.abs(var5) < class133.field1600) {
-				return var2;
+	public static void method8225(DynamicArray var0) {
+		PacketBufferNode.method7052(var0, (class572)null, true);
+		int var1 = var0.method10433();
+		if (var1 > 1) {
+			if (var0.field5571 == class572.field5879) {
+				class167.method4104(var0.method10430(), 0, var1 - 1);
+			} else if (var0.field5571 == class572.field5878) {
+				class149.method3896(var0.method10431(), 0, var1 - 1);
 			} else {
-				float var6 = 0.0F;
-				float var7 = 0.0F;
-				float var8 = 0.0F;
-				float var13 = 0.0F;
-				boolean var14 = true;
-				boolean var15 = false;
+				class67.method2192(var0.method10428(), 0, var1 - 1);
+			}
 
-				do {
-					var15 = false;
-					if (var14) {
-						var6 = var1;
-						var13 = var4;
-						var7 = var2 - var1;
-						var8 = var7;
-						var14 = false;
-					}
+		}
+	}
 
-					if (Math.abs(var13) < Math.abs(var5)) {
-						var1 = var2;
-						var2 = var6;
-						var6 = var1;
-						var4 = var5;
-						var5 = var13;
-						var13 = var4;
-					}
+	@ObfuscatedName("mn")
+	@ObfuscatedSignature(
+		descriptor = "([Lok;IIIIIIZI)V",
+		garbageValue = "-1228189090"
+	)
+	@Export("resizeInterface")
+	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, boolean var7) {
+		for (int var8 = var1; var8 <= var2; ++var8) {
+			Widget var9 = var0[var8];
+			if (var9 != null && var3 == var9.parentId && var4 == var9.field4173) {
+				HitSplatDefinition.alignWidgetSize(var9, var5, var6, var7);
+				class361.alignWidgetPosition(var9, var5, var6);
+				if (var9.scrollX > var9.scrollWidth - var9.width) {
+					var9.scrollX = var9.scrollWidth - var9.width;
+				}
 
-					float var16 = class133.field1598 * Math.abs(var2) + 0.5F * var3;
-					float var17 = (var6 - var2) * 0.5F;
-					boolean var18 = Math.abs(var17) > var16 && var5 != 0.0F;
-					if (var18) {
-						if (Math.abs(var8) >= var16 && Math.abs(var4) > Math.abs(var5)) {
-							float var12 = var5 / var4;
-							float var9;
-							float var10;
-							if (var1 == var6) {
-								var9 = var12 * 2.0F * var17;
-								var10 = 1.0F - var12;
-							} else {
-								var10 = var4 / var13;
-								float var11 = var5 / var13;
-								var9 = ((var10 - var11) * var10 * 2.0F * var17 - (var2 - var1) * (var11 - 1.0F)) * var12;
-								var10 = (var12 - 1.0F) * (var10 - 1.0F) * (var11 - 1.0F);
-							}
+				if (var9.scrollX < 0) {
+					var9.scrollX = 0;
+				}
 
-							if ((double)var9 > 0.0D) {
-								var10 = -var10;
-							} else {
-								var9 = -var9;
-							}
+				if (var9.scrollY > var9.scrollHeight - var9.height * -171267385) {
+					var9.scrollY = var9.scrollHeight - var9.height * -171267385;
+				}
 
-							var12 = var8;
-							var8 = var7;
-							if (2.0F * var9 < var10 * 3.0F * var17 - Math.abs(var10 * var16) && var9 < Math.abs(var10 * var12 * 0.5F)) {
-								var7 = var9 / var10;
-							} else {
-								var7 = var17;
-								var8 = var17;
-							}
-						} else {
-							var7 = var17;
-							var8 = var17;
-						}
+				if (var9.scrollY < 0) {
+					var9.scrollY = 0;
+				}
 
-						var1 = var2;
-						var4 = var5;
-						if (Math.abs(var7) > var16) {
-							var2 += var7;
-						} else if ((double)var17 > 0.0D) {
-							var2 += var16;
-						} else {
-							var2 -= var16;
-						}
-
-						var5 = JagNetThread.method8467(var0.field5090, var0.field5089, var2);
-						if ((double)(var5 * (var13 / Math.abs(var13))) > 0.0D) {
-							var14 = true;
-							var15 = true;
-						} else {
-							var15 = true;
-						}
-					}
-				} while(var15);
-
-				return var2;
+				if (var9.type == 0) {
+					VarcInt.revalidateWidgetScroll(var0, var9, var7);
+				}
 			}
 		}
+
 	}
 }

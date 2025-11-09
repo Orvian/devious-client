@@ -3,88 +3,88 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("qh")
+@ObfuscatedName("qa")
 @Implements("IndexedObjectSetIterator")
 public class IndexedObjectSetIterator implements Iterator {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lqw;"
-	)
-	IndexedObjectSet field4957;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lui;"
+		descriptor = "Lqi;"
 	)
-	IndexedObjectNode field4956;
-	@ObfuscatedName("ac")
-	int field4955;
-	@ObfuscatedName("av")
+	IndexedObjectSet field5106;
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lui;"
+		descriptor = "Lug;"
 	)
-	IndexedObjectNode field4958;
+	IndexedObjectNode field5107;
+	@ObfuscatedName("ag")
+	int field5108;
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "Lug;"
+	)
+	IndexedObjectNode field5109;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lqw;)V"
+		descriptor = "(Lqi;)V"
 	)
 	IndexedObjectSetIterator(IndexedObjectSet var1) {
-		this.field4958 = null;
-		this.field4957 = var1;
-		this.method8648();
+		this.field5109 = null;
+		this.field5106 = var1;
+		this.method8670();
 	}
 
-	@ObfuscatedName("al")
-	void method8648() {
-		this.field4956 = this.field4957.nodes[0].nextNode;
-		this.field4955 = 1;
-		this.field4958 = null;
+	@ObfuscatedName("ab")
+	void method8670() {
+		this.field5107 = this.field5106.nodes[0].nextNode;
+		this.field5108 = 1;
+		this.field5109 = null;
 	}
 
 	public Object next() {
 		IndexedObjectNode var1;
-		if (this.field4957.nodes[this.field4955 - 1] != this.field4956) {
-			var1 = this.field4956;
-			this.field4956 = var1.nextNode;
-			this.field4958 = var1;
+		if (this.field5106.nodes[this.field5108 - 1] != this.field5107) {
+			var1 = this.field5107;
+			this.field5107 = var1.nextNode;
+			this.field5109 = var1;
 			return var1;
 		} else {
 			do {
-				if (this.field4955 >= this.field4957.size) {
+				if (this.field5108 >= this.field5106.size) {
 					return null;
 				}
 
-				var1 = this.field4957.nodes[this.field4955++].nextNode;
-			} while(var1 == this.field4957.nodes[this.field4955 - 1]);
+				var1 = this.field5106.nodes[this.field5108++].nextNode;
+			} while(var1 == this.field5106.nodes[this.field5108 - 1]);
 
-			this.field4956 = var1.nextNode;
-			this.field4958 = var1;
+			this.field5107 = var1.nextNode;
+			this.field5109 = var1;
 			return var1;
-		}
-	}
-
-	public void remove() {
-		if (this.field4958 == null) {
-			throw new IllegalStateException();
-		} else {
-			this.field4958.detach();
-			this.field4958 = null;
 		}
 	}
 
 	public boolean hasNext() {
-		if (this.field4957.nodes[this.field4955 - 1] != this.field4956) {
+		if (this.field5106.nodes[this.field5108 - 1] != this.field5107) {
 			return true;
 		} else {
-			while (this.field4955 < this.field4957.size) {
-				if (this.field4957.nodes[this.field4955++].nextNode != this.field4957.nodes[this.field4955 - 1]) {
-					this.field4956 = this.field4957.nodes[this.field4955 - 1].nextNode;
+			while (this.field5108 < this.field5106.size) {
+				if (this.field5106.nodes[this.field5108++].nextNode != this.field5106.nodes[this.field5108 - 1]) {
+					this.field5107 = this.field5106.nodes[this.field5108 - 1].nextNode;
 					return true;
 				}
 
-				this.field4956 = this.field4957.nodes[this.field4955 - 1];
+				this.field5107 = this.field5106.nodes[this.field5108 - 1];
 			}
 
 			return false;
+		}
+	}
+
+	public void remove() {
+		if (this.field5109 == null) {
+			throw new IllegalStateException();
+		} else {
+			this.field5109.detach();
+			this.field5109 = null;
 		}
 	}
 }

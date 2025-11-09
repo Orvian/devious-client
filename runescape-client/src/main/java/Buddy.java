@@ -1,27 +1,28 @@
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("to")
+@ObfuscatedName("tu")
 @Implements("Buddy")
 public class Buddy extends User {
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = 372329187
+		intValue = -143139485
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -1604326975
+		intValue = 81147133
 	)
 	@Export("int2")
 	public int int2;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 1073770257
+		intValue = -1828883265
 	)
 	@Export("rank")
 	public int rank;
@@ -30,10 +31,10 @@ public class Buddy extends User {
 		this.world = -1;
 	}
 
-	@ObfuscatedName("ba")
+	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "-329272669"
+		garbageValue = "-376139408"
 	)
 	@Export("set")
 	void set(int var1, int var2) {
@@ -41,34 +42,46 @@ public class Buddy extends User {
 		this.int2 = var2;
 	}
 
-	@ObfuscatedName("bh")
+	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1863516603"
+		descriptor = "(B)I",
+		garbageValue = "127"
 	)
 	@Export("getWorld")
 	public int getWorld() {
 		return this.world;
 	}
 
-	@ObfuscatedName("bg")
+	@ObfuscatedName("bv")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1008212230"
+		garbageValue = "1407521019"
 	)
 	@Export("hasWorld")
 	public boolean hasWorld() {
 		return this.world > 0;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ie")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-947195806"
+		descriptor = "(I)V",
+		garbageValue = "-2024416510"
 	)
-	public static int method10089(int var0) {
-		long var2 = ViewportMouse.ViewportMouse_entityTags[var0];
-		int var1 = (int)(var2 >>> 7 & 127L);
-		return var1;
+	static final void method10159() {
+		int var0 = Client.playerUpdateManager.playerCount;
+		int[] var1 = Client.playerUpdateManager.playerIndices;
+		Iterator var2 = Client.worldViewManager.iterator();
+
+		while (var2.hasNext()) {
+			WorldView var3 = (WorldView)var2.next();
+
+			for (int var4 = 0; var4 < var0; ++var4) {
+				Player var5 = (Player)var3.players.get((long)var1[var4]);
+				if (var5 != null) {
+					HealthBarConfig.updateActorSequence(var3, var5, 1);
+				}
+			}
+		}
+
 	}
 }

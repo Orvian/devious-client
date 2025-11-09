@@ -1,96 +1,98 @@
+import java.text.ParseException;
+import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lw")
+@ObfuscatedName("lk")
 @Implements("WorldMapSection0")
 public class WorldMapSection0 implements WorldMapSection {
 	@ObfuscatedName("ax")
-	@Export("Tiles_saturation")
-	static int[] Tiles_saturation;
-	@ObfuscatedName("al")
+	@Export("fontHelvetica13")
+	static java.awt.Font fontHelvetica13;
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 1669504503
+		intValue = 835026009
 	)
 	@Export("oldZ")
 	int oldZ;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 1328466649
+		intValue = 8205355
 	)
 	@Export("newZ")
 	int newZ;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -1180236205
+		intValue = 70054765
 	)
 	@Export("oldX")
 	int oldX;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 307620759
+		intValue = 150218947
 	)
 	@Export("oldY")
 	int oldY;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -1856998199
+		intValue = 545353129
 	)
 	@Export("newX")
 	int newX;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = 1596745743
+		intValue = 1219878721
 	)
 	@Export("newY")
 	int newY;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = -488546445
+		intValue = -707073553
 	)
 	@Export("oldChunkXLow")
 	int oldChunkXLow;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = -538963373
+		intValue = 1022973279
 	)
 	@Export("oldChunkYLow")
 	int oldChunkYLow;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = 1972274185
+		intValue = 181015963
 	)
 	@Export("oldChunkXHigh")
 	int oldChunkXHigh;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = 403026883
+		intValue = -1354720123
 	)
 	@Export("oldChunkYHigh")
 	int oldChunkYHigh;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
-		intValue = 371590161
+		intValue = 2056337049
 	)
 	@Export("newChunkXLow")
 	int newChunkXLow;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ad")
 	@ObfuscatedGetter(
-		intValue = -678259523
+		intValue = 1748002321
 	)
 	@Export("newChunkYLow")
 	int newChunkYLow;
-	@ObfuscatedName("aa")
+	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = -1899377085
+		intValue = 914272673
 	)
 	@Export("newChunkXHigh")
 	int newChunkXHigh;
-	@ObfuscatedName("ai")
+	@ObfuscatedName("as")
 	@ObfuscatedGetter(
-		intValue = 1461562753
+		intValue = -373254213
 	)
 	@Export("newChunkYHigh")
 	int newChunkYHigh;
@@ -98,10 +100,10 @@ public class WorldMapSection0 implements WorldMapSection {
 	WorldMapSection0() {
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Llr;B)V",
-		garbageValue = "78"
+		descriptor = "(Llh;I)V",
+		garbageValue = "-321528483"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -123,10 +125,10 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
 		descriptor = "(IIII)Z",
-		garbageValue = "828092552"
+		garbageValue = "-1647486588"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
@@ -137,20 +139,20 @@ public class WorldMapSection0 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)Z",
-		garbageValue = "-29"
+		descriptor = "(III)Z",
+		garbageValue = "16374902"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
 		return var1 >= (this.newX << 6) + (this.newChunkXLow << 3) && var1 <= (this.newX << 6) + (this.newChunkXHigh << 3) + 7 && var2 >= (this.newY << 6) + (this.newChunkYLow << 3) && var2 <= (this.newY << 6) + (this.newChunkYHigh << 3) + 7;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)[I",
-		garbageValue = "-826920955"
+		descriptor = "(IIIB)[I",
+		garbageValue = "-10"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
@@ -162,10 +164,10 @@ public class WorldMapSection0 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(III)Lng;",
-		garbageValue = "-596761800"
+		descriptor = "(III)Lny;",
+		garbageValue = "126893021"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
@@ -178,10 +180,10 @@ public class WorldMapSection0 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;I)V",
-		garbageValue = "-1001820155"
+		descriptor = "(Lwj;B)V",
+		garbageValue = "-7"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
@@ -202,90 +204,57 @@ public class WorldMapSection0 implements WorldMapSection {
 		this.postRead();
 	}
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1526617711"
+		garbageValue = "-841452392"
 	)
 	@Export("postRead")
 	void postRead() {
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		descriptor = "(Ltn;Ljava/lang/Object;IIB)I",
-		garbageValue = "8"
+		descriptor = "(I)Z",
+		garbageValue = "1502628452"
 	)
-	public static int method6725(DynamicArray var0, Object var1, int var2, int var3) {
-		if (var2 < 0) {
-			var2 = 0;
+	static boolean method6793() {
+		Date var0;
+		try {
+			var0 = class67.method2190();
+		} catch (ParseException var6) {
+			GrandExchangeOfferWorldComparator.method8565("Date not valid.", "Please ensure date follows the format", "DD/MM/YYYY and is after 01/01/1900");
+			return false;
 		}
 
-		if (var3 < 0 || var3 > var0.method10351()) {
-			var3 = var0.method10351();
-		}
-
-		int var4 = 0;
-		int var6;
-		if (var0.field5399 == class570.field5721) {
-			int[] var5 = var0.method10348();
-			var6 = (Integer)var1;
-
-			for (int var7 = var2; var7 < var3; ++var7) {
-				if (var6 == var5[var7]) {
-					++var4;
-				}
-			}
-		} else if (var0.field5399 == class570.field5724) {
-			long[] var11 = var0.method10377();
-			long var9 = (Long)var1;
-
-			for (int var8 = var2; var8 < var3; ++var8) {
-				if (var9 == var11[var8]) {
-					++var4;
-				}
-			}
+		if (var0 == null) {
+			return false;
 		} else {
-			Object[] var12 = var0.method10393();
-
-			for (var6 = var2; var6 < var3; ++var6) {
-				if (var12[var6] == var1 || var12[var6] != null && var12[var6].equals(var1)) {
-					++var4;
+			boolean var4 = class139.method3814(var0);
+			Date var3 = class203.method4567();
+			boolean var2 = var0.after(var3);
+			if (!var2) {
+				GrandExchangeOfferWorldComparator.method8565("Date not valid.", "Please ensure date follows the format", "DD/MM/YYYY and is after 01/01/1900");
+				return false;
+			} else {
+				if (!var4) {
+					class165.field1886 = 8388607;
+				} else {
+					class165.field1886 = (int)(var0.getTime() / 86400000L - 11745L);
 				}
+
+				return true;
 			}
 		}
-
-		return var4;
 	}
 
-	@ObfuscatedName("ms")
+	@ObfuscatedName("hz")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Lox;I)Ljava/lang/String;",
-		garbageValue = "1817046756"
+		descriptor = "(B)J",
+		garbageValue = "17"
 	)
-	static String method6746(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) {
-			for (int var2 = 1; var2 <= 5; ++var2) {
-				while (true) {
-					int var3 = var0.indexOf("%" + var2);
-					if (var3 == -1) {
-						break;
-					}
-
-					String var4 = var0.substring(0, var3);
-					int var6 = class198.method4384(var1, var2 - 1);
-					String var5;
-					if (var6 < 999999999) {
-						var5 = Integer.toString(var6);
-					} else {
-						var5 = "*";
-					}
-
-					var0 = var4 + var5 + var0.substring(var3 + 2);
-				}
-			}
-		}
-
-		return var0;
+	@Export("getUserHash")
+	static long getUserHash() {
+		return Client.userHash;
 	}
 }

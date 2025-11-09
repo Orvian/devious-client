@@ -4,45 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hk")
+@ObfuscatedName("hj")
 @Implements("FloorUnderlayDefinition")
 public class FloorUnderlayDefinition extends DualNode {
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lpe;"
+	)
+	@Export("FloorUnderlayDefinition_archive")
+	public static AbstractArchive FloorUnderlayDefinition_archive;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
 	)
 	@Export("FloorUnderlayDefinition_cached")
-	static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
-	@ObfuscatedName("az")
-	@Export("fontHelvetica13")
-	static java.awt.Font fontHelvetica13;
-	@ObfuscatedName("ac")
+	public static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -687498565
+		intValue = -938424203
 	)
 	@Export("rgb")
 	int rgb;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = -1821309487
+		intValue = 588425523
 	)
 	@Export("hue")
 	public int hue;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -952563765
+		intValue = 950473497
 	)
 	@Export("saturation")
 	public int saturation;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -2015334855
+		intValue = 242991345
 	)
 	@Export("lightness")
 	public int lightness;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 1322351421
+		intValue = 1449789169
 	)
 	@Export("hueMultiplier")
 	public int hueMultiplier;
@@ -51,27 +54,27 @@ public class FloorUnderlayDefinition extends DualNode {
 		FloorUnderlayDefinition_cached = new EvictingDualNodeHashTable(64);
 	}
 
-	FloorUnderlayDefinition() {
+	public FloorUnderlayDefinition() {
 		this.rgb = 0;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-933694362"
+		garbageValue = "-2019181373"
 	)
 	@Export("postDecode")
-	void postDecode() {
+	public void postDecode() {
 		this.setHsl(this.rgb);
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;II)V",
-		garbageValue = "1245387247"
+		descriptor = "(Lwj;IB)V",
+		garbageValue = "-36"
 	)
 	@Export("decode")
-	void decode(Buffer var1, int var2) {
+	public void decode(Buffer var1, int var2) {
 		while (true) {
 			int var3 = var1.readUnsignedByte();
 			if (var3 == 0) {
@@ -82,10 +85,10 @@ public class FloorUnderlayDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;III)V",
-		garbageValue = "-475942092"
+		descriptor = "(Lwj;IIS)V",
+		garbageValue = "-7511"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
@@ -95,10 +98,10 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-875943670"
+		descriptor = "(IB)V",
+		garbageValue = "46"
 	)
 	@Export("setHsl")
 	void setHsl(int var1) {
@@ -125,7 +128,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 		double var12 = 0.0D;
 		double var14 = 0.0D;
-		double var16 = (var10 + var8) / 2.0D;
+		double var16 = (var8 + var10) / 2.0D;
 		if (var8 != var10) {
 			if (var16 < 0.5D) {
 				var14 = (var10 - var8) / (var8 + var10);
@@ -135,11 +138,11 @@ public class FloorUnderlayDefinition extends DualNode {
 				var14 = (var10 - var8) / (2.0D - var10 - var8);
 			}
 
-			if (var2 == var10) {
+			if (var10 == var2) {
 				var12 = (var4 - var6) / (var10 - var8);
-			} else if (var10 == var4) {
-				var12 = (var6 - var2) / (var10 - var8) + 2.0D;
-			} else if (var10 == var6) {
+			} else if (var4 == var10) {
+				var12 = 2.0D + (var6 - var2) / (var10 - var8);
+			} else if (var6 == var10) {
 				var12 = (var2 - var4) / (var10 - var8) + 4.0D;
 			}
 		}
@@ -160,9 +163,9 @@ public class FloorUnderlayDefinition extends DualNode {
 		}
 
 		if (var16 > 0.5D) {
-			this.hueMultiplier = (int)((1.0D - var16) * var14 * 512.0D);
+			this.hueMultiplier = (int)(512.0D * (1.0D - var16) * var14);
 		} else {
-			this.hueMultiplier = (int)(var16 * var14 * 512.0D);
+			this.hueMultiplier = (int)(512.0D * var16 * var14);
 		}
 
 		if (this.hueMultiplier < 1) {
@@ -172,56 +175,37 @@ public class FloorUnderlayDefinition extends DualNode {
 		this.hue = (int)(var12 * (double)this.hueMultiplier);
 	}
 
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "(Lpe;B)V",
+		garbageValue = "49"
+	)
+	public static void method4511(AbstractArchive var0) {
+		VarbitComposition.VarbitDefinition_archive = var0;
+	}
+
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "2106508364"
+		descriptor = "(JII)V",
+		garbageValue = "1206313092"
 	)
-	protected static final boolean method4416() {
-		return GameEngine.keyHandler.method369();
+	static final void method4509(long var0, int var2) {
+		if (ViewportMouse.field2958[ViewportMouse.ViewportMouse_entityCount] != Integer.MAX_VALUE && ViewportMouse.ViewportMouse_entityTags[ViewportMouse.ViewportMouse_entityCount] != var0) {
+			++ViewportMouse.ViewportMouse_entityCount;
+			ViewportMouse.field2958[ViewportMouse.ViewportMouse_entityCount] = Integer.MAX_VALUE;
+		}
+
+		ViewportMouse.ViewportMouse_entityTags[ViewportMouse.ViewportMouse_entityCount] = var0;
+		ViewportMouse.field2958[ViewportMouse.ViewportMouse_entityCount] = Math.min(ViewportMouse.field2958[ViewportMouse.ViewportMouse_entityCount], var2);
 	}
 
-	@ObfuscatedName("af")
+	@ObfuscatedName("hm")
 	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "-1406951267"
+		descriptor = "(B)Lud;",
+		garbageValue = "115"
 	)
-	static final boolean method4434(int var0, int var1) {
-		ObjectComposition var2 = SpriteMask.getObjectDefinition(var0);
-		if (var1 == 11) {
-			var1 = 10;
-		}
-
-		if (var1 >= 5 && var1 <= 8) {
-			var1 = 4;
-		}
-
-		return var2.method4567(var1);
-	}
-
-	@ObfuscatedName("ic")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1554979228"
-	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field596 = 0L;
-		if (var0 >= 2) {
-			Client.isResizable = true;
-		} else {
-			Client.isResizable = false;
-		}
-
-		if (class31.getWindowedMode() == 1) {
-			Language.client.setMaxCanvasSize(765, 503);
-		} else {
-			Language.client.setMaxCanvasSize(7680, 2160);
-		}
-
-		if (Client.gameState >= 25) {
-			class101.method3101();
-		}
-
+	@Export("getPlatformInfo")
+	static PlatformInfo getPlatformInfo() {
+		return class151.platformInfo;
 	}
 }

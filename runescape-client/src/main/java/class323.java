@@ -1,40 +1,38 @@
-import java.io.IOException;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mh")
+@ObfuscatedName("ml")
 public class class323 {
-	@ObfuscatedName("ph")
+	@ObfuscatedName("aj")
+	public static short[][] field3544;
+
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;I)V",
-		garbageValue = "-492694788"
+		descriptor = "(II)Z",
+		garbageValue = "-1077652640"
 	)
-	@Export("randomDatData2")
-	static void randomDatData2(Buffer var0) {
-		if (Client.randomDatData != null) {
-			var0.writeBytes(Client.randomDatData, 0, Client.randomDatData.length);
-		} else {
-			byte[] var2 = new byte[24];
+	static final boolean method7033(int var0) {
+		return var0 == 1 || var0 == 2 || var0 >= 3 && var0 <= 6 || var0 == 1001;
+	}
 
-			try {
-				JagexCache.JagexCache_randomDat.seek(0L);
-				JagexCache.JagexCache_randomDat.readFully(var2);
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(I)I",
+		garbageValue = "-1157829090"
+	)
+	static int method7031() {
+		return class26.KeyHandler_keyCodes.length;
+	}
 
-				int var3;
-				for (var3 = 0; var3 < 24 && var2[var3] == 0; ++var3) {
-				}
-
-				if (var3 >= 24) {
-					throw new IOException();
-				}
-			} catch (Exception var6) {
-				for (int var4 = 0; var4 < 24; ++var4) {
-					var2[var4] = -1;
-				}
-			}
-
-			var0.writeBytes(var2, 0, var2.length);
+	@ObfuscatedName("nf")
+	static final void method7032(double var0) {
+		Rasterizer3D.buildPalette(var0);
+		((TextureProvider)Rasterizer3D.clips.Rasterizer3D_textureLoader).setBrightness(var0);
+		if (class50.worldMap != null) {
+			class50.worldMap.method10803();
 		}
+
+		WidgetDefinition.method7504();
+		class154.clientPreferences.updateBrightness(var0);
 	}
 }

@@ -1,87 +1,96 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lu")
+@ObfuscatedName("ll")
 @Implements("WorldMapCacheName")
 public class WorldMapCacheName {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Llu;"
-	)
-	public static final WorldMapCacheName field3410;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Llu;"
+		descriptor = "Lll;"
 	)
-	public static final WorldMapCacheName field3411;
-	@ObfuscatedName("ac")
+	public static final WorldMapCacheName field3505;
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Llu;"
+		descriptor = "Lll;"
 	)
-	public static final WorldMapCacheName field3407;
-	@ObfuscatedName("av")
+	public static final WorldMapCacheName field3501;
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Llu;"
+		descriptor = "Lll;"
 	)
-	static final WorldMapCacheName field3408;
-	@ObfuscatedName("au")
+	public static final WorldMapCacheName field3502;
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "Llu;"
+		descriptor = "Lll;"
 	)
-	public static final WorldMapCacheName field3409;
-	@ObfuscatedName("mn")
-	@ObfuscatedGetter(
-		intValue = -562752735
+	static final WorldMapCacheName field3503;
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "Lll;"
 	)
-	@Export("cameraY")
-	static int cameraY;
-	@ObfuscatedName("as")
+	public static final WorldMapCacheName field3504;
+	@ObfuscatedName("jb")
+	@ObfuscatedSignature(
+		descriptor = "Ltf;"
+	)
+	@Export("js5Socket")
+	static AbstractSocket js5Socket;
+	@ObfuscatedName("af")
 	@Export("name")
 	public final String name;
 
 	static {
-		field3410 = new WorldMapCacheName("details");
-		field3411 = new WorldMapCacheName("compositemap");
-		field3407 = new WorldMapCacheName("compositetexture");
-		field3408 = new WorldMapCacheName("area");
-		field3409 = new WorldMapCacheName("labels");
+		field3505 = new WorldMapCacheName("details");
+		field3501 = new WorldMapCacheName("compositemap");
+		field3502 = new WorldMapCacheName("compositetexture");
+		field3503 = new WorldMapCacheName("area");
+		field3504 = new WorldMapCacheName("labels");
 	}
 
 	WorldMapCacheName(String var1) {
 		this.name = var1;
 	}
 
-	@ObfuscatedName("nv")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lch;ZB)V",
-		garbageValue = "-1"
+		descriptor = "([Ljava/lang/String;[SB)V",
+		garbageValue = "126"
 	)
-	@Export("closeInterface")
-	static final void closeInterface(InterfaceParent var0, boolean var1) {
-		int var2 = var0.group;
-		int var3 = (int)var0.key;
-		var0.remove();
-		if (var1) {
-			class167.widgetDefinition.method7460(var2);
-		}
+	public static void method6908(String[] var0, short[] var1) {
+		class324.sortItemsByName(var0, var1, 0, var0.length - 1);
+	}
 
-		for (WidgetConfigNode var4 = (WidgetConfigNode)Client.widgetFlags.first(); var4 != null; var4 = (WidgetConfigNode)Client.widgetFlags.next()) {
-			if ((long)var2 == (var4.key >> 16 & 65535L)) {
-				var4.remove();
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-28"
+	)
+	public static void method6906() {
+		EnumComposition.EnumDefinition_cached.clear();
+	}
+
+	@ObfuscatedName("an")
+	@ObfuscatedSignature(
+		descriptor = "(Ltl;Ltl;II)V",
+		garbageValue = "-2112733223"
+	)
+	public static void method6907(DynamicArray var0, DynamicArray var1, int var2) {
+		PacketBufferNode.method7052(var0, (class572)null, true);
+		DefaultsGroup.method10548(var1, var0.field5571);
+		if (var2 >= 0 && var2 <= var0.size * 479682119) {
+			if (var1.size * 479682119 != 0) {
+				var0.method10437(var1.size * 479682119 + var0.size * 479682119);
+				if (var2 < var0.size * 479682119) {
+					class167.method4091(var0, var2, var0, var1.size * 479682119 + var2, var0.size * 479682119 - var2);
+				}
+
+				class167.method4091(var1, 0, var0, var2, var1.size * 479682119);
+				var0.size += var1.size;
 			}
+		} else {
+			throw new RuntimeException();
 		}
-
-		Widget var5 = class167.widgetDefinition.method7456(var3);
-		if (var5 != null) {
-			ApproximateRouteStrategy.invalidateWidget(var5);
-		}
-
-		if (Client.rootInterface != -1) {
-			HttpResponse.runIntfCloseListeners(Client.rootInterface, 1);
-		}
-
 	}
 }

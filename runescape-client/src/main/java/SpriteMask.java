@@ -4,25 +4,25 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nu")
+@ObfuscatedName("nt")
 @Implements("SpriteMask")
 public class SpriteMask extends DualNode {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = -964726337
+		intValue = 1385837663
 	)
 	@Export("width")
 	public final int width;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 1418256767
+		intValue = 1078307221
 	)
 	@Export("height")
 	public final int height;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@Export("xWidths")
 	public final int[] xWidths;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@Export("xStarts")
 	public final int[] xStarts;
 
@@ -33,10 +33,10 @@ public class SpriteMask extends DualNode {
 		this.xStarts = var4;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)Z",
-		garbageValue = "-79"
+		garbageValue = "34"
 	)
 	@Export("contains")
 	public boolean contains(int var1, int var2) {
@@ -50,111 +50,36 @@ public class SpriteMask extends DualNode {
 		return false;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-78"
+		descriptor = "(Lpe;I)V",
+		garbageValue = "1840789530"
 	)
-	static int method7371(int var0, int var1) {
-		FloorOverlayDefinition var2 = JagNetThread.method8476(var0);
-		if (var2 == null) {
-			return var1;
-		} else {
-			int var4;
-			int var5;
-			int var6;
-			int var7;
-			int var8;
-			if (var2.secondaryRgb >= 0) {
-				var4 = var2.secondaryHue;
-				var5 = var2.secondarySaturation;
-				var6 = var2.secondaryLightness;
-				if (var6 > 179) {
-					var5 /= 2;
-				}
-
-				if (var6 > 192) {
-					var5 /= 2;
-				}
-
-				if (var6 > 217) {
-					var5 /= 2;
-				}
-
-				if (var6 > 243) {
-					var5 /= 2;
-				}
-
-				var7 = (var5 / 32 << 7) + var6 / 2 + (var4 / 4 << 10);
-				var8 = Varcs.method2870(var7, 96);
-				return Rasterizer3D.Rasterizer3D_colorPalette[var8] | -16777216;
-			} else if (var2.texture >= 0) {
-				int var3 = Varcs.method2870(Rasterizer3D.clips.Rasterizer3D_textureLoader.getAverageTextureRGB(var2.texture), 96);
-				return Rasterizer3D.Rasterizer3D_colorPalette[var3] | -16777216;
-			} else if (var2.primaryRgb == 16711935) {
-				return var1;
-			} else {
-				var4 = var2.hue;
-				var5 = var2.saturation;
-				var6 = var2.lightness;
-				if (var6 > 179) {
-					var5 /= 2;
-				}
-
-				if (var6 > 192) {
-					var5 /= 2;
-				}
-
-				if (var6 > 217) {
-					var5 /= 2;
-				}
-
-				if (var6 > 243) {
-					var5 /= 2;
-				}
-
-				var7 = (var5 / 32 << 7) + var6 / 2 + (var4 / 4 << 10);
-				var8 = Varcs.method2870(var7, 96);
-				return Rasterizer3D.Rasterizer3D_colorPalette[var8] | -16777216;
-			}
-		}
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(Lpx;I)V",
-		garbageValue = "-1356540140"
-	)
-	public static void method7375(AbstractArchive var0) {
+	public static void method7407(AbstractArchive var0) {
 		ParamComposition.ParamDefinition_archive = var0;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lia;",
-		garbageValue = "1355150813"
+		descriptor = "(IIIB)Lcj;",
+		garbageValue = "30"
 	)
-	@Export("getObjectDefinition")
-	public static ObjectComposition getObjectDefinition(int var0) {
-		ObjectComposition var1 = (ObjectComposition)ObjectComposition.ObjectDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
+	@Export("getWorldMapScript")
+	static Script getWorldMapScript(int var0, int var1, int var2) {
+		int var3 = ArchiveLoader.method2140(var1, var0);
+		Script var4 = SecureUrlRequester.getScript(var3, var0);
+		if (var4 != null) {
+			return var4;
 		} else {
-			byte[] var2 = FriendSystem.ObjectDefinition_archive.takeFile(6, var0);
-			var1 = new ObjectComposition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
+			int var5 = (-3 - var2 << 8) + var0;
+			var4 = SecureUrlRequester.getScript(var5, var0);
+			if (var4 != null) {
+				return var4;
+			} else {
+				var3 = AbstractWorldMapData.method6829(var0);
+				var4 = SecureUrlRequester.getScript(var3, var0);
+				return var4 != null ? var4 : null;
 			}
-
-			var1.postDecode();
-			if (var1.isSolid) {
-				var1.interactType = 0;
-				var1.boolean1 = false;
-			}
-
-			ObjectComposition.ObjectDefinition_cached.put(var1, (long)var0);
-			return var1;
 		}
 	}
 }

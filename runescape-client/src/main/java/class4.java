@@ -1,218 +1,74 @@
-import java.util.LinkedList;
-import java.util.List;
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("au")
+@ObfuscatedName("ah")
 public final class class4 {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lpx;"
+	@ObfuscatedName("ah")
+	@ObfuscatedGetter(
+		intValue = 1978602545
 	)
-	@Export("EnumDefinition_archive")
-	public static AbstractArchive EnumDefinition_archive;
-	@ObfuscatedName("ka")
+	@Export("canvasWidth")
+	public static int canvasWidth;
+	@ObfuscatedName("cw")
 	@ObfuscatedSignature(
-		descriptor = "Lpo;"
+		descriptor = "Lxc;"
 	)
-	static Archive field6;
-
-	@ObfuscatedName("cj")
+	static IndexedSprite field10;
+	@ObfuscatedName("nw")
 	@ObfuscatedSignature(
-		descriptor = "(ILce;ZI)I",
-		garbageValue = "-1396170113"
+		descriptor = "Ldv;"
 	)
-	static int method12(int var0, Script var1, boolean var2) {
-		int var3;
-		Object var4;
-		int var5;
-		DbTable var6;
-		int var7;
-		if (var0 == ScriptOpcodes.DB_FIND_WITH_COUNT) {
-			var3 = Interpreter.Interpreter_intStack[--AbstractWorldMapIcon.Interpreter_intStackSize];
-			var4 = class28.method462(var3);
-			var5 = Interpreter.Interpreter_intStack[--AbstractWorldMapIcon.Interpreter_intStackSize];
-			var6 = AsyncHttpResponse.getDbTable(var5);
-			if (var6 == null) {
-				throw new RuntimeException();
-			} else {
-				var7 = class486.method9855(var5);
-				class322.field3448 = var6.method11101(var4, var7);
-				if (class322.field3448 != null) {
-					Client.field530 = class101.method3102(var5);
-					class139.field1674 = class322.field3448.iterator();
-					if (var0 == ScriptOpcodes.DB_FIND_WITH_COUNT) {
-						Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = class322.field3448.size();
-					}
-				} else {
-					Client.field530 = -1;
-					class139.field1674 = null;
-					if (var0 == ScriptOpcodes.DB_FIND_WITH_COUNT) {
-						Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = 0;
-					}
-				}
+	@Export("pcmStreamMixer")
+	static PcmStreamMixer pcmStreamMixer;
 
-				return 1;
-			}
-		} else if (var0 != ScriptOpcodes.DB_FINDNEXT) {
-			int var19;
-			int var20;
-			if (var0 == ScriptOpcodes.DB_GETFIELD) {
-				AbstractWorldMapIcon.Interpreter_intStackSize -= 3;
-				var3 = Interpreter.Interpreter_intStack[AbstractWorldMapIcon.Interpreter_intStackSize];
-				var19 = Interpreter.Interpreter_intStack[AbstractWorldMapIcon.Interpreter_intStackSize + 1];
-				var5 = Interpreter.Interpreter_intStack[AbstractWorldMapIcon.Interpreter_intStackSize + 2];
-				var20 = class101.method3102(var19);
-				var7 = ApproximateRouteStrategy.method801(var19);
-				int var21 = class486.method9855(var19);
-				DbRowType var26 = class86.getDbRowType(var3);
-				DbTableType var27 = class570.getDbTableType(var20);
-				int[] var28 = var27.types[var7];
-				int var12 = 0;
-				int var13 = var28.length;
-				if (var21 >= 0) {
-					if (var21 >= var13) {
-						throw new RuntimeException("Tuple index out-of-bounds. Requested: " + var21 + ", Max: " + var13);
-					}
-
-					var12 = var21;
-					var13 = var21 + 1;
-				}
-
-				Object[] var14 = var26.getColumnType(var7);
-				if (var14 == null && var27.defaultValues != null) {
-					var14 = var27.defaultValues[var7];
-				}
-
-				int var15;
-				int var16;
-				if (var14 == null) {
-					for (var15 = var12; var15 < var13; ++var15) {
-						var16 = var28[var15];
-						class570 var22 = WorldMapDecoration.method6802(var16);
-						if (var22 == class570.field5718) {
-							Interpreter.Interpreter_objectStack[++SecureRandomFuture.Interpreter_objectStackSize - 1] = "";
-						} else {
-							Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = class70.method2216(var16);
-						}
-					}
-
-					return 1;
-				} else {
-					var15 = var14.length / var28.length;
-					if (var5 >= 0 && var5 < var15) {
-						for (var16 = var12; var16 < var13; ++var16) {
-							int var17 = var16 + var28.length * var5;
-							class570 var18 = WorldMapDecoration.method6802(var28[var16]);
-							if (var18 == class570.field5718) {
-								Interpreter.Interpreter_objectStack[++SecureRandomFuture.Interpreter_objectStackSize - 1] = var14[var17];
-							} else {
-								Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = (Integer)var14[var17];
-							}
-						}
-
-						return 1;
-					} else {
-						throw new RuntimeException();
-					}
-				}
-			} else if (var0 == ScriptOpcodes.DB_GETFIELDCOUNT) {
-				AbstractWorldMapIcon.Interpreter_intStackSize -= 2;
-				var3 = Interpreter.Interpreter_intStack[AbstractWorldMapIcon.Interpreter_intStackSize];
-				var19 = Interpreter.Interpreter_intStack[AbstractWorldMapIcon.Interpreter_intStackSize + 1];
-				var5 = 0;
-				var20 = class101.method3102(var19);
-				var7 = ApproximateRouteStrategy.method801(var19);
-				DbRowType var25 = class86.getDbRowType(var3);
-				DbTableType var9 = class570.getDbTableType(var20);
-				int[] var10 = var9.types[var7];
-				Object[] var11 = var25.getColumnType(var7);
-				if (var11 == null && var9.defaultValues != null) {
-					var11 = var9.defaultValues[var7];
-				}
-
-				if (var11 != null) {
-					var5 = var11.length / var10.length;
-				}
-
-				Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = var5;
-				return 1;
-			} else if (var0 == ScriptOpcodes.DB_FINDALL_WITH_COUNT) {
-				--AbstractWorldMapIcon.Interpreter_intStackSize;
-				var3 = Interpreter.Interpreter_intStack[AbstractWorldMapIcon.Interpreter_intStackSize];
-				DbTable var24 = class348.method7361(var3);
-				if (var24 == null) {
-					throw new RuntimeException();
-				} else {
-					class322.field3448 = var24.method11101(0, 0);
-					var5 = 0;
-					if (class322.field3448 != null) {
-						Client.field530 = var3;
-						class139.field1674 = class322.field3448.iterator();
-						var5 = class322.field3448.size();
-					}
-
-					if (var0 == ScriptOpcodes.DB_FINDALL_WITH_COUNT) {
-						Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = var5;
-					}
-
-					return 1;
-				}
-			} else if (var0 == ScriptOpcodes.DB_GETROWTABLE) {
-				var3 = Interpreter.Interpreter_intStack[--AbstractWorldMapIcon.Interpreter_intStackSize];
-				DbRowType var23 = class86.getDbRowType(var3);
-				Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = var23.tableId;
-				return 1;
-			} else if (var0 == ScriptOpcodes.DB_GETROW) {
-				var3 = Interpreter.Interpreter_intStack[--AbstractWorldMapIcon.Interpreter_intStackSize];
-				var19 = -1;
-				if (class322.field3448 != null && var3 >= 0 && var3 < class322.field3448.size()) {
-					var19 = (Integer)class322.field3448.get(var3);
-				}
-
-				Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = var19;
-				return 1;
-			} else if (var0 == ScriptOpcodes.DB_FIND_FILTER_WITH_COUNT) {
-				var3 = Interpreter.Interpreter_intStack[--AbstractWorldMapIcon.Interpreter_intStackSize];
-				var4 = class28.method462(var3);
-				var5 = Interpreter.Interpreter_intStack[--AbstractWorldMapIcon.Interpreter_intStackSize];
-				var6 = AsyncHttpResponse.getDbTable(var5);
-				if (var6 == null) {
-					throw new RuntimeException();
-				} else if (class101.method3102(var5) != Client.field530) {
-					throw new RuntimeException();
-				} else if (class322.field3448 == null && class322.field3448.isEmpty()) {
-					throw new RuntimeException();
-				} else {
-					var7 = class486.method9855(var5);
-					List var8 = var6.method11101(var4, var7);
-					class322.field3448 = new LinkedList(class322.field3448);
-					if (var8 != null) {
-						class322.field3448.retainAll(var8);
-					} else {
-						class322.field3448.clear();
-					}
-
-					class139.field1674 = class322.field3448.iterator();
-					if (var0 == ScriptOpcodes.DB_FIND_FILTER_WITH_COUNT) {
-						Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = class322.field3448.size();
-					}
-
-					return 1;
-				}
-			} else {
-				return 2;
-			}
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1881896873"
+	)
+	@Export("focusPasswordWhenUsernameFilled")
+	static void focusPasswordWhenUsernameFilled() {
+		if (Client.Login_isUsernameRemembered && Login.Login_username != null && !Login.Login_username.isEmpty()) {
+			Login.currentLoginField = 1;
 		} else {
-			if (class139.field1674 != null && class139.field1674.hasNext()) {
-				Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = (Integer)class139.field1674.next();
+			Login.currentLoginField = 0;
+		}
+
+	}
+
+	@ObfuscatedName("jt")
+	@ObfuscatedSignature(
+		descriptor = "(IIIII)V",
+		garbageValue = "1492301028"
+	)
+	@Export("worldToScreen")
+	static void worldToScreen(int var0, int var1, int var2, int var3) {
+		if (var0 >= 128 && 13056 >= var0 && var1 >= 128 && 13056 >= var1) {
+			var0 -= Huffman.cameraX;
+			var2 -= class514.cameraY;
+			var1 -= ChatChannel.cameraZ;
+			int var4 = Rasterizer3D.Rasterizer3D_sine[class386.cameraPitch];
+			int var5 = Rasterizer3D.Rasterizer3D_cosine[class386.cameraPitch];
+			int var6 = Rasterizer3D.Rasterizer3D_sine[SpriteBufferProperties.cameraYaw];
+			int var7 = Rasterizer3D.Rasterizer3D_cosine[SpriteBufferProperties.cameraYaw];
+			int var8 = var6 * var1 + var0 * var7 >> 16;
+			var1 = var7 * var1 - var0 * var6 >> 16;
+			var0 = var8;
+			var8 = var5 * var2 - var4 * var1 >> 16;
+			var1 = var4 * var2 + var5 * var1 >> 16;
+			if (var1 >= 50) {
+				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2;
+				Client.viewportTempY = Client.viewportHeight / 2 + var8 * Client.viewportZoom / var1;
 			} else {
-				Interpreter.Interpreter_intStack[++AbstractWorldMapIcon.Interpreter_intStackSize - 1] = -1;
+				Client.viewportTempX = -1;
+				Client.viewportTempY = -1;
 			}
 
-			return 1;
+		} else {
+			Client.viewportTempX = -1;
+			Client.viewportTempY = -1;
 		}
 	}
 }

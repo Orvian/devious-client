@@ -1,66 +1,56 @@
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cj")
 @Implements("Script")
 public class Script extends DualNode {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lmd;"
+		descriptor = "Lme;"
 	)
 	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
-	@ObfuscatedName("ak")
-	@Export("Tiles_underlays2")
-	static byte[][][] Tiles_underlays2;
-	@ObfuscatedName("uo")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lxv;"
-	)
-	@Export("sceneMinimapSprite")
-	static SpritePixels sceneMinimapSprite;
-	@ObfuscatedName("ab")
-	@ObfuscatedSignature(
-		descriptor = "[Lqr;"
+		descriptor = "[Lqw;"
 	)
 	@Export("switches")
 	IterableNodeHashTable[] switches;
-	@ObfuscatedName("ac")
-	String field777;
-	@ObfuscatedName("av")
+	@ObfuscatedName("ag")
+	String field769;
+	@ObfuscatedName("aj")
 	@Export("opcodes")
 	int[] opcodes;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("intOperands")
 	int[] intOperands;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@Export("stringOperands")
 	String[] stringOperands;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 696982785
+		intValue = -163957189
 	)
 	@Export("localIntCount")
 	int localIntCount;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = -1844842555
+		intValue = 675819761
 	)
 	@Export("localStringCount")
 	int localStringCount;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = 1320278685
+		intValue = 283905223
 	)
 	@Export("intArgumentCount")
 	int intArgumentCount;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = 1417864765
+		intValue = 2050695233
 	)
 	@Export("stringArgumentCount")
 	int stringArgumentCount;
@@ -72,51 +62,13 @@ public class Script extends DualNode {
 	Script() {
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Lqr;",
-		garbageValue = "208959378"
+		descriptor = "(II)[Lqw;",
+		garbageValue = "-879548067"
 	)
 	@Export("newIterableNodeHashTable")
 	IterableNodeHashTable[] newIterableNodeHashTable(int var1) {
 		return new IterableNodeHashTable[var1];
-	}
-
-	@ObfuscatedName("ab")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "164348684"
-	)
-	static void method1980() {
-		AABB.Tiles_underlays = null;
-		Tiles.Tiles_overlays = null;
-		class28.Tiles_shapes = null;
-		ChatChannel.field806 = null;
-		class81.field1179 = null;
-		Tiles_underlays2 = null;
-		Timer.field4752 = null;
-		SecureRandomFuture.Tiles_hue = null;
-		WorldMapSection0.Tiles_saturation = null;
-		WorldMapArea.Tiles_lightness = null;
-		DbTable.Tiles_hueMultiplier = null;
-		DelayFadeTask.field5175 = null;
-	}
-
-	@ObfuscatedName("ag")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "40"
-	)
-	static void method1978() {
-		Iterator var0 = Client.worldViewManager.iterator();
-
-		while (var0.hasNext()) {
-			WorldView var1 = (WorldView)var0.next();
-
-			for (ObjectSound var2 = (ObjectSound)var1.method2638().last(); var2 != null; var2 = (ObjectSound)var1.method2638().previous()) {
-				var2.method2242();
-			}
-		}
-
 	}
 }

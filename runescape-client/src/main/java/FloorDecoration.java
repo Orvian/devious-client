@@ -4,78 +4,51 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("is")
+@ObfuscatedName("in")
 @Implements("FloorDecoration")
 public final class FloorDecoration {
-	@ObfuscatedName("hv")
-	@ObfuscatedSignature(
-		descriptor = "Ldx;"
+	@ObfuscatedName("au")
+	@ObfuscatedGetter(
+		intValue = 238066481
 	)
-	@Export("varcs")
-	static Varcs varcs;
-	@ObfuscatedName("al")
+	public static int field2576;
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Liq;"
+		descriptor = "Liy;"
 	)
 	@Export("renderable")
 	public Renderable renderable;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		longValue = 5282745047579754191L
+		longValue = -1653388810263335849L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 535412003
+		intValue = -1894200033
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = -2142622221
+		intValue = 1575855251
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -373793125
+		intValue = 1647343275
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = 1355434533
+		intValue = 23098573
 	)
 	@Export("flags")
 	int flags;
 
 	FloorDecoration() {
-	}
-
-	@ObfuscatedName("ac")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-2140439516"
-	)
-	public static int method4871(int var0, int var1, int var2) {
-		int var3 = PacketWriter.method2930(var2 - var1 + 1);
-		var3 <<= var1;
-		return var0 & ~var3;
-	}
-
-	@ObfuscatedName("nq")
-	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "-85"
-	)
-	static boolean method4872(int var0) {
-		for (int var1 = 0; var1 < Client.field421; ++var1) {
-			if (Client.field423[var1] == var0) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 }

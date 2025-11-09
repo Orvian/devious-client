@@ -1,61 +1,54 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("sw")
+@ObfuscatedName("sr")
 public class class484 {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lsw;"
+	@ObfuscatedName("ab")
+	final int[] field5401;
+	@ObfuscatedName("at")
+	@ObfuscatedGetter(
+		intValue = -1960827799
 	)
-	public static final class484 field5241;
+	int field5402;
+
+	public class484(int var1) {
+		this.field5401 = new int[var1];
+	}
+
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lsw;"
+		descriptor = "(II)V",
+		garbageValue = "-1802783771"
 	)
-	static final class484 field5242;
-	@ObfuscatedName("pc")
-	@ObfuscatedSignature(
-		descriptor = "Lxv;"
-	)
-	@Export("compass")
-	static SpritePixels compass;
-	@ObfuscatedName("ac")
-	@ObfuscatedGetter(
-		intValue = 702952629
-	)
-	final int field5243;
-
-	static {
-		field5241 = new class484(1);
-		field5242 = new class484(0);
+	public void method9884(int var1) {
+		this.field5401[++this.field5402 - 1] = var1;
 	}
 
-	class484(int var1) {
-		this.field5243 = var1;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "80175543"
+	)
+	public int method9886(int var1) {
+		return this.field5401[var1];
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;Ljava/lang/String;Ljava/lang/String;I)Lxa;",
-		garbageValue = "681297179"
+		descriptor = "(I)I",
+		garbageValue = "1036879648"
 	)
-	@Export("SpriteBuffer_getIndexedSpriteByName")
-	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
-		if (!var0.isValidFileName(var1, var2)) {
-			return null;
-		} else {
-			int var3 = var0.getGroupId(var1);
-			int var4 = var0.getFileId(var3, var2);
-			IndexedSprite var5;
-			if (!class522.method10495(var0, var3, var4)) {
-				var5 = null;
-			} else {
-				var5 = BufferedNetSocket.method10250();
-			}
+	public int method9887() {
+		return this.field5402;
+	}
 
-			return var5;
-		}
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "14"
+	)
+	public void method9888() {
+		this.field5402 = 0;
 	}
 }

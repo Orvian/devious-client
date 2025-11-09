@@ -1,56 +1,51 @@
-import java.util.HashMap;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("qj")
+@ObfuscatedName("qn")
 public class class427 {
-	@ObfuscatedName("aw")
-	static String[] field4969;
-
-	static {
-		new HashMap();
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lhk;",
-		garbageValue = "1754648988"
-	)
-	@Export("FloorUnderlayDefinition_get")
-	public static FloorUnderlayDefinition FloorUnderlayDefinition_get(int var0) {
-		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = class572.FloorUnderlayDefinition_archive.takeFile(1, var0);
-			var1 = new FloorUnderlayDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2), var0);
-			}
-
-			var1.postDecode();
-			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Ltx;",
-		garbageValue = "1915183740"
-	)
-	public static class514[] method8684() {
-		return new class514[]{class514.field5396, class514.field5394, class514.field5397};
-	}
-
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)Z",
-		garbageValue = "-1244590585"
+		descriptor = "Lqn;"
 	)
-	@Export("isNumber")
-	public static boolean isNumber(CharSequence var0) {
-		return Ignored.method10078(var0, 10, true);
+	static final class427 field5115;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "Lqn;"
+	)
+	static final class427 field5118;
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "Lqn;"
+	)
+	static final class427 field5117;
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "Lqn;"
+	)
+	static final class427 field5116;
+
+	static {
+		field5115 = new class427();
+		field5118 = new class427();
+		field5117 = new class427();
+		field5116 = new class427();
+	}
+
+	class427() {
+	}
+
+	@ObfuscatedName("ar")
+	@ObfuscatedSignature(
+		descriptor = "(Ljd;IIIIFFFFIIIB)Z",
+		garbageValue = "-1"
+	)
+	static final boolean method8691(Model var0, int var1, int var2, int var3, int var4, float var5, float var6, float var7, float var8, int var9, int var10, int var11) {
+		boolean var12 = ViewportMouse.ViewportMouse_isInViewport;
+		if (!var12) {
+			return false;
+		} else {
+			DelayFadeTask.method9712(var5, var6, var7, var8, var9, var10, var11);
+			return class150.method3907(var0, var1, var2, var3, var4);
+		}
 	}
 }

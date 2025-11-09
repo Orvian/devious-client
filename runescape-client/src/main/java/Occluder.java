@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
@@ -6,227 +5,203 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jq")
+@ObfuscatedName("jp")
 @Implements("Occluder")
 public final class Occluder {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ip")
+	@ObfuscatedSignature(
+		descriptor = "Lqu;"
+	)
+	public static class421 field2830;
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 1747143425
+		intValue = -15866743
 	)
 	@Export("minTileX")
 	int minTileX;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 1922297601
+		intValue = 1232613773
 	)
 	@Export("maxTileX")
 	int maxTileX;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 1728899777
+		intValue = -466413845
 	)
 	@Export("minTileY")
 	int minTileY;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 1837221829
+		intValue = 808093151
 	)
 	@Export("maxTileY")
 	int maxTileY;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = 253851301
+		intValue = 1413146603
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -1572372041
+		intValue = 1995887661
 	)
 	@Export("minX")
 	int minX;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 118736907
+		intValue = -1153400869
 	)
 	@Export("maxX")
 	int maxX;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = 1901785051
+		intValue = 1947947995
 	)
 	@Export("minZ")
 	int minZ;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = -631571575
+		intValue = 71627173
 	)
 	@Export("maxZ")
 	int maxZ;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = -1075972829
+		intValue = 1260573221
 	)
 	@Export("minY")
 	int minY;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
-		intValue = -361424135
+		intValue = 974877055
 	)
 	@Export("maxY")
 	int maxY;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ad")
 	@ObfuscatedGetter(
-		intValue = -518371837
+		intValue = -1770007129
 	)
-	int field2774;
-	@ObfuscatedName("aa")
+	int field2823;
+	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = -2095835569
+		intValue = -430076585
 	)
-	int field2773;
-	@ObfuscatedName("ai")
+	int field2812;
+	@ObfuscatedName("as")
 	@ObfuscatedGetter(
-		intValue = -1094593375
+		intValue = -344663637
 	)
-	int field2778;
-	@ObfuscatedName("ak")
-	@ObfuscatedGetter(
-		intValue = 2088531503
-	)
-	int field2775;
+	int field2825;
 	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
-		intValue = -1710977545
+		intValue = -824580017
 	)
-	int field2776;
-	@ObfuscatedName("at")
+	int field2820;
+	@ObfuscatedName("az")
 	@ObfuscatedGetter(
-		intValue = 2013500371
+		intValue = -313526351
 	)
-	int field2777;
-	@ObfuscatedName("ax")
+	int field2827;
+	@ObfuscatedName("au")
 	@ObfuscatedGetter(
-		intValue = 1022023155
+		intValue = -1138219283
 	)
-	int field2772;
+	int field2828;
+	@ObfuscatedName("ak")
+	@ObfuscatedGetter(
+		intValue = 769687355
+	)
+	int field2829;
 
 	Occluder() {
 	}
 
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIB)V",
-		garbageValue = "45"
-	)
-	public static void method5373(String var0, String var1, String var2, int var3, int var4) throws IOException {
-		if (var1 != null && !var1.isEmpty()) {
-			var0 = var0 + "-" + var1;
-		}
-
-		class533.field5487 = var4;
-		ClientPreferences.cacheGamebuild = var3;
-
+	@ObfuscatedName("at")
+	static final void method5461(long var0) {
 		try {
-			ApproximateRouteStrategy.osName = System.getProperty("os.name");
-		} catch (Exception var14) {
-			ApproximateRouteStrategy.osName = "Unknown";
-		}
-
-		HorizontalAlignment.osNameLowercase = ApproximateRouteStrategy.osName.toLowerCase();
-		class502.userHomeDirectory = null;
-
-		try {
-			class502.userHomeDirectory = System.getProperty("jagex.userhome");
-		} catch (Exception var13) {
-		}
-
-		if (class502.userHomeDirectory == null) {
-			try {
-				class502.userHomeDirectory = System.getProperty("user.home");
-			} catch (Exception var12) {
-			}
-		}
-
-		if (class502.userHomeDirectory != null) {
-			class502.userHomeDirectory = class502.userHomeDirectory + "/";
-		}
-
-		try {
-			if (HorizontalAlignment.osNameLowercase.startsWith("win")) {
-				if (class502.userHomeDirectory == null) {
-					class502.userHomeDirectory = System.getenv("USERPROFILE");
-				}
-			} else if (class502.userHomeDirectory == null) {
-				class502.userHomeDirectory = System.getenv("HOME");
-			}
-
-			if (class502.userHomeDirectory != null) {
-				class502.userHomeDirectory = class502.userHomeDirectory + "/";
-			}
-		} catch (Exception var11) {
-		}
-
-		if (class502.userHomeDirectory == null) {
-			class502.userHomeDirectory = "~/";
-		}
-
-		HttpMethod.field41 = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", class502.userHomeDirectory, "/tmp/", ""};
-		class427.field4969 = new String[]{".jagex_cache_" + ClientPreferences.cacheGamebuild, ".file_store_" + ClientPreferences.cacheGamebuild};
-		int var10 = 0;
-
-		label107:
-		while (var10 < 4) {
-			UserComparator9.cacheDir = Skeleton.method5073(var0, var2, var10);
-			if (!UserComparator9.cacheDir.exists()) {
-				UserComparator9.cacheDir.mkdirs();
-			}
-
-			File[] var6 = UserComparator9.cacheDir.listFiles();
-			if (var6 == null) {
-				break;
-			}
-
-			File[] var7 = var6;
-			int var8 = 0;
-
-			while (true) {
-				if (var8 >= var7.length) {
-					break label107;
-				}
-
-				File var9 = var7[var8];
-				if (!MenuAction.method1865(var9, false)) {
-					++var10;
-					break;
-				}
-
-				++var8;
-			}
-		}
-
-		ActorSpotAnim.method10193(UserComparator9.cacheDir);
-		UserComparator5.method3504();
-		JagexCache.JagexCache_dat2File = new AccessFile(Tiles.getFile("main_file_cache.dat2"), "rw", 1048576000L);
-		JagexCache.JagexCache_idx255File = new BufferedFile(new AccessFile(Tiles.getFile("main_file_cache.idx255"), "rw", 1048576L), 6000, 0);
-		class159.JagexCache_idxFiles = new BufferedFile[class533.field5487];
-
-		for (var10 = 0; var10 < class533.field5487; ++var10) {
-			class159.JagexCache_idxFiles[var10] = new BufferedFile(new AccessFile(Tiles.getFile("main_file_cache.idx" + var10), "rw", 1048576L), 6000, 0);
+			Thread.sleep(var0);
+		} catch (InterruptedException var3) {
 		}
 
 	}
 
-	@ObfuscatedName("aa")
+	@ObfuscatedName("hh")
 	@ObfuscatedSignature(
-		descriptor = "([II)Ltn;",
-		garbageValue = "782923509"
+		descriptor = "(B)V",
+		garbageValue = "-73"
 	)
-	public static DynamicArray method5374(int[] var0) {
-		DynamicArray var1 = new DynamicArray(class570.field5721, false);
-		var1.array = var0;
-		var1.size = var0.length * 1527641021;
-		var1.field5402 = var0.length;
-		return var1;
+	static void method5462() {
+		if (ModeWhere.varcs != null && ModeWhere.varcs.hasUnwrittenChanges()) {
+			ModeWhere.varcs.write();
+		}
+
+		ServerPacket.method7053();
+		AsyncRestClient.method174();
+		if (MidiRequest.mouseRecorder != null) {
+			MidiRequest.mouseRecorder.isRunning = false;
+		}
+
+		MidiRequest.mouseRecorder = null;
+		Client.packetWriter.close();
+		if (GameEngine.taskHandler != null) {
+			try {
+				GameEngine.taskHandler.close();
+			} catch (Exception var2) {
+			}
+		}
+
+		GameEngine.taskHandler = null;
+		class562.clear();
+		NPCComposition.method4448();
+		Client.worldViewManager.clear();
+		Client.projectiles.clear();
+		class50.worldMap = null;
+		Clock.method6092(0, 0);
+		WorldMapSectionType.method6800();
+		Client.playingJingle = false;
+		NpcOverrides.method4379();
+		if (class135.pcmPlayer1 != null) {
+			class135.pcmPlayer1.shutdown();
+		}
+
+		BufferedNetSocket.field5515.method8497();
+		class62.method2163();
+		if (PcmPlayer.urlRequester != null) {
+			PcmPlayer.urlRequester.close();
+		}
+
+		Projection.method5508();
+		JagexCache.JagexCache_dat2File = null;
+		JagexCache.JagexCache_idx255File = null;
+		JagexCache.JagexCache_idxFiles = null;
+		Calendar.method8180();
+		class479.masterDisk = null;
+		Client.archiveLoaders.clear();
+		Client.field520 = 0;
+		BufferedNetSocket.field5515 = new JagNetThread();
+		PcmPlayer.urlRequester = new SecureUrlRequester(class32.client.https, 234);
+
+		try {
+			ItemLayer.method4893("oldschool", IntProjection.field2650, class69.field958.name, 0, 25);
+		} catch (IOException var1) {
+			throw new RuntimeException(var1);
+		}
+
+		class479.masterDisk = new ArchiveDisk(255, JagexCache.JagexCache_dat2File, JagexCache.JagexCache_idx255File, 750000);
+		GameEngine.taskHandler = new TaskHandler();
+		class32.client.method519();
+		RestClientThreadFactory.method205(class69.field953);
+		class135.updateGameState(0);
+	}
+
+	@ObfuscatedName("hq")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "1751268999"
+	)
+	static int method5463(int var0) {
+		return var0 * 3 + 600;
 	}
 }

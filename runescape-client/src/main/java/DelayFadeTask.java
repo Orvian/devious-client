@@ -4,94 +4,75 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("sd")
+@ObfuscatedName("su")
 @Implements("DelayFadeTask")
 public class DelayFadeTask extends SongTask {
-	@ObfuscatedName("az")
-	static int[] field5175;
-	@ObfuscatedName("ld")
-	@Export("authServiceBaseUrl")
-	static String authServiceBaseUrl;
-	@ObfuscatedName("al")
-	@ObfuscatedGetter(
-		longValue = 287224077443550231L
+	@ObfuscatedName("ar")
+	@Export("PcmPlayer_stereo")
+	public static boolean PcmPlayer_stereo;
+	@ObfuscatedName("ao")
+	@ObfuscatedSignature(
+		descriptor = "Lel;"
 	)
-	long field5177;
+	@Export("pcmPlayerProvider")
+	public static class105 pcmPlayerProvider;
 	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 748008633
+		longValue = 8897684534530645139L
 	)
-	int field5176;
+	long field5344;
+	@ObfuscatedName("at")
+	@ObfuscatedGetter(
+		intValue = 615467889
+	)
+	int field5342;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lsj;I)V"
+		descriptor = "(Lsw;I)V"
 	)
 	public DelayFadeTask(SongTask var1, int var2) {
 		super(var1);
-		this.field5176 = var2;
-		super.field5191 = "DelayFadeTask";
+		this.field5342 = var2;
+		super.field5350 = "DelayFadeTask";
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1329200530"
+		garbageValue = "-1369867803"
 	)
-	public boolean vmethod9672() {
-		if (this.field5177 < (long)this.field5176) {
-			++this.field5177;
+	public boolean vmethod9763() {
+		if (this.field5344 < (long)this.field5342) {
+			++this.field5344;
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	@ObfuscatedName("nl")
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		descriptor = "([Lox;II)V",
-		garbageValue = "547382223"
+		descriptor = "(FFFFIIII)V",
+		garbageValue = "-1311152360"
 	)
-	@Export("runComponentCloseListeners")
-	static final void runComponentCloseListeners(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) {
-			Widget var3 = var0[var2];
-			if (var3 != null) {
-				if (var3.type == 0) {
-					if (var3.children != null) {
-						runComponentCloseListeners(var3.children, var1);
-					}
-
-					if (var3.childIndex * -64977777 == -1) {
-						InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
-						if (var4 != null) {
-							HttpResponse.runIntfCloseListeners(var4.group, var1);
-						}
-					}
-				}
-
-				ScriptEvent var5;
-				if (var1 == 0 && var3.onDialogAbort != null) {
-					var5 = new ScriptEvent();
-					var5.widget = var3;
-					var5.args = var3.onDialogAbort;
-					SequenceDefinition.runScriptEvent(var5);
-				}
-
-				if (var1 == 1 && var3.onSubChange != null) {
-					if (var3.childIndex * -64977777 >= 0) {
-						Widget var6 = class167.widgetDefinition.method7456(var3.id);
-						if (var6 == null || var6.children == null || var3.childIndex * -64977777 >= var6.children.length || var3 != var6.children[var3.childIndex * -64977777]) {
-							continue;
-						}
-					}
-
-					var5 = new ScriptEvent();
-					var5.widget = var3;
-					var5.args = var3.onSubChange;
-					SequenceDefinition.runScriptEvent(var5);
-				}
-			}
+	public static final void method9712(float var0, float var1, float var2, float var3, int var4, int var5, int var6) {
+		if (!ViewportMouse.ViewportMouse_false0) {
+			float var11 = 50.0F;
+			float var12 = (float)AbstractRasterizer.method5112();
+			float var13 = (float)(ViewportMouse.ViewportMouse_x - var4) * var11 / (float)var6;
+			float var14 = (float)(ViewportMouse.ViewportMouse_y - var5) * var11 / (float)var6;
+			float var15 = (float)(ViewportMouse.ViewportMouse_x - var4) * var12 / (float)var6;
+			float var16 = var12 * (float)(ViewportMouse.ViewportMouse_y - var5) / (float)var6;
+			float var17 = class108.method3469(var14, var11, var1, var0);
+			float var18 = var1 * var11 - var14 * var0;
+			var14 = var17;
+			var17 = class108.method3469(var16, var12, var1, var0);
+			float var19 = var12 * var1 - var0 * var16;
+			float var20 = var3 * var13 - var18 * var2;
+			float var21 = var3 * var18 + var2 * var13;
+			float var22 = var3 * var15 - var19 * var2;
+			float var23 = var2 * var15 + var3 * var19;
+			AttackOption.method2876((int)var20, (int)var14, (int)var21, (int)var22, (int)var17, (int)var23);
 		}
-
 	}
 }

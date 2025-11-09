@@ -1,109 +1,202 @@
-import java.io.File;
-import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bk")
+@ObfuscatedName("bd")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("al")
+	@ObfuscatedName("fb")
+	static boolean field687;
+	@ObfuscatedName("nz")
+	static boolean field680;
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 1888534493
+		intValue = -1812823337
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 616377407
+		intValue = -934798451
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 819791699
+		intValue = 1614259925
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = 469917353
+		intValue = -1451809209
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -850110859
+		intValue = -272592289
 	)
 	@Export("itemId")
 	int itemId;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = 1405140087
+		intValue = -10543881
 	)
 	@Export("worldViewId")
 	int worldViewId;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@Export("action")
 	String action;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@Export("target")
 	String target;
-	@ObfuscatedName("am")
-	boolean field691;
+	@ObfuscatedName("ac")
+	boolean field685;
 
 	MenuAction() {
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/io/File;ZI)Z",
-		garbageValue = "-894686351"
+		descriptor = "(B)V",
+		garbageValue = "58"
 	)
-	static boolean method1865(File var0, boolean var1) {
-		try {
-			RandomAccessFile var2 = new RandomAccessFile(var0, "rw");
-			int var3 = var2.read();
-			var2.seek(0L);
-			var2.write(var3);
-			var2.seek(0L);
-			var2.close();
-			return true;
-		} catch (Exception var4) {
-			return false;
+	static void method1919() {
+		if (TaskHandler.javaVendor.toLowerCase().indexOf("microsoft") != -1) {
+			class26.KeyHandler_keyCodes[186] = 57;
+			class26.KeyHandler_keyCodes[187] = 27;
+			class26.KeyHandler_keyCodes[188] = 71;
+			class26.KeyHandler_keyCodes[189] = 26;
+			class26.KeyHandler_keyCodes[190] = 72;
+			class26.KeyHandler_keyCodes[191] = 73;
+			class26.KeyHandler_keyCodes[192] = 58;
+			class26.KeyHandler_keyCodes[219] = 42;
+			class26.KeyHandler_keyCodes[220] = 74;
+			class26.KeyHandler_keyCodes[221] = 43;
+			class26.KeyHandler_keyCodes[222] = 59;
+			class26.KeyHandler_keyCodes[223] = 28;
+		} else {
+			class26.KeyHandler_keyCodes[44] = 71;
+			class26.KeyHandler_keyCodes[45] = 26;
+			class26.KeyHandler_keyCodes[46] = 72;
+			class26.KeyHandler_keyCodes[47] = 73;
+			class26.KeyHandler_keyCodes[59] = 57;
+			class26.KeyHandler_keyCodes[61] = 27;
+			class26.KeyHandler_keyCodes[91] = 42;
+			class26.KeyHandler_keyCodes[92] = 74;
+			class26.KeyHandler_keyCodes[93] = 43;
+			class26.KeyHandler_keyCodes[192] = 28;
+			class26.KeyHandler_keyCodes[222] = 58;
+			class26.KeyHandler_keyCodes[520] = 59;
 		}
+
 	}
 
-	@ObfuscatedName("ao")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Ljx;IIIII)Z",
-		garbageValue = "1575078166"
+		descriptor = "(II)I",
+		garbageValue = "-1928850565"
 	)
-	static boolean method1866(Model var0, int var1, int var2, int var3, int var4) {
-		AABB var5 = var0.getAABB(var1);
-		int var6 = var2 + var5.xMid;
-		int var7 = var3 + var5.yMid;
-		int var8 = var4 + var5.zMid;
-		int var9 = var5.xMidOffset;
-		int var10 = var5.yMidOffset;
-		int var11 = var5.zMidOffset;
-		int var12 = HttpContentType.field5455 - var6;
-		int var13 = class172.field1901 - var7;
-		int var14 = WorldMapIcon_0.field3313 - var8;
-		if (Math.abs(var12) > var9 + class188.field2027) {
-			return false;
-		} else if (Math.abs(var13) > var10 + FontName.field5650) {
-			return false;
-		} else if (Math.abs(var14) > var11 + NPCOverheadIcons.field5822) {
-			return false;
-		} else if (Math.abs(var14 * Message.field248 - var13 * class214.field2459) > var10 * NPCOverheadIcons.field5822 + var11 * FontName.field5650) {
-			return false;
-		} else if (Math.abs(var12 * class214.field2459 - var14 * class159.field1801) > var11 * class188.field2027 + var9 * NPCOverheadIcons.field5822) {
-			return false;
-		} else {
-			return Math.abs(var13 * class159.field1801 - var12 * Message.field248) <= var10 * class188.field2027 + var9 * FontName.field5650;
+	@Export("getVarbit")
+	public static int getVarbit(int var0) {
+		VarbitComposition var1 = class275.method6241(var0);
+		int var2 = var1.baseVar;
+		int var3 = var1.startBit;
+		int var4 = var1.endBit;
+		int var5 = Varps.Varps_masks[var4 - var3];
+		return Varps.Varps_main[var2] >> var3 & var5;
+	}
+
+	@ObfuscatedName("nb")
+	@ObfuscatedSignature(
+		descriptor = "(Lok;III)V",
+		garbageValue = "-2097048095"
+	)
+	@Export("clickWidget")
+	static final void clickWidget(Widget var0, int var1, int var2) {
+		if (Client.clickedWidget == null && !Client.isMenuOpen) {
+			if (var0 != null) {
+				Widget var5 = var0;
+				int var7 = MouseRecorder.getWidgetFlags(var0);
+				int var6 = var7 >> 17 & 7;
+				int var8 = var6;
+				Widget var4;
+				int var9;
+				if (var6 == 0) {
+					var4 = null;
+				} else {
+					var9 = 0;
+
+					while (true) {
+						if (var9 >= var8) {
+							var4 = var5;
+							break;
+						}
+
+						var5 = class35.widgetDefinition.method7496(var5.parentId);
+						if (var5 == null) {
+							var4 = null;
+							break;
+						}
+
+						++var9;
+					}
+				}
+
+				Widget var10 = var4;
+				if (var4 == null) {
+					var10 = var0.parent;
+				}
+
+				if (var10 != null) {
+					Client.clickedWidget = var0;
+					var5 = var0;
+					var7 = MouseRecorder.getWidgetFlags(var0);
+					var6 = var7 >> 17 & 7;
+					var8 = var6;
+					if (var6 == 0) {
+						var4 = null;
+					} else {
+						var9 = 0;
+
+						while (true) {
+							if (var9 >= var8) {
+								var4 = var5;
+								break;
+							}
+
+							var5 = class35.widgetDefinition.method7496(var5.parentId);
+							if (var5 == null) {
+								var4 = null;
+								break;
+							}
+
+							++var9;
+						}
+					}
+
+					var10 = var4;
+					if (var4 == null) {
+						var10 = var0.parent;
+					}
+
+					Client.clickedWidgetParent = var10;
+					Client.widgetClickX = var1;
+					Client.widgetClickY = var2;
+					SecureRandomCallable.widgetDragDuration = 0;
+					Client.isDraggingWidget = false;
+					int var11 = Client.menu.menuOptionsCount - 1;
+					if (var11 != -1) {
+						class191.method4365(var11);
+					}
+
+					return;
+				}
+			}
+
 		}
 	}
 }

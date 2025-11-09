@@ -4,19 +4,16 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ll")
+@ObfuscatedName("lp")
 @Implements("WorldMapScaleHandler")
 public class WorldMapScaleHandler {
-	@ObfuscatedName("am")
-	@Export("hasFocus")
-	protected static boolean hasFocus;
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 400077141
+		intValue = -205085461
 	)
 	@Export("pixelsPerTile")
 	int pixelsPerTile;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("tileTemplates")
 	byte[][][] tileTemplates;
 
@@ -24,25 +21,25 @@ public class WorldMapScaleHandler {
 		this.pixelsPerTile = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(IIIIIIIIB)V",
-		garbageValue = "76"
+		garbageValue = "49"
 	)
-	void method6910(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+	void method6965(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		if (var7 != 0 && this.pixelsPerTile != 0 && this.tileTemplates != null) {
-			var8 = this.method6920(var8, var7);
-			var7 = this.method6912(var7);
+			var8 = this.method6958(var8, var7);
+			var7 = this.method6933(var7);
 			Rasterizer2D.Rasterizer2D_drawGradientPixels(var1, var2, var5, var6, var3, var4, this.tileTemplates[var7 - 1][var8], this.pixelsPerTile);
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)I",
-		garbageValue = "-14"
+		garbageValue = "-17"
 	)
-	int method6920(int var1, int var2) {
+	int method6958(int var1, int var2) {
 		if (var2 == 9) {
 			var1 = var1 + 1 & 3;
 		}
@@ -58,12 +55,12 @@ public class WorldMapScaleHandler {
 		return var1;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(II)I",
-		garbageValue = "-521531828"
+		garbageValue = "1966631283"
 	)
-	int method6912(int var1) {
+	int method6933(int var1) {
 		if (var1 != 9 && var1 != 10) {
 			return var1 == 11 ? 8 : var1;
 		} else {
@@ -71,10 +68,10 @@ public class WorldMapScaleHandler {
 		}
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-570258103"
+		descriptor = "(B)V",
+		garbageValue = "74"
 	)
 	@Export("init")
 	void init() {
@@ -91,10 +88,10 @@ public class WorldMapScaleHandler {
 		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "26"
+		descriptor = "(I)V",
+		garbageValue = "-414937417"
 	)
 	@Export("init0")
 	void init0() {
@@ -158,10 +155,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[0][3] = var1;
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-758987737"
+		descriptor = "(B)V",
+		garbageValue = "-105"
 	)
 	@Export("init1")
 	void init1() {
@@ -229,10 +226,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[1][3] = var1;
 	}
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1633268965"
+		garbageValue = "2115677669"
 	)
 	@Export("init2")
 	void init2() {
@@ -296,10 +293,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[2][3] = var1;
 	}
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "75"
+		garbageValue = "95"
 	)
 	@Export("init3")
 	void init3() {
@@ -363,10 +360,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[3][3] = var1;
 	}
 
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "6"
+		descriptor = "(I)V",
+		garbageValue = "1932179559"
 	)
 	@Export("init4")
 	void init4() {
@@ -430,10 +427,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[4][3] = var1;
 	}
 
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "101"
+		descriptor = "(I)V",
+		garbageValue = "491317626"
 	)
 	@Export("init5")
 	void init5() {
@@ -499,10 +496,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[5][3] = var1;
 	}
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-58"
+		descriptor = "(I)V",
+		garbageValue = "-1137388040"
 	)
 	@Export("init6")
 	void init6() {
@@ -568,10 +565,10 @@ public class WorldMapScaleHandler {
 		this.tileTemplates[6][3] = var1;
 	}
 
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1884048508"
+		garbageValue = "1095188513"
 	)
 	@Export("init7")
 	void init7() {
@@ -639,55 +636,111 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-335426707"
+		descriptor = "(ILjava/lang/String;Lqd;II)Lmr;",
+		garbageValue = "-1112119785"
 	)
-	@Export("changeWorldSelectSorting")
-	static void changeWorldSelectSorting(int var0, int var1) {
-		int[] var2 = new int[4];
-		int[] var3 = new int[4];
-		var2[0] = var0;
-		var3[0] = var1;
-		int var4 = 1;
-
-		for (int var5 = 0; var5 < 4; ++var5) {
-			if (World.World_sortOption1[var5] != var0) {
-				var2[var4] = World.World_sortOption1[var5];
-				var3[var4] = World.World_sortOption2[var5];
-				++var4;
+	public static PacketBufferNode method6972(int var0, String var1, Language var2, int var3) {
+		PacketBufferNode var4 = HorizontalAlignment.getPacketBufferNode(ClientPacket.MESSAGE_PUBLIC, Client.packetWriter.isaacCipher);
+		var4.packetBuffer.writeByte(0);
+		int var5 = var4.packetBuffer.offset;
+		var4.packetBuffer.writeByte(var0);
+		String var6 = var1.toLowerCase();
+		int var7 = 0;
+		byte[] var8 = null;
+		if (var6.startsWith("yellow:")) {
+			var7 = 0;
+			var1 = var1.substring("yellow:".length());
+		} else if (var6.startsWith("red:")) {
+			var7 = 1;
+			var1 = var1.substring("red:".length());
+		} else if (var6.startsWith("green:")) {
+			var7 = 2;
+			var1 = var1.substring("green:".length());
+		} else if (var6.startsWith("cyan:")) {
+			var7 = 3;
+			var1 = var1.substring("cyan:".length());
+		} else if (var6.startsWith("purple:")) {
+			var7 = 4;
+			var1 = var1.substring("purple:".length());
+		} else if (var6.startsWith("white:")) {
+			var7 = 5;
+			var1 = var1.substring("white:".length());
+		} else if (var6.startsWith("flash1:")) {
+			var7 = 6;
+			var1 = var1.substring("flash1:".length());
+		} else if (var6.startsWith("flash2:")) {
+			var7 = 7;
+			var1 = var1.substring("flash2:".length());
+		} else if (var6.startsWith("flash3:")) {
+			var7 = 8;
+			var1 = var1.substring("flash3:".length());
+		} else if (var6.startsWith("glow1:")) {
+			var7 = 9;
+			var1 = var1.substring("glow1:".length());
+		} else if (var6.startsWith("glow2:")) {
+			var7 = 10;
+			var1 = var1.substring("glow2:".length());
+		} else if (var6.startsWith("glow3:")) {
+			var7 = 11;
+			var1 = var1.substring("glow3:".length());
+		} else if (var6.startsWith("rainbow:")) {
+			var7 = 12;
+			var1 = var1.substring("rainbow:".length());
+		} else if (var6.startsWith("pattern")) {
+			var8 = class167.method4105(var6);
+			if (var8 != null) {
+				var7 = var8.length + 12;
+				var1 = var1.substring("pattern".length() + var8.length + 1);
 			}
 		}
 
-		World.World_sortOption1 = var2;
-		World.World_sortOption2 = var3;
-		class407.sortWorlds(World.World_worlds, 0, World.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2);
+		var6 = var1.toLowerCase();
+		byte var9 = 0;
+		if (var6.startsWith("wave:")) {
+			var9 = 1;
+			var1 = var1.substring("wave:".length());
+		} else if (var6.startsWith("wave2:")) {
+			var9 = 2;
+			var1 = var1.substring("wave2:".length());
+		} else if (var6.startsWith("shake:")) {
+			var9 = 3;
+			var1 = var1.substring("shake:".length());
+		} else if (var6.startsWith("scroll:")) {
+			var9 = 4;
+			var1 = var1.substring("scroll:".length());
+		} else if (var6.startsWith("slide:")) {
+			var9 = 5;
+			var1 = var1.substring("slide:".length());
+		}
+
+		var4.packetBuffer.writeByte(var7);
+		var4.packetBuffer.writeByte(var9);
+		if (var8 != null) {
+			for (int var10 = 0; var10 < var8.length; ++var10) {
+				var4.packetBuffer.writeByte(var8[var10]);
+			}
+		}
+
+		KitDefinition.method4297(var4.packetBuffer, var1);
+		if (var0 == class374.field4348.rsOrdinal()) {
+			var4.packetBuffer.writeByte(var3);
+		}
+
+		var4.packetBuffer.writeLengthByte(var4.packetBuffer.offset - var5);
+		return var4;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;Lpx;IIB)Lru;",
-		garbageValue = "34"
+		descriptor = "(II)I",
+		garbageValue = "170962516"
 	)
-	public static Font method6924(AbstractArchive var0, AbstractArchive var1, int var2, int var3) {
-		if (!class522.method10495(var0, var2, var3)) {
-			return null;
-		} else {
-			byte[] var5 = var1.takeFile(var2, var3);
-			Font var4;
-			if (var5 == null) {
-				var4 = null;
-			} else {
-				Font var6 = new Font(var5, SpriteBufferProperties.SpriteBuffer_xOffsets, class440.SpriteBuffer_yOffsets, class333.SpriteBuffer_spriteWidths, Buffer.SpriteBuffer_spriteHeights, class113.SpriteBuffer_spritePalette, SpriteBufferProperties.SpriteBuffer_pixels);
-				SpriteBufferProperties.SpriteBuffer_xOffsets = null;
-				class440.SpriteBuffer_yOffsets = null;
-				class333.SpriteBuffer_spriteWidths = null;
-				Buffer.SpriteBuffer_spriteHeights = null;
-				class113.SpriteBuffer_spritePalette = null;
-				SpriteBufferProperties.SpriteBuffer_pixels = null;
-				var4 = var6;
-			}
-
-			return var4;
-		}
+	public static int method6971(int var0) {
+		var0 = (var0 & 1431655765) + (var0 >>> 1 & 1431655765);
+		var0 = (var0 >>> 2 & 858993459) + (var0 & 858993459);
+		var0 = var0 + (var0 >>> 4) & 252645135;
+		var0 += var0 >>> 8;
+		var0 += var0 >>> 16;
+		return var0 & 255;
 	}
 }

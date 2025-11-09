@@ -2,76 +2,76 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("jy")
+@ObfuscatedName("je")
 @Implements("SceneTileModel")
 public final class SceneTileModel {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@Export("triangleTextureIndices")
 	static final int[][] triangleTextureIndices;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@Export("faceIndices")
 	static final int[][] faceIndices;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@Export("verticesX")
 	static float[] verticesX;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@Export("verticesY")
 	static float[] verticesY;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("verticesZ")
 	static float[] verticesZ;
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@Export("triangleTexturesX")
 	static int[] triangleTexturesX;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ae")
 	@Export("triangleTexturesY")
 	static int[] triangleTexturesY;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aq")
 	@Export("triangleTexturesZ")
 	static int[] triangleTexturesZ;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@Export("vertexX")
 	int[] vertexX;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("aa")
 	@Export("vertexY")
 	int[] vertexY;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@Export("vertexZ")
 	int[] vertexZ;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ad")
 	@Export("triangleColorA")
 	int[] triangleColorA;
-	@ObfuscatedName("aa")
+	@ObfuscatedName("av")
 	@Export("triangleColorB")
 	int[] triangleColorB;
-	@ObfuscatedName("ai")
+	@ObfuscatedName("as")
 	@Export("triangleColorC")
 	int[] triangleColorC;
-	@ObfuscatedName("ak")
+	@ObfuscatedName("ar")
 	@Export("faceX")
 	int[] faceX;
-	@ObfuscatedName("ar")
+	@ObfuscatedName("az")
 	@Export("faceY")
 	int[] faceY;
-	@ObfuscatedName("at")
+	@ObfuscatedName("au")
 	@Export("faceZ")
 	int[] faceZ;
-	@ObfuscatedName("ax")
+	@ObfuscatedName("ak")
 	@Export("triangleTextureId")
 	int[] triangleTextureId;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ao")
 	@Export("isFlat")
 	boolean isFlat;
-	@ObfuscatedName("ao")
+	@ObfuscatedName("ax")
 	@Export("shape")
 	int shape;
-	@ObfuscatedName("az")
+	@ObfuscatedName("an")
 	@Export("rotation")
 	int rotation;
-	@ObfuscatedName("ad")
+	@ObfuscatedName("aw")
 	@Export("underlayRgb")
 	int underlayRgb;
-	@ObfuscatedName("aw")
+	@ObfuscatedName("ai")
 	@Export("overlayRgb")
 	int overlayRgb;
 

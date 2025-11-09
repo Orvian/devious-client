@@ -4,24 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("it")
+@ObfuscatedName("il")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 26729961
+		intValue = 1418999345
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = -507317839
+		intValue = 460667375
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -394486121
+		intValue = -459371687
 	)
 	@Export("z")
 	int z;
@@ -29,25 +29,34 @@ public class FaceNormal {
 	FaceNormal() {
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(ILox;IIIII[FB)Lox;",
-		garbageValue = "-58"
+		descriptor = "(II)Lhh;",
+		garbageValue = "1902005361"
 	)
-	static Widget method5365(int var0, Widget var1, int var2, int var3, int var4, int var5, int var6, float[] var7) {
-		Widget var8 = new Widget();
-		var8.type = var0;
-		var8.parentId = var1.id;
-		var8.childIndex = var2 * 814750319;
-		var8.isIf3 = true;
-		var8.xAlignment = var3;
-		var8.yAlignment = var4;
-		var8.widthAlignment = var5;
-		var8.heightAlignment = var6;
-		var8.rawX = (int)((float)var1.width * var7[0]);
-		var8.rawY = (int)(var7[1] * (float)(var1.height * -1326764757));
-		var8.rawWidth = (int)((float)var1.width * var7[2]);
-		var8.rawHeight = (int)(var7[3] * (float)(var1.height * -1326764757));
-		return var8;
+	public static HealthBarDefinition method5454(int var0) {
+		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = HealthBarDefinition.HealthBarDefinition_archive.takeFile(33, var0);
+			var1 = new HealthBarDefinition();
+			var1.field2034 = var0;
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
+	}
+
+	@ObfuscatedName("py")
+	@ObfuscatedSignature(
+		descriptor = "(IB)V",
+		garbageValue = "65"
+	)
+	static void method5453(int var0) {
+		Client.oculusOrbState = var0;
 	}
 }

@@ -1,76 +1,85 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ow")
-public class class374 {
-	@ObfuscatedName("al")
+@ObfuscatedName("or")
+public enum class374 implements Enum {
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Loq;"
+		descriptor = "Lor;"
 	)
-	@Export("huffman")
-	public static Huffman huffman;
-
-	@ObfuscatedName("io")
+	field4349(0),
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-299720906"
+		descriptor = "Lor;"
 	)
-	static final void method8116(int var0, int var1) {
-		if (var0 < 128) {
-			var0 = 128;
-		} else if (var0 > 383) {
-			var0 = 383;
-		}
+	field4352(1),
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "Lor;"
+	)
+	field4350(2),
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "Lor;"
+	)
+	field4348(3),
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "Lor;"
+	)
+	field4351(4);
 
-		if (class187.cameraPitch < var0) {
-			class187.cameraPitch = (var0 - class187.cameraPitch) * class141.field1694 / 1000 + class187.cameraPitch + EnumComposition.field2034;
-			if (class187.cameraPitch > var0) {
-				class187.cameraPitch = var0;
-			}
-		} else if (class187.cameraPitch > var0) {
-			class187.cameraPitch -= (class187.cameraPitch - var0) * class141.field1694 / 1000 + EnumComposition.field2034;
-			if (class187.cameraPitch < var0) {
-				class187.cameraPitch = var0;
-			}
-		}
+	@ObfuscatedName("af")
+	@ObfuscatedGetter(
+		intValue = 269139919
+	)
+	final int field4347;
 
-		var1 &= 2047;
-		int var2 = var1 - class28.cameraYaw;
-		if (var2 > 1024) {
-			var2 -= 2048;
-		} else if (var2 < -1024) {
-			var2 += 2048;
-		}
-
-		if (var2 > 0) {
-			class28.cameraYaw = class28.cameraYaw + EnumComposition.field2034 + var2 * class141.field1694 / 1000;
-			class28.cameraYaw &= 2047;
-		} else if (var2 < 0) {
-			class28.cameraYaw -= EnumComposition.field2034 + -var2 * class141.field1694 / 1000;
-			class28.cameraYaw &= 2047;
-		}
-
-		int var3 = var1 - class28.cameraYaw;
-		if (var3 > 1024) {
-			var3 -= 2048;
-		} else if (var3 < -1024) {
-			var3 += 2048;
-		}
-
-		if (var3 < 0 && var2 > 0 || var3 > 0 && var2 < 0) {
-			class28.cameraYaw = var1;
-		}
-
+	class374(int var3) {
+		this.field4347 = var3;
 	}
 
-	@ObfuscatedName("od")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lwj;IB)V",
-		garbageValue = "72"
+		descriptor = "(I)I",
+		garbageValue = "-1012656358"
 	)
-	static void method8127(Buffer var0, int var1) {
-		VarbitComposition.method4479(var0.array, var1);
-		class139.method3697(var0, var1);
+	@Export("rsOrdinal")
+	public int rsOrdinal() {
+		return this.field4347;
+	}
+
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;B)J",
+		garbageValue = "32"
+	)
+	public static long method8159(CharSequence var0) {
+		long var1 = 0L;
+		int var3 = var0.length();
+
+		for (int var4 = 0; var4 < var3; ++var4) {
+			var1 *= 37L;
+			char var5 = var0.charAt(var4);
+			if (var5 >= 'A' && var5 <= 'Z') {
+				var1 += (long)(var5 + 1 - 65);
+			} else if (var5 >= 'a' && var5 <= 'z') {
+				var1 += (long)(var5 + 1 - 97);
+			} else if (var5 >= '0' && var5 <= '9') {
+				var1 += (long)(var5 + 27 - 48);
+			}
+
+			if (var1 >= 177917621779460413L) {
+				break;
+			}
+		}
+
+		while (0L == var1 % 37L && 0L != var1) {
+			var1 /= 37L;
+		}
+
+		return var1;
 	}
 }

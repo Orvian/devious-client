@@ -1,52 +1,33 @@
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ke")
+@ObfuscatedName("kj")
 @Implements("MoveSpeed")
 public enum MoveSpeed implements Enum {
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "Lke;"
-	)
-	field3195((byte)-1),
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Lke;"
+		descriptor = "Lkj;"
 	)
-	field3192((byte)0),
-	@ObfuscatedName("ac")
+	field3278((byte)-1),
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Lke;"
+		descriptor = "Lkj;"
 	)
-	field3194((byte)1),
-	@ObfuscatedName("av")
+	field3280((byte)0),
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Lke;"
+		descriptor = "Lkj;"
 	)
-	field3197((byte)2);
+	field3276((byte)1),
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		descriptor = "Lkj;"
+	)
+	field3274((byte)2);
 
-	@ObfuscatedName("ax")
-	@ObfuscatedSignature(
-		descriptor = "Lei;"
-	)
-	@Export("pcmPlayerProvider")
-	public static class105 pcmPlayerProvider;
-	@ObfuscatedName("kf")
-	@ObfuscatedSignature(
-		descriptor = "Lpo;"
-	)
-	static Archive field3199;
-	@ObfuscatedName("kq")
-	@ObfuscatedSignature(
-		descriptor = "Lpo;"
-	)
-	@Export("archive6")
-	static Archive archive6;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@Export("id")
 	final byte id;
 
@@ -57,76 +38,59 @@ public enum MoveSpeed implements Enum {
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-164877066"
+		garbageValue = "-1012656358"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("ch")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lmb;",
-		garbageValue = "-1466806946"
+		descriptor = "(Lwe;Ljava/lang/Object;B)V",
+		garbageValue = "0"
 	)
-	public static PacketBufferNode method6300() {
-		PacketBufferNode var0;
-		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) {
-			var0 = new PacketBufferNode();
+	static void method6336(class572 var0, Object var1) {
+		if (var0 == null) {
+			throw new IllegalStateException("pushValueOfType() failure - null baseVarType");
 		} else {
-			var0 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount];
-		}
+			switch(var0.field5881) {
+			case 1:
+				Interpreter.Interpreter_objectStack[++Message.Interpreter_objectStackSize - 1] = var1;
+				break;
+			case 2:
+				Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = (Integer)var1;
+				break;
+			default:
+				throw new IllegalStateException("pushValueOfType() failure - unsupported type");
+			}
 
-		var0.clientPacket = null;
-		var0.clientPacketLength = 0;
-		var0.packetBuffer = new PacketBuffer(5000);
-		return var0;
+		}
 	}
 
-	@ObfuscatedName("ao")
+	@ObfuscatedName("jv")
 	@ObfuscatedSignature(
-		descriptor = "(Ljm;IIB)Ldh;",
-		garbageValue = "60"
+		descriptor = "(Lcs;B)Z",
+		garbageValue = "55"
 	)
-	public static final PcmPlayer method6297(TaskHandler var0, int var1, int var2) {
-		if (PcmPlayer.field1313 == 0) {
-			throw new IllegalStateException();
-		} else if (var1 >= 0 && var1 < 2) {
-			if (var2 < 512) {
-				var2 = 512;
-			}
-
-			try {
-				PcmPlayer var3 = pcmPlayerProvider.player();
-				var3.samples = new int[512 * (class475.PcmPlayer_stereo ? 2 : 1)];
-				var3.field1319 = var2;
-				var3.init();
-				var3.capacity = (var2 & -2048) + 2048;
-				if (var3.capacity > 32768) {
-					var3.capacity = 32768;
-				}
-
-				var3.open(var3.capacity);
-				if (AuthenticationScheme.field1584 > 0 && MusicPatchPcmStream.soundSystem == null) {
-					MusicPatchPcmStream.soundSystem = new SoundSystem();
-					class359.soundSystemExecutor = Executors.newScheduledThreadPool(1);
-					class359.soundSystemExecutor.scheduleAtFixedRate(MusicPatchPcmStream.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS);
-				}
-
-				if (MusicPatchPcmStream.soundSystem != null) {
-					if (MusicPatchPcmStream.soundSystem.players[var1] != null) {
-						throw new IllegalArgumentException();
-					}
-
-					MusicPatchPcmStream.soundSystem.players[var1] = var3;
-				}
-
-				return var3;
-			} catch (Throwable var4) {
-				return new PcmPlayer();
-			}
+	static boolean method6337(Player var0) {
+		if (Client.drawPlayerNames == 0) {
+			return false;
 		} else {
-			throw new IllegalArgumentException();
+			boolean var1;
+			if (class159.localPlayer != var0) {
+				var1 = (Client.drawPlayerNames & 4) != 0;
+				boolean var2 = var1;
+				if (!var1) {
+					boolean var3 = (Client.drawPlayerNames & 1) != 0;
+					var2 = var3 && var0.isFriend();
+				}
+
+				return var2 || ModeWhere.method8721() && var0.isFriendsChatMember();
+			} else {
+				var1 = (Client.drawPlayerNames & 8) != 0;
+				return var1;
+			}
 		}
 	}
 }

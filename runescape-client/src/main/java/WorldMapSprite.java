@@ -1,14 +1,19 @@
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lf")
+@ObfuscatedName("lq")
 @Implements("WorldMapSprite")
 public final class WorldMapSprite {
-	@ObfuscatedName("ab")
+	@ObfuscatedName("kl")
+	@ObfuscatedSignature(
+		descriptor = "Lpg;"
+	)
+	static Archive field3462;
+	@ObfuscatedName("at")
 	@Export("tileColors")
 	final int[] tileColors;
 
@@ -20,31 +25,38 @@ public final class WorldMapSprite {
 		this.tileColors = var1;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "0"
+		descriptor = "(III)I",
+		garbageValue = "-652532999"
 	)
 	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
-		return this.tileColors[var2 * 64 + var1];
+		return this.tileColors[var1 + var2 * 64];
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)Z",
-		garbageValue = "-103"
+		descriptor = "(Ljava/util/ArrayList;ZI)V",
+		garbageValue = "818607242"
 	)
-	static boolean method6810(String var0) {
-		if (var0 == null) {
-			return false;
-		} else {
-			try {
-				new URL(var0);
-				return true;
-			} catch (MalformedURLException var2) {
-				return false;
+	static void method6838(ArrayList var0, boolean var1) {
+		if (!var1) {
+			class338.field3891.clear();
+		}
+
+		Iterator var2 = var0.iterator();
+
+		while (var2.hasNext()) {
+			MidiRequest var3 = (MidiRequest)var2.next();
+			if (var3.musicTrackGroupId != -1 && var3.musicTrackFileId != -1) {
+				if (!var1) {
+					class338.field3891.add(var3);
+				}
+
+				class338.field3893.add(var3);
 			}
 		}
+
 	}
 }

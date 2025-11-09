@@ -1,24 +1,23 @@
+import java.util.ArrayList;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dv")
+@ObfuscatedName("dk")
 @Implements("SoundSystem")
 public class SoundSystem implements Runnable {
-	@ObfuscatedName("ci")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("pi")
-	static int[] field1344;
-	@ObfuscatedName("al")
+	@ObfuscatedName("lc")
+	@Export("gameSessionServiceBaseUrl")
+	static String gameSessionServiceBaseUrl;
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "[Ldh;"
+		descriptor = "[Ldx;"
 	)
 	@Export("players")
-	volatile PcmPlayer[] players;
+	public volatile PcmPlayer[] players;
 
-	SoundSystem() {
+	public SoundSystem() {
 		this.players = new PcmPlayer[2];
 	}
 
@@ -31,21 +30,41 @@ public class SoundSystem implements Runnable {
 				}
 			}
 		} catch (Exception var4) {
-			class559.RunException_sendStackTrace((String)null, var4);
+			ArchiveDiskActionHandler.RunException_sendStackTrace((String)null, var4);
 		}
 
 	}
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("cw")
 	@ObfuscatedSignature(
-		descriptor = "(FFFI)F",
-		garbageValue = "734747258"
+		descriptor = "(ILcj;ZB)I",
+		garbageValue = "35"
 	)
-	public static float method3067(float var0, float var1, float var2) {
-		if (var1 < var0) {
-			throw new IllegalArgumentException("max: " + var1 + " can not be lower than min: " + var0);
+	static int method3200(int var0, Script var1, boolean var2) {
+		if (var0 == 7900) {
+			int var3 = Interpreter.Interpreter_intStack[--UrlRequest.Interpreter_intStackSize];
+			Client.field364 = Math.max(var3, 0);
+			return 1;
+		} else if (var0 == 7901) {
+			Interpreter.Interpreter_intStack[++UrlRequest.Interpreter_intStackSize - 1] = Client.field364;
+			return 1;
 		} else {
-			return Math.max(var0, Math.min(var2, var1));
+			return 2;
 		}
+	}
+
+	@ObfuscatedName("iv")
+	@ObfuscatedSignature(
+		descriptor = "(IIB)V",
+		garbageValue = "-71"
+	)
+	static void method3199(int var0, int var1) {
+		if (class154.clientPreferences.getMusicVolume() != 0 && var0 != -1) {
+			ArrayList var2 = new ArrayList();
+			var2.add(new MidiRequest(GrandExchangeOffer.archive6, var0, 0, class154.clientPreferences.getMusicVolume(), false));
+			TextureProvider.method5489(var2, 0, 0, 0, 0, true);
+			Client.playingJingle = true;
+		}
+
 	}
 }

@@ -1,12 +1,18 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ea")
+@ObfuscatedName("en")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("al")
+	@ObfuscatedName("um")
+	@ObfuscatedGetter(
+		intValue = 803893595
+	)
+	static int field1585;
+	@ObfuscatedName("ab")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,10 +20,10 @@ public class UserComparator10 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(Lto;Lto;I)I",
-		garbageValue = "-134023593"
+		descriptor = "(Ltu;Ltu;I)I",
+		garbageValue = "1349921059"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -30,18 +36,5 @@ public class UserComparator10 extends AbstractUserComparator {
 
 	public int compare(Object var1, Object var2) {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
-	}
-
-	@ObfuscatedName("as")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "1548974150"
-	)
-	public static void method3540(boolean var0) {
-		if (var0 != ItemComposition.ItemDefinition_inMembersWorld) {
-			class6.method32();
-			ItemComposition.ItemDefinition_inMembersWorld = var0;
-		}
-
 	}
 }

@@ -4,25 +4,46 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cq")
+@ObfuscatedName("cl")
 @Implements("ChatChannel")
 public class ChatChannel {
-	@ObfuscatedName("ai")
-	static byte[][][] field806;
-	@ObfuscatedName("io")
-	@ObfuscatedGetter(
-		longValue = -4449852899261931453L
-	)
-	static long field804;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		descriptor = "[Lbd;"
+		descriptor = "Lpe;"
+	)
+	@Export("SequenceDefinition_archive")
+	public static AbstractArchive SequenceDefinition_archive;
+	@ObfuscatedName("cj")
+	@ObfuscatedSignature(
+		descriptor = "Lpe;"
+	)
+	@Export("ObjectDefinition_modelsArchive")
+	public static AbstractArchive ObjectDefinition_modelsArchive;
+	@ObfuscatedName("mf")
+	@ObfuscatedGetter(
+		intValue = 1327006193
+	)
+	@Export("cameraZ")
+	static int cameraZ;
+	@ObfuscatedName("sn")
+	@ObfuscatedSignature(
+		descriptor = "Lok;"
+	)
+	static Widget field800;
+	@ObfuscatedName("sh")
+	@ObfuscatedGetter(
+		intValue = 1361905301
+	)
+	static int field803;
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "[Lbx;"
 	)
 	@Export("messages")
 	Message[] messages;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 705681979
+		intValue = 2089289801
 	)
 	@Export("count")
 	int count;
@@ -31,10 +52,10 @@ public class ChatChannel {
 		this.messages = new Message[100];
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbd;",
-		garbageValue = "1609462101"
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbx;",
+		garbageValue = "-1456747944"
 	)
 	@Export("addMessage")
 	Message addMessage(int var1, String var2, String var3, String var4) {
@@ -62,95 +83,157 @@ public class ChatChannel {
 		return var5;
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lbd;",
-		garbageValue = "-1459480157"
+		descriptor = "(IB)Lbx;",
+		garbageValue = "-1"
 	)
 	@Export("getMessage")
 	Message getMessage(int var1) {
 		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1488192901"
+		garbageValue = "1273108835"
 	)
 	@Export("size")
 	int size() {
 		return this.count;
 	}
 
-	@ObfuscatedName("al")
-	public static final int method1997(double var0, double var2, double var4) {
-		double var6 = var4;
-		double var8 = var4;
-		double var10 = var4;
-		if (0.0D != var2) {
-			double var12;
-			if (var4 < 0.5D) {
-				var12 = (1.0D + var2) * var4;
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "(Ltl;Ltl;B)I",
+		garbageValue = "38"
+	)
+	public static int method2054(DynamicArray var0, DynamicArray var1) {
+		if (var1 == var0) {
+			return 0;
+		} else if (var0 == null) {
+			return -1;
+		} else if (var1 == null) {
+			return 1;
+		} else {
+			int var2 = var0.method10433();
+			int var3 = var1.method10433();
+			int var4 = Math.min(var2, var3);
+			int var7;
+			if (var0.field5571 == class572.field5879 && class572.field5879 == var1.field5571) {
+				int[] var10 = var0.method10430();
+				int[] var12 = var1.method10430();
+
+				for (var7 = 0; var7 < var4; ++var7) {
+					if (var10[var7] < var12[var7]) {
+						return -1;
+					}
+
+					if (var10[var7] > var12[var7]) {
+						return 1;
+					}
+				}
+			} else if (var0.field5571 == class572.field5878 && class572.field5878 == var1.field5571) {
+				long[] var9 = var0.method10431();
+				long[] var11 = var1.method10431();
+
+				for (var7 = 0; var7 < var4; ++var7) {
+					if (var9[var7] < var11[var7]) {
+						return -1;
+					}
+
+					if (var9[var7] > var11[var7]) {
+						return 1;
+					}
+				}
 			} else {
-				var12 = var2 + var4 - var2 * var4;
+				if (var0.field5571 != class572.field5877 || class572.field5877 != var1.field5571) {
+					throw new RuntimeException();
+				}
+
+				Object[] var5 = var0.method10428();
+				Object[] var6 = var1.method10428();
+
+				for (var7 = 0; var7 < var4; ++var7) {
+					int var8 = ((String)var5[var7]).compareTo((String)var6[var7]);
+					if (var8 < 0) {
+						return -1;
+					}
+
+					if (var8 > 0) {
+						return 1;
+					}
+				}
 			}
 
-			double var14 = 2.0D * var4 - var12;
-			double var16 = var0 + 0.3333333333333333D;
-			if (var16 > 1.0D) {
-				--var16;
-			}
+			return var2 < var3 ? -1 : (var2 == var3 ? 0 : 1);
+		}
+	}
 
-			double var20 = var0 - 0.3333333333333333D;
-			if (var20 < 0.0D) {
-				++var20;
-			}
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(Ldm;IIIIB)V",
+		garbageValue = "91"
+	)
+	static final void method2057(WorldView var0, int var1, int var2, int var3, int var4) {
+		int[][][] var5 = var0.tileHeights;
+		int var6 = var0.sizeX - 1;
+		int var7 = var0.sizeY - 1;
 
-			if (var16 * 6.0D < 1.0D) {
-				var6 = var16 * 6.0D * (var12 - var14) + var14;
-			} else if (var16 * 2.0D < 1.0D) {
-				var6 = var12;
-			} else if (var16 * 3.0D < 2.0D) {
-				var6 = var14 + 6.0D * (0.6666666666666666D - var16) * (var12 - var14);
-			} else {
-				var6 = var14;
-			}
+		for (int var8 = var2; var8 <= var2 + var4; ++var8) {
+			for (int var9 = var1; var9 <= var3 + var1; ++var9) {
+				if (var9 >= 0 && var9 < var5[0].length - 1 && var8 >= 0 && var8 < var5[0][0].length - 1) {
+					Tiles.Tiles_underlays2[0][var9][var8] = 127;
+					if (var9 == var1 && var9 > 0) {
+						var5[0][var9][var8] = var5[0][var9 - 1][var8];
+					}
 
-			if (6.0D * var0 < 1.0D) {
-				var8 = var14 + var0 * 6.0D * (var12 - var14);
-			} else if (2.0D * var0 < 1.0D) {
-				var8 = var12;
-			} else if (var0 * 3.0D < 2.0D) {
-				var8 = var14 + (var12 - var14) * (0.6666666666666666D - var0) * 6.0D;
-			} else {
-				var8 = var14;
-			}
+					if (var3 + var1 == var9 && var9 < var6) {
+						var5[0][var9][var8] = var5[0][var9 + 1][var8];
+					}
 
-			if (var20 * 6.0D < 1.0D) {
-				var10 = var14 + var20 * 6.0D * (var12 - var14);
-			} else if (2.0D * var20 < 1.0D) {
-				var10 = var12;
-			} else if (var20 * 3.0D < 2.0D) {
-				var10 = var14 + (0.6666666666666666D - var20) * (var12 - var14) * 6.0D;
-			} else {
-				var10 = var14;
+					if (var8 == var2 && var8 > 0) {
+						var5[0][var9][var8] = var5[0][var9][var8 - 1];
+					}
+
+					if (var8 == var2 + var4 && var8 < var7) {
+						var5[0][var9][var8] = var5[0][var9][var8 + 1];
+					}
+				}
 			}
 		}
 
-		int var22 = (int)(256.0D * var6);
-		int var13 = (int)(256.0D * var8);
-		int var23 = (int)(var10 * 256.0D);
-		int var15 = var23 + (var13 << 8) + (var22 << 16);
-		return var15;
 	}
 
-	@ObfuscatedName("nu")
+	@ObfuscatedName("ih")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1750791445"
+		descriptor = "(Lcd;I)V",
+		garbageValue = "-1251918862"
 	)
-	static final int method2002() {
-		float var0 = 200.0F * ((float)FriendSystem.clientPreferences.getBrightness() - 0.5F);
-		return 100 - Math.round(var0);
+	static final void method2058(Actor var0) {
+		boolean var1 = var0.field1083 == Client.cycle || !var0.method2447();
+		if (!var1) {
+			SequenceDefinition var2 = var0.animationSequence.getSequenceDefinition();
+			if (var2 != null && !var2.isCachedModelIdSet()) {
+				var1 = var0.animationSequence.getFrameCycle() + 1 > var2.frameLengths[var0.animationSequence.getFrame()];
+			} else {
+				var1 = true;
+			}
+		}
+
+		if (var1) {
+			int var8 = var0.field1083 - var0.spotAnimation;
+			int var3 = Client.cycle - var0.spotAnimation;
+			int var4 = var0.field1032 * 128 + var0.size * 64;
+			int var5 = var0.field1080 * 128 + var0.size * 64;
+			int var6 = var0.field1061 * 128 + var0.size * 64;
+			int var7 = var0.field1055 * 128 + var0.size * 64;
+			var0.x = (var3 * var6 + var4 * (var8 - var3)) / var8;
+			var0.y = (var7 * var3 + var5 * (var8 - var3)) / var8;
+		}
+
+		var0.field1093 = 0;
+		var0.orientation = var0.field1084;
+		var0.rotation = var0.orientation;
 	}
 }

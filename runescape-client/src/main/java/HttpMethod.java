@@ -1,73 +1,60 @@
-import java.util.ArrayList;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("aj")
+@ObfuscatedName("aa")
 @Implements("HttpMethod")
 public class HttpMethod implements Enum {
-	@ObfuscatedName("al")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Laa;"
 	)
 	@Export("POST")
 	public static final HttpMethod POST;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Laa;"
 	)
 	@Export("GET")
 	public static final HttpMethod GET;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Laa;"
 	)
 	@Export("PUT")
 	static final HttpMethod PUT;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Laa;"
 	)
 	@Export("PATCH")
 	static final HttpMethod PATCH;
-	@ObfuscatedName("au")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Laa;"
 	)
 	@Export("DELETE")
 	static final HttpMethod DELETE;
-	@ObfuscatedName("ad")
-	static String[] field41;
-	@ObfuscatedName("ko")
-	@ObfuscatedGetter(
-		longValue = 2527990320718600839L
-	)
-	static long field38;
-	@ObfuscatedName("py")
+	@ObfuscatedName("ck")
 	@ObfuscatedSignature(
-		descriptor = "[Lxv;"
+		descriptor = "Lxl;"
 	)
-	@Export("headIconPrayerSprites")
-	static SpritePixels[] headIconPrayerSprites;
-	@ObfuscatedName("st")
+	@Export("leftTitleSprite")
+	static SpritePixels leftTitleSprite;
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -608853119
+		intValue = -571964659
 	)
-	static int field32;
-	@ObfuscatedName("as")
-	@ObfuscatedGetter(
-		intValue = -123983669
-	)
-	int field42;
-	@ObfuscatedName("ah")
+	int field35;
+	@ObfuscatedName("ae")
 	@Export("name")
 	String name;
-	@ObfuscatedName("ap")
-	boolean field37;
-	@ObfuscatedName("am")
-	boolean field34;
+	@ObfuscatedName("aq")
+	boolean field39;
+	@ObfuscatedName("ac")
+	boolean field32;
 
 	static {
 		POST = new HttpMethod(0, "POST", true, true);
@@ -78,174 +65,124 @@ public class HttpMethod implements Enum {
 	}
 
 	HttpMethod(int var1, String var2, boolean var3, boolean var4) {
-		this.field42 = var1;
+		this.field35 = var1;
 		this.name = var2;
-		this.field37 = var3;
-		this.field34 = var4;
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "1171989961"
-	)
-	boolean method72() {
-		return this.field37;
+		this.field39 = var3;
+		this.field32 = var4;
 	}
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-164877066"
+		garbageValue = "-1012656358"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field42;
+		return this.field35;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1873291526"
+		descriptor = "(B)Z",
+		garbageValue = "1"
+	)
+	boolean method71() {
+		return this.field39;
+	}
+
+	@ObfuscatedName("af")
+	@ObfuscatedSignature(
+		descriptor = "(B)Ljava/lang/String;",
+		garbageValue = "52"
 	)
 	@Export("getName")
 	public String getName() {
 		return this.name;
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1905712289"
+		garbageValue = "-2139143616"
 	)
-	boolean method75() {
-		return this.field34;
+	boolean method68() {
+		return this.field32;
 	}
 
-	@ObfuscatedName("hf")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "707763979"
+		descriptor = "(Ljava/lang/CharSequence;II[BIB)I",
+		garbageValue = "53"
 	)
-	static int method67() {
-		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
-			int var0 = 0;
+	@Export("encodeStringCp1252")
+	public static int encodeStringCp1252(CharSequence var0, int var1, int var2, byte[] var3, int var4) {
+		int var5 = var2 - var1;
 
-			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
-				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
-			}
-
-			return var0 * 10000 / Client.field480;
-		} else {
-			return 10000;
-		}
-	}
-
-	@ObfuscatedName("iv")
-	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "2134089127"
-	)
-	static void method80(int var0, int var1) {
-		if (FriendSystem.clientPreferences.getMusicVolume() != 0 && var0 != -1) {
-			ArrayList var2 = new ArrayList();
-			var2.add(new MidiRequest(MoveSpeed.archive6, var0, 0, FriendSystem.clientPreferences.getMusicVolume(), false));
-			class30.method486(var2, 0, 0, 0, 0, true);
-			Client.playingJingle = true;
-		}
-
-	}
-
-	@ObfuscatedName("ma")
-	@ObfuscatedSignature(
-		descriptor = "(Lcr;IIIII)V",
-		garbageValue = "-1135954424"
-	)
-	@Export("addPlayerToMenu")
-	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3, int var4) {
-		if (var0.index != Client.localPlayerIndex) {
-			if (Client.menu.menuOptionsCount < 400) {
-				String var5;
-				int var8;
-				if (var0.skillLevel == 0) {
-					String var6 = var0.actions[0] + var0.username + var0.actions[1];
-					var8 = var0.combatLevel;
-					int var9 = class27.localPlayer.combatLevel;
-					int var10 = var9 - var8;
-					String var7;
-					if (var10 < -9) {
-						var7 = ObjectSound.colorStartTag(16711680);
-					} else if (var10 < -6) {
-						var7 = ObjectSound.colorStartTag(16723968);
-					} else if (var10 < -3) {
-						var7 = ObjectSound.colorStartTag(16740352);
-					} else if (var10 < 0) {
-						var7 = ObjectSound.colorStartTag(16756736);
-					} else if (var10 > 9) {
-						var7 = ObjectSound.colorStartTag(65280);
-					} else if (var10 > 6) {
-						var7 = ObjectSound.colorStartTag(4259584);
-					} else if (var10 > 3) {
-						var7 = ObjectSound.colorStartTag(8453888);
-					} else if (var10 > 0) {
-						var7 = ObjectSound.colorStartTag(12648192);
-					} else {
-						var7 = ObjectSound.colorStartTag(16776960);
-					}
-
-					var5 = var6 + var7 + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
+		for (int var6 = 0; var6 < var5; ++var6) {
+			char var7 = var0.charAt(var6 + var1);
+			if ((var7 <= 0 || var7 >= 128) && (var7 < 160 || var7 > 255)) {
+				if (var7 == 8364) {
+					var3[var6 + var4] = -128;
+				} else if (var7 == 8218) {
+					var3[var6 + var4] = -126;
+				} else if (var7 == 402) {
+					var3[var6 + var4] = -125;
+				} else if (var7 == 8222) {
+					var3[var6 + var4] = -124;
+				} else if (var7 == 8230) {
+					var3[var6 + var4] = -123;
+				} else if (var7 == 8224) {
+					var3[var6 + var4] = -122;
+				} else if (var7 == 8225) {
+					var3[var6 + var4] = -121;
+				} else if (var7 == 710) {
+					var3[var6 + var4] = -120;
+				} else if (var7 == 8240) {
+					var3[var6 + var4] = -119;
+				} else if (var7 == 352) {
+					var3[var6 + var4] = -118;
+				} else if (var7 == 8249) {
+					var3[var6 + var4] = -117;
+				} else if (var7 == 338) {
+					var3[var6 + var4] = -116;
+				} else if (var7 == 381) {
+					var3[var6 + var4] = -114;
+				} else if (var7 == 8216) {
+					var3[var6 + var4] = -111;
+				} else if (var7 == 8217) {
+					var3[var6 + var4] = -110;
+				} else if (var7 == 8220) {
+					var3[var6 + var4] = -109;
+				} else if (var7 == 8221) {
+					var3[var6 + var4] = -108;
+				} else if (var7 == 8226) {
+					var3[var6 + var4] = -107;
+				} else if (var7 == 8211) {
+					var3[var6 + var4] = -106;
+				} else if (var7 == 8212) {
+					var3[var6 + var4] = -105;
+				} else if (var7 == 732) {
+					var3[var6 + var4] = -104;
+				} else if (var7 == 8482) {
+					var3[var6 + var4] = -103;
+				} else if (var7 == 353) {
+					var3[var6 + var4] = -102;
+				} else if (var7 == 8250) {
+					var3[var6 + var4] = -101;
+				} else if (var7 == 339) {
+					var3[var6 + var4] = -100;
+				} else if (var7 == 382) {
+					var3[var6 + var4] = -98;
+				} else if (var7 == 376) {
+					var3[var6 + var4] = -97;
 				} else {
-					var5 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2];
+					var3[var6 + var4] = 63;
 				}
-
-				int var11;
-				if (Client.isItemSelected == 1) {
-					ClanSettings.insertMenuItem("Use", Client.field501 + " " + "->" + " " + ObjectSound.colorStartTag(16777215) + var5, 14, var1, var2, var3, -1, false, var4);
-				} else if (Client.isSpellSelected) {
-					if ((class533.selectedSpellFlags & 8) == 8) {
-						ClanSettings.insertMenuItem(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ObjectSound.colorStartTag(16777215) + var5, 15, var1, var2, var3, -1, false, var4);
-					}
-				} else {
-					for (var11 = 7; var11 >= 0; --var11) {
-						if (Client.playerMenuActions[var11] != null) {
-							short var12 = 0;
-							if (Client.playerMenuActions[var11].equalsIgnoreCase("Attack")) {
-								if (AttackOption.AttackOption_hidden == Client.playerAttackOption) {
-									continue;
-								}
-
-								if (Client.playerAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.playerAttackOption && var0.combatLevel > class27.localPlayer.combatLevel) {
-									var12 = 2000;
-								}
-
-								if (class27.localPlayer.team != 0 && var0.team != 0) {
-									if (var0.team == class27.localPlayer.team) {
-										var12 = 2000;
-									} else {
-										var12 = 0;
-									}
-								} else if (Client.playerAttackOption == AttackOption.field1197 && var0.isClanMember()) {
-									var12 = 2000;
-								}
-							} else if (Client.playerOptionsPriorities[var11]) {
-								var12 = 2000;
-							}
-
-							boolean var13 = false;
-							var8 = Client.playerMenuOpcodes[var11] + var12;
-							ClanSettings.insertMenuItem(Client.playerMenuActions[var11], ObjectSound.colorStartTag(16777215) + var5, var8, var1, var2, var3, -1, false, var4);
-						}
-					}
-				}
-
-				for (var11 = 0; var11 < Client.menu.menuOptionsCount; ++var11) {
-					if (Client.menu.menuOpcodes[var11] == 23) {
-						Client.menu.menuTargets[var11] = ObjectSound.colorStartTag(16777215) + var5;
-						break;
-					}
-				}
-
+			} else {
+				var3[var6 + var4] = (byte)var7;
 			}
 		}
+
+		return var5;
 	}
 }

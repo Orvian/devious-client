@@ -1,89 +1,37 @@
-import java.util.concurrent.Callable;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fi")
-class class143 implements Callable {
-	@ObfuscatedName("ab")
+@ObfuscatedName("fc")
+public class class143 {
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "Lpx;"
+		descriptor = "(IZB)Ljava/lang/String;",
+		garbageValue = "38"
 	)
-	@Export("SpotAnimationDefinition_modelArchive")
-	static AbstractArchive SpotAnimationDefinition_modelArchive;
-	// $FF: synthetic field
-	@ObfuscatedSignature(
-		descriptor = "Lfh;"
-	)
-	final class144 this$0;
-	// $FF: synthetic field
-	final int val$workStart;
-	// $FF: synthetic field
-	final int val$workEnd;
-	// $FF: synthetic field
-	@ObfuscatedSignature(
-		descriptor = "[Lfu;"
-	)
-	final class136[] val$curveLoadJobs;
-
-	@ObfuscatedSignature(
-		descriptor = "(Lfh;II[Lfu;)V"
-	)
-	class143(class144 var1, int var2, int var3, class136[] var4) {
-		this.this$0 = var1;
-		this.val$workStart = var2;
-		this.val$workEnd = var3;
-		this.val$curveLoadJobs = var4;
+	@Export("intToString")
+	public static String intToString(int var0, boolean var1) {
+		return var1 && var0 >= 0 ? class263.method5981(var0, 10, var1) : Integer.toString(var0);
 	}
 
-	public Object call() {
-		for (int var1 = this.val$workStart; var1 < this.val$workEnd; ++var1) {
-			this.val$curveLoadJobs[var1].call();
-		}
-
-		return null;
-	}
-
-	@ObfuscatedName("ab")
+	@ObfuscatedName("jd")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lin;",
-		garbageValue = "-1011261633"
+		descriptor = "(Ldm;ILjd;I)V",
+		garbageValue = "-1321514816"
 	)
-	@Export("getFrames")
-	static Frames getFrames(int var0) {
-		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			var1 = class188.method4266(class407.SequenceDefinition_animationsArchive, class202.SpotAnimationDefinition_archive, var0);
-			if (var1 != null) {
-				SequenceDefinition.SequenceDefinition_cachedFrames.put(var1, (long)var0);
-			}
-
-			return var1;
-		}
-	}
-
-	@ObfuscatedName("ab")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lhe;",
-		garbageValue = "1731602356"
-	)
-	@Export("StructDefinition_getStructDefinition")
-	public static StructComposition StructDefinition_getStructDefinition(int var0) {
-		StructComposition var1 = (StructComposition)StructComposition.StructDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0);
-			var1 = new StructComposition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			StructComposition.StructDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
+	static void method3828(WorldView var0, int var1, Model var2) {
+		boolean var3 = true;
+		float var4 = (float)Client.viewportHeight / 334.0F;
+		float var5 = (float)Client.viewportZoom * 4.0F / var4;
+		int var6 = Math.max(512, (int)(1400.0F - var5));
+		int var7 = Client.field484;
+		double var8 = (double)class267.method6053(var1) / 65536.0D;
+		int var10 = var7 - (int)((double)var6 * var8);
+		int var11 = Client.field377 - (int)(class258.method5937(var1) * (double)var6);
+		int var12 = var0.plane;
+		int var13 = var10 >> 7;
+		int var15 = var11 >> 7;
+		long var16 = ClanChannelMember.calculateTag(var12, var13, var15, 5, false, -1, var0.id);
+		var0.scene.drawEntity(var0.plane, var10, var11, Client.field572, 60, var2, var1, var16, false);
 	}
 }

@@ -75,6 +75,7 @@ public class ConfigPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		pluginListPanel = pluginListPanelProvider.get();
+		pluginListPanel.clearFakePlugins();
 		pluginListPanel.addFakePlugin(new PluginConfigurationDescriptor(
 				"RuneLite", "RuneLite client settings",
 				new String[]{"client", "notification", "size", "position", "window", "chrome", "focus", "font", "overlay", "tooltip", "infobox"},

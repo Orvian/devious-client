@@ -71,21 +71,19 @@ import net.runelite.client.util.Text;
 
 @Slf4j
 @Singleton
-public class PluginListPanel extends PluginPanel
-{
+public class PluginListPanel extends PluginPanel {
 	private static final String RUNELITE_GROUP_NAME = RuneLiteConfig.class.getAnnotation(ConfigGroup.class).value();
 	private static final String PINNED_PLUGINS_CONFIG_KEY = "pinnedPlugins";
 	private static final ImmutableList<String> CATEGORY_TAGS = ImmutableList.of(
-		"OpenOSRS",
-		"Combat",
-		"Chat",
-		"Item",
-		"Minigame",
-		"Notification",
-		"Plugin Hub",
-		"Skilling",
-		"XP"
-	);
+			"OpenOSRS",
+			"Combat",
+			"Chat",
+			"Item",
+			"Minigame",
+			"Notification",
+			"Plugin Hub",
+			"Skilling",
+			"XP");
 
 	private final ConfigManager configManager;
 	private final PluginManager pluginManager;
@@ -106,14 +104,13 @@ public class PluginListPanel extends PluginPanel
 
 	@Inject
 	public PluginListPanel(
-		ConfigManager configManager,
-		PluginManager pluginManager,
-		ExternalPluginManager externalPluginManager,
-		OPRSExternalPluginManager oprsExternalPluginManager,
-		EventBus eventBus,
-		Provider<ConfigPanel> configPanelProvider,
-		Provider<PluginHubPanel> pluginHubPanelProvider)
-	{
+			ConfigManager configManager,
+			PluginManager pluginManager,
+			ExternalPluginManager externalPluginManager,
+			OPRSExternalPluginManager oprsExternalPluginManager,
+			EventBus eventBus,
+			Provider<ConfigPanel> configPanelProvider,
+			Provider<PluginHubPanel> pluginHubPanelProvider) {
 		super(false);
 
 		this.configManager = configManager;
@@ -122,17 +119,14 @@ public class PluginListPanel extends PluginPanel
 		this.oprsExternalPluginManager = oprsExternalPluginManager;
 		this.configPanelProvider = configPanelProvider;
 
-		muxer = new MultiplexingPluginPanel(this)
-		{
+		muxer = new MultiplexingPluginPanel(this) {
 			@Override
-			protected void onAdd(PluginPanel p)
-			{
+			protected void onAdd(PluginPanel p) {
 				eventBus.register(p);
 			}
 
 			@Override
-			protected void onRemove(PluginPanel p)
-			{
+			protected void onRemove(PluginPanel p) {
 				eventBus.unregister(p);
 			}
 		};
@@ -142,23 +136,19 @@ public class PluginListPanel extends PluginPanel
 		searchBar.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH - 20, 30));
 		searchBar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		searchBar.setHoverBackgroundColor(ColorScheme.DARK_GRAY_HOVER_COLOR);
-		searchBar.getDocument().addDocumentListener(new DocumentListener()
-		{
+		searchBar.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
-			public void insertUpdate(DocumentEvent e)
-			{
+			public void insertUpdate(DocumentEvent e) {
 				onSearchBarChanged();
 			}
 
 			@Override
-			public void removeUpdate(DocumentEvent e)
-			{
+			public void removeUpdate(DocumentEvent e) {
 				onSearchBarChanged();
 			}
 
 			@Override
-			public void changedUpdate(DocumentEvent e)
-			{
+			public void changedUpdate(DocumentEvent e) {
 				onSearchBarChanged();
 			}
 		});
@@ -193,60 +183,57 @@ public class PluginListPanel extends PluginPanel
 		add(scrollPane, BorderLayout.CENTER);
 	}
 
-	public void rebuildPluginList()
-	{
+	public void rebuildPluginList() {
 		final List<String> pinnedPlugins = getPinnedPluginNames();
 
 		// populate pluginList with all non-hidden plugins
 		pluginList = Stream.concat(
-			fakePlugins.stream(),
-			pluginManager.getPlugins().stream()
-				.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).hidden())
-				.map(plugin ->
-				{
-					PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
-					Config config = pluginManager.getPluginConfigProxy(plugin);
-					ConfigDescriptor configDescriptor = config == null ? null : configManager.getConfigDescriptor(config);
-					List<String> conflicts = pluginManager.conflictsForPlugin(plugin).stream()
-						.map(Plugin::getName)
-						.collect(Collectors.toList());
+				fakePlugins.stream(),
+				pluginManager.getPlugins().stream()
+						.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).hidden())
+						.map(plugin -> {
+							PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
+							Config config = pluginManager.getPluginConfigProxy(plugin);
+							ConfigDescriptor configDescriptor = config == null ? null
+									: configManager.getConfigDescriptor(config);
+							List<String> conflicts = pluginManager.conflictsForPlugin(plugin).stream()
+									.map(Plugin::getName)
+									.collect(Collectors.toList());
 
-					return new PluginConfigurationDescriptor(
-						descriptor.name(),
-						descriptor.description(),
-						descriptor.tags(),
-						plugin,
-						config,
-						configDescriptor,
-						conflicts);
+							return new PluginConfigurationDescriptor(
+									descriptor.name(),
+									descriptor.description(),
+									descriptor.tags(),
+									plugin,
+									config,
+									configDescriptor,
+									conflicts);
+						}))
+				.map(desc -> {
+					PluginListItem listItem = new PluginListItem(this, desc, oprsExternalPluginManager);
+					listItem.setPinned(pinnedPlugins.contains(desc.getName()));
+					return listItem;
 				})
-		)
-			.map(desc ->
-			{
-				PluginListItem listItem = new PluginListItem(this, desc, oprsExternalPluginManager);
-				listItem.setPinned(pinnedPlugins.contains(desc.getName()));
-				return listItem;
-			})
-			.sorted(Comparator.comparing(p -> p.getPluginConfig().getName()))
-			.collect(Collectors.toList());
+				.sorted(Comparator.comparing(p -> p.getPluginConfig().getName()))
+				.collect(Collectors.toList());
 
 		mainPanel.removeAll();
 		refresh();
 	}
 
-	public void addFakePlugin(PluginConfigurationDescriptor... descriptor)
-	{
+	public void addFakePlugin(PluginConfigurationDescriptor... descriptor) {
 		Collections.addAll(fakePlugins, descriptor);
 	}
 
-	void refresh()
-	{
+	public void clearFakePlugins() {
+		fakePlugins.clear();
+	}
+
+	void refresh() {
 		// update enabled / disabled status of all items
-		pluginList.forEach(listItem ->
-		{
+		pluginList.forEach(listItem -> {
 			final Plugin plugin = listItem.getPluginConfig().getPlugin();
-			if (plugin != null)
-			{
+			if (plugin != null) {
 				listItem.setPluginEnabled(pluginManager.isPluginActive(plugin));
 			}
 		});
@@ -260,129 +247,104 @@ public class PluginListPanel extends PluginPanel
 		scrollPane.getVerticalScrollBar().setValue(scrollBarPosition);
 	}
 
-	void openWithFilter(String filter)
-	{
+	void openWithFilter(String filter) {
 		searchBar.setText(filter);
 		onSearchBarChanged();
 		muxer.pushState(this);
 	}
 
-	private void onSearchBarChanged()
-	{
+	private void onSearchBarChanged() {
 		final String text = searchBar.getText();
 		pluginList.forEach(mainPanel::remove);
 		PluginSearch.search(pluginList, text).forEach(mainPanel::add);
 		revalidate();
 	}
 
-	void openConfigurationPanel(String configGroup)
-	{
-		for (PluginListItem pluginListItem : pluginList)
-		{
-			if (pluginListItem.getPluginConfig().getName().equals(configGroup))
-			{
+	void openConfigurationPanel(String configGroup) {
+		for (PluginListItem pluginListItem : pluginList) {
+			if (pluginListItem.getPluginConfig().getName().equals(configGroup)) {
 				openConfigurationPanel(pluginListItem.getPluginConfig());
 				break;
 			}
 		}
 	}
 
-	void openConfigurationPanel(Plugin plugin)
-	{
-		for (PluginListItem pluginListItem : pluginList)
-		{
-			if (pluginListItem.getPluginConfig().getPlugin() == plugin)
-			{
+	void openConfigurationPanel(Plugin plugin) {
+		for (PluginListItem pluginListItem : pluginList) {
+			if (pluginListItem.getPluginConfig().getPlugin() == plugin) {
 				openConfigurationPanel(pluginListItem.getPluginConfig());
 				break;
 			}
 		}
 	}
 
-	void openConfigurationPanel(PluginConfigurationDescriptor plugin)
-	{
+	void openConfigurationPanel(PluginConfigurationDescriptor plugin) {
 		ConfigPanel panel = configPanelProvider.get();
 		panel.init(plugin);
 		muxer.pushState(this);
 		muxer.pushState(panel);
 	}
 
-	void startPlugin(Plugin plugin)
-	{
+	void startPlugin(Plugin plugin) {
 		pluginManager.setPluginEnabled(plugin, true);
 
-		try
-		{
+		try {
 			pluginManager.startPlugin(plugin);
-		}
-		catch (PluginInstantiationException ex)
-		{
+		} catch (PluginInstantiationException ex) {
 			log.warn("Error when starting plugin {}", plugin.getClass().getSimpleName(), ex);
 		}
 	}
 
-	void stopPlugin(Plugin plugin)
-	{
+	void stopPlugin(Plugin plugin) {
 		pluginManager.setPluginEnabled(plugin, false);
 
-		try
-		{
+		try {
 			pluginManager.stopPlugin(plugin);
-		}
-		catch (PluginInstantiationException ex)
-		{
+		} catch (PluginInstantiationException ex) {
 			log.warn("Error when stopping plugin {}", plugin.getClass().getSimpleName(), ex);
 		}
 	}
 
-	private List<String> getPinnedPluginNames()
-	{
+	private List<String> getPinnedPluginNames() {
 		final String config = configManager.getConfiguration(RUNELITE_GROUP_NAME, PINNED_PLUGINS_CONFIG_KEY);
 
-		if (config == null)
-		{
+		if (config == null) {
 			return Collections.emptyList();
 		}
 
 		return Text.fromCSV(config);
 	}
 
-	void savePinnedPlugins()
-	{
+	void savePinnedPlugins() {
 		final String value = pluginList.stream()
-			.filter(PluginListItem::isPinned)
-			.map(p -> p.getPluginConfig().getName())
-			.collect(Collectors.joining(","));
+				.filter(PluginListItem::isPinned)
+				.map(p -> p.getPluginConfig().getName())
+				.collect(Collectors.joining(","));
 
 		configManager.setConfiguration(RUNELITE_GROUP_NAME, PINNED_PLUGINS_CONFIG_KEY, value);
 	}
 
 	@Subscribe
-	public void onPluginChanged(PluginChanged event)
-	{
+	public void onPluginChanged(PluginChanged event) {
 		SwingUtilities.invokeLater(this::refresh);
 	}
 
 	@Override
-	public Dimension getPreferredSize()
-	{
+	public Dimension getPreferredSize() {
 		return new Dimension(PANEL_WIDTH + SCROLLBAR_WIDTH, super.getPreferredSize().height);
 	}
 
 	@Override
-	public void onActivate()
-	{
+	public void onActivate() {
 		super.onActivate();
 
-		if (searchBar.getParent() != null)
-		{
+		if (searchBar.getParent() != null) {
 			searchBar.requestFocusInWindow();
 		}
 	}
 
 	@Subscribe
-	private void onExternalPluginsChanged(ExternalPluginsChanged ev)
-	{
+	private void onExternalPluginsChanged(ExternalPluginsChanged ev) {
 		SwingUtilities.invokeLater(this::rebuildPluginList);
 	}
 }

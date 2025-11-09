@@ -136,11 +136,13 @@ public enum Prayer
 	/**
 	 * Deadeye (Level 62, Ranging/Damage/Defence).
 	 */
-	DEADEYE(VarbitID.PRAYER_DEADEYE, null),
+	DEADEYE(VarbitID.PRAYER_DEADEYE, WidgetInfo.PRAYER_DEADEYE),
+
 	/**
 	 * Mystic Vigour (Level 63, Magic/Magic Def./Defence).
 	 */
-	MYSTIC_VIGOUR(VarbitID.PRAYER_MYSTICVIGOUR, null),
+	MYSTIC_VIGOUR(Varbits.PRAYER_MYSTIC_VIGOUR, WidgetInfo.PRAYER_MYSTIC_VIGOUR),
+
 	/**
 	 * Piety (Level 70, Defence/Strength/Attack).
 	 */

@@ -17,6 +17,7 @@ classes/artifacts/client_jar/client.jar
 .live/
 **/build/*
 */out/
+
 .gradle/
 runelite-client/src/main/resources/runelite/*
 runelite-client/dependencies.txt

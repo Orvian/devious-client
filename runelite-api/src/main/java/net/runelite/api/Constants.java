@@ -132,13 +132,6 @@ public class Constants
 	public static final int GAME_TICK_LENGTH = 600;
 
 	/**
-	 * High alchemy = shop price * HIGH_ALCHEMY_MULTIPLIER
-	 *
-	 * @see ItemComposition#getPrice
-	 */
-	public static final float HIGH_ALCHEMY_MULTIPLIER = 0.6f;
-
-	/**
 	 * Width of a standard item sprite
 	 */
 	public static final int ITEM_SPRITE_WIDTH = 36;
@@ -147,4 +140,15 @@ public class Constants
 	 * Height of a standard item sprite
 	 */
 	public static final int ITEM_SPRITE_HEIGHT = 32;
+
+	/**
+	 * High alchemy = shop price * HIGH_ALCHEMY_MULTIPLIER
+	 *
+	 * @see ItemComposition#getPrice
+	 */
+	public static final float HIGH_ALCHEMY_MULTIPLIER = .6f;
+
+	public static final int CLICK_ACTION_NONE = 0;
+	public static final int CLICK_ACTION_WALK = 1;
+	public static final int CLICK_ACTION_SET_HEADING = 2;
 }

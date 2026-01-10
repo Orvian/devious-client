@@ -71,7 +71,7 @@ public class LoginPacket extends class151 {
 	public static void method3958(Buffer var0, WorldEntityCoord var1, int var2, int var3) {
 		var1.method6487(Coord.method7702(var2), Coord.method7702(var3));
 		var1.setZ(0);
-		var1.setCurrentRotationAngle(0);
+		var1.setOrientation(0);
 		byte var4 = var0.readByte();
 		if (var4 != 0) {
 			int var5 = HttpRequestTask.method291(var0, var4, 0);

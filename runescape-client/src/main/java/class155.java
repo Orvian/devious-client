@@ -97,7 +97,7 @@ public class class155 extends class151 {
 			if (var0 == ScriptOpcodes.CC_DELETE) {
 				var19 = var2 ? UserComparator3.scriptDotWidget : class222.scriptActiveWidget;
 				var4 = class226.widgetDefinition.method7728(var19.id);
-				class526.method10648(var19, var4);
+				ClickAction.method10648(var19, var4);
 				class376.invalidateWidget(var4);
 				return 1;
 			} else if (var0 == ScriptOpcodes.CC_DELETEALL) {

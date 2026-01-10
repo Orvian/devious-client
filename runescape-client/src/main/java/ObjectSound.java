@@ -243,12 +243,12 @@ public final class ObjectSound extends Node {
 							break label164;
 						}
 					} else {
-						if (var1 != null && var1.field5538.method4615() != var2) {
+						if (var1 != null && var1.worldEntityConfig.method4615() != var2) {
 							var8 = false;
 							break label164;
 						}
 
-						if (var7 != null && var7.field5538.method4615() != var9) {
+						if (var7 != null && var7.worldEntityConfig.method4615() != var9) {
 							var8 = false;
 							break label164;
 						}

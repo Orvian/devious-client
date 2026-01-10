@@ -223,15 +223,15 @@ public class class62 {
 					if (var18 == Client.currentWorldViewId) {
 						var22 = var20.plane;
 					} else if (Client.currentWorldViewId == -1) {
-						var22 = var19.field5538.method4615();
+						var22 = var19.worldEntityConfig.method4615();
 					} else {
 						var23 = Client.worldViewManager.method2411();
 						WorldView var24 = var23.worldView;
-						if (var24.plane == var23.field5538.method4615()) {
+						if (var24.plane == var23.worldEntityConfig.method4615()) {
 							if (var18 == -1) {
 								var22 = var23.getPlane();
 							} else {
-								var22 = var19.field5538.method4615();
+								var22 = var19.worldEntityConfig.method4615();
 							}
 						}
 					}
@@ -253,7 +253,7 @@ public class class62 {
 							PendingSpawn var38 = null;
 
 							for (PendingSpawn var25 = (PendingSpawn)var20.pendingSpawns.last(); var25 != null; var25 = (PendingSpawn)var20.pendingSpawns.previous()) {
-								if (var22 == var25.plane && var12 == var25.x && var14 == var25.y && var17 == var25.field998) {
+								if (var22 == var25.plane && var12 == var25.x && var14 == var25.y && var17 == var25.objectId2) {
 									var38 = var25;
 									break;
 								}
@@ -269,10 +269,10 @@ public class class62 {
 								var42 = var36.actions;
 								if (var42 != null) {
 									for (var26 = 4; var26 >= 0; --var26) {
-										if (!ApproximateRouteStrategy.field226 && (var38 == null || var38.method2473(var26))) {
+										if (!ApproximateRouteStrategy.field226 && (var38 == null || var38.isOpShown(var26))) {
 											String var27 = var42[var26];
 											if (var38 != null && var38.method2459(var26)) {
-												var27 = var38.method2460(var26);
+												var27 = var38.getOpOverride(var26);
 											}
 
 											if (var27 != null) {
@@ -426,7 +426,7 @@ public class class62 {
 						if (var15 == 4) {
 							var23 = (WorldEntity)var20.worldEntities.get((long)var17);
 							if (var23 != null) {
-								class207 var44 = var23.field5538;
+								WorldEntityConfig var44 = var23.worldEntityConfig;
 								if (Client.isItemSelected == 1) {
 									ClanChannel.insertMenuItem("Use", Client.field485 + " " + "->" + " " + class144.colorStartTag(15574765) + var44.field2233, 61, var17, var12, var14, -1, false, var18);
 								} else if (!Client.isSpellSelected) {

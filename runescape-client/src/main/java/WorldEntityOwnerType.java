@@ -1,10 +1,12 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("pw")
-public enum class400 implements Enum {
+@Implements("WorldEntityOwnerType")
+public enum WorldEntityOwnerType implements Enum {
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
 		descriptor = "Lpw;"
@@ -19,8 +21,7 @@ public enum class400 implements Enum {
 	@ObfuscatedSignature(
 		descriptor = "Lpw;"
 	)
-	@Export("TOKEN")
-	TOKEN(2, 2);
+	field4842(2, 2);
 
 	@ObfuscatedName("an")
 	@ObfuscatedGetter(
@@ -33,7 +34,7 @@ public enum class400 implements Enum {
 	)
 	final int field4846;
 
-	class400(int var3, int var4) {
+	WorldEntityOwnerType(int var3, int var4) {
 		this.field4845 = var3;
 		this.field4846 = var4;
 	}

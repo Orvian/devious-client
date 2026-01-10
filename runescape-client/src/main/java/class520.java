@@ -19,7 +19,7 @@ public abstract class class520 {
 		descriptor = "(Lkb;Lto;II)V",
 		garbageValue = "-1824890420"
 	)
-	abstract void vmethod10584(WorldEntityCoord var1, class519 var2, int var3);
+	abstract void vmethod10584(WorldEntityCoord var1, WorldEntityCoordSnapshot var2, int var3);
 
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(

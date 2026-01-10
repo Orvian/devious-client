@@ -45,7 +45,7 @@ public class DefaultsGroup {
 		int var3 = var1.field5844;
 		int var4 = var1.field5851;
 		int var5 = var1.field5847;
-		int var6 = var0.getCurrentRotationAngle();
+		int var6 = var0.getOrientation();
 		int var7 = var0.getX();
 		int var8 = var0.getY();
 		double var9 = DevicePcmPlayerProvider.method332(var6);

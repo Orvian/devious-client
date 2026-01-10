@@ -174,6 +174,7 @@ public class DevToolsPlugin extends Plugin
 	private DevToolsButton shell;
 	private DevToolsButton menus;
 	private DevToolsButton uiDefaultsInspector;
+	private DevToolsButton worldEntities;
 	private NavigationButton navButton;
 
 	private final HotkeyListener swingInspectorHotkeyListener = new HotkeyListener(() -> config.swingInspectorHotkey())
@@ -278,6 +279,8 @@ public class DevToolsPlugin extends Plugin
 		menus = new DevToolsButton("Menus");
 
 		uiDefaultsInspector = new DevToolsButton("Swing Defaults");
+
+		worldEntities = new DevToolsButton("World Entities");
 
 		overlayManager.add(overlay);
 		overlayManager.add(locationOverlay);

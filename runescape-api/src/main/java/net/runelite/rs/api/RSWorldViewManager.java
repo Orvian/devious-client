@@ -12,4 +12,7 @@ public interface RSWorldViewManager
 
 	@Import("worldViews")
 	RSIterableNodeHashTable getWorldViews();
+
+	@Import("getClickAction")
+	RSClickAction getClickAction(int worldViewId);
 }

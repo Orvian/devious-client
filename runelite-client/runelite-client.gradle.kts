@@ -76,7 +76,7 @@ dependencies {
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.9.0")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.9.0")
     implementation(group = "net.runelite", name = "discord", version = "1.4")
-    implementation(group = "net.runelite", name = "rlawt", version = "1.5")
+    implementation(group = "net.runelite", name = "rlawt", version = "1.7")
     implementation(group = "net.runelite", name = "flatlaf", version = ProjectVersions.flatLafVersion)
     implementation(group = "net.runelite", name = "flatlaf-extras", version = ProjectVersions.flatLafVersion)
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
@@ -108,6 +108,7 @@ dependencies {
     runtimeOnly(group = "net.runelite.jocl", name = "jocl", version = "1.0", classifier = "macos-arm64")
 
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-linux")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-linux-arm64")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-macos")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-macos-arm64")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-windows-x86")
@@ -115,6 +116,7 @@ dependencies {
     runtimeOnly(group = "org.lwjgl", name = "lwjgl", classifier = "natives-windows-arm64")
 
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-linux")
+    runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-linux-arm64")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-macos")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-macos-arm64")
     runtimeOnly(group = "org.lwjgl", name = "lwjgl-opengl", classifier = "natives-windows-x86")

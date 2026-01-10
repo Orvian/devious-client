@@ -1,22 +1,26 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("to")
-public class class519 {
+@Implements("WorldEntityCoordSnapshot")
+public class WorldEntityCoordSnapshot {
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
 		descriptor = "Lkb;"
 	)
-	final WorldEntityCoord field5545;
+	@Export("worldEntityCoord")
+	final WorldEntityCoord worldEntityCoord;
 	@ObfuscatedName("at")
 	@ObfuscatedGetter(
 		intValue = 631746927
 	)
 	int field5542;
 
-	class519() {
-		this.field5545 = new WorldEntityCoord();
+	WorldEntityCoordSnapshot() {
+		this.worldEntityCoord = new WorldEntityCoord();
 	}
 
 	@ObfuscatedName("km")

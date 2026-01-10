@@ -108,7 +108,7 @@ public final class class340 {
 				var11.method10494(WorldMapRegion.method6822(var1.readShort()));
 				LoginPacket.method3958(var1, var11.worldEntityCoord, 0, 0);
 				var11.method10550(var11.worldEntityCoord);
-				var11.method10497((class400)GrandExchangeOffer.findEnumerated(class85.method2928(), var1.readUnsignedByte()));
+				var11.method10497((WorldEntityOwnerType)GrandExchangeOffer.findEnumerated(class85.method2928(), var1.readUnsignedByte()));
 				Fonts.method11262(var11, var1);
 			}
 

@@ -130,7 +130,7 @@ public class class33 {
 		}
 
 		if (Client.isCameraLocked) {
-			class207.field2252 = var6 - var13;
+			WorldEntityConfig.field2252 = var6 - var13;
 			class414.field4955 = var7 - var14;
 			RouteStrategy.field3280 = var8 - var15;
 			AsyncHttpResponse.field68 = var4;

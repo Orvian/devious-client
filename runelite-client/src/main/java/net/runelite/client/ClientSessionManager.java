@@ -24,6 +24,14 @@
  */
 package net.runelite.client;
 
+import java.io.IOException;
+import java.util.UUID;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -31,15 +39,6 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ClientShutdown;
 import net.runelite.client.util.RunnableExceptionLogger;
 import net.unethicalite.client.config.UnethicaliteConfig;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.IOException;
-import java.util.UUID;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 @Singleton
 @Slf4j
@@ -49,14 +48,15 @@ public class ClientSessionManager
 	private final Client client;
 	private final SessionClient sessionClient;
 	private final UnethicaliteConfig unethicaliteConfig;
+	private static final UUID sessionId = UUID.randomUUID();
 
 	private ScheduledFuture<?> scheduledFuture;
-	private UUID sessionId;
 
 	@Inject
 	ClientSessionManager(ScheduledExecutorService executorService,
-						 @Nullable Client client,
-						 SessionClient sessionClient, UnethicaliteConfig unethicaliteConfig)
+		@Nullable Client client,
+		SessionClient sessionClient,
+		UnethicaliteConfig unethicaliteConfig)
 	{
 		this.executorService = executorService;
 		this.client = client;
@@ -71,19 +71,6 @@ public class ClientSessionManager
 			return;
 		}
 
-		executorService.execute(() ->
-		{
-			try
-			{
-				sessionId = sessionClient.open();
-				log.debug("Opened session {}", sessionId);
-			}
-			catch (IOException ex)
-			{
-				log.warn("error opening session", ex);
-			}
-		});
-
 		scheduledFuture = executorService.scheduleWithFixedDelay(RunnableExceptionLogger.wrap(this::ping), 1, 10, TimeUnit.MINUTES);
 	}
 
@@ -92,25 +79,8 @@ public class ClientSessionManager
 	{
 		if (scheduledFuture != null)
 		{
-		scheduledFuture.cancel(true);
+			scheduledFuture.cancel(true);
 		}
-
-		e.waitFor(executorService.submit(() ->
-		{
-			try
-			{
-				UUID localUuid = sessionId;
-				if (localUuid != null)
-				{
-					sessionClient.delete(localUuid);
-				}
-			}
-			catch (IOException ex)
-			{
-				log.warn(null, ex);
-			}
-			sessionId = null;
-		}));
 	}
 
 	private void ping()
@@ -120,27 +90,8 @@ public class ClientSessionManager
 			return;
 		}
 
-		try
-		{
-			if (sessionId == null)
-			{
-				sessionId = sessionClient.open();
-				log.debug("Opened session {}", sessionId);
-				return;
-			}
-		}
-		catch (IOException ex)
-		{
-			log.warn("unable to open session", ex);
-			return;
-		}
-
-		boolean loggedIn = false;
-		if (client != null)
-		{
-			GameState gameState = client.getGameState();
-			loggedIn = gameState.getState() >= GameState.LOADING.getState();
-		}
+		GameState gameState = client.getGameState();
+		boolean loggedIn = gameState.getState() >= GameState.LOADING.getState();
 
 		try
 		{
@@ -148,10 +99,8 @@ public class ClientSessionManager
 		}
 		catch (IOException ex)
 		{
-			log.warn("Resetting session", ex);
-			sessionId = null;
+			log.warn("Unable to ping session service", ex);
 		}
-
 	}
 
 	private boolean isWorldHostValid()

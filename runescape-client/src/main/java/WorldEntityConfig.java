@@ -1,9 +1,12 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hv")
-public class class207 extends DualNode {
+@Implements("WorldEntityConfig")
+public class WorldEntityConfig extends DualNode {
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
 		descriptor = "Lmc;"
@@ -39,22 +42,26 @@ public class class207 extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 420693345
 	)
-	int field2238;
+	@Export("boundsX")
+	int boundsX;
 	@ObfuscatedName("bs")
 	@ObfuscatedGetter(
 		intValue = -2043328725
 	)
-	int field2232;
+	@Export("boundsY")
+	int boundsY;
 	@ObfuscatedName("bz")
 	@ObfuscatedGetter(
 		intValue = -1708957505
 	)
-	int field2240;
+	@Export("boundsWidth")
+	int boundsWidth;
 	@ObfuscatedName("bk")
 	@ObfuscatedGetter(
 		intValue = -1934803429
 	)
-	int field2241;
+	@Export("boundsHeight")
+	int boundsHeight;
 	@ObfuscatedName("bb")
 	@ObfuscatedGetter(
 		intValue = -1402587353
@@ -74,7 +81,8 @@ public class class207 extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 1496622753
 	)
-	int field2245;
+	@Export("id")
+	int id;
 	@ObfuscatedName("bt")
 	@ObfuscatedGetter(
 		intValue = 2058769091
@@ -106,19 +114,19 @@ public class class207 extends DualNode {
 		field2248 = new EvictingDualNodeHashTable(64);
 	}
 
-	class207() {
+	WorldEntityConfig() {
 		this.field2233 = "null";
 		this.field2234 = new String[5];
 		this.field2227 = false;
 		this.field2235 = 0;
 		this.field2236 = 0;
-		this.field2238 = 0;
-		this.field2232 = 0;
-		this.field2240 = 0;
-		this.field2241 = 0;
+		this.boundsX = 0;
+		this.boundsY = 0;
+		this.boundsWidth = 0;
+		this.boundsHeight = 0;
 		this.field2242 = -1;
 		this.field2244 = new class564[4];
-		this.field2245 = -1;
+		this.id = -1;
 		this.field2224 = 0;
 		this.field2247 = class406.field4908;
 		this.field2246 = class386.field4427;
@@ -132,7 +140,7 @@ public class class207 extends DualNode {
 		garbageValue = "113503557"
 	)
 	public int method4610() {
-		return this.field2245;
+		return this.id;
 	}
 
 	@ObfuscatedName("ag")
@@ -140,14 +148,15 @@ public class class207 extends DualNode {
 		descriptor = "(Lxa;I)V",
 		garbageValue = "-1035328937"
 	)
-	void method4611(Buffer var1) {
+	@Export("decode")
+	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte();
 			if (var2 == 0) {
 				return;
 			}
 
-			this.method4645(var1, var2);
+			this.decodeNext(var1, var2);
 		}
 	}
 
@@ -156,7 +165,8 @@ public class class207 extends DualNode {
 		descriptor = "(Lxa;II)V",
 		garbageValue = "-1948815390"
 	)
-	void method4645(Buffer var1, int var2) {
+	@Export("decodeNext")
+	void decodeNext(Buffer var1, int var2) {
 		switch(var2) {
 		case 2:
 			this.field2224 = var1.readUnsignedByte();
@@ -175,16 +185,16 @@ public class class207 extends DualNode {
 			this.field2236 = var1.readShort();
 			break;
 		case 6:
-			this.field2238 = var1.readShort();
+			this.boundsX = var1.readShort();
 			break;
 		case 7:
-			this.field2232 = var1.readShort();
+			this.boundsY = var1.readShort();
 			break;
 		case 8:
-			this.field2240 = var1.readUnsignedShort();
+			this.boundsWidth = var1.readUnsignedShort();
 			break;
 		case 9:
-			this.field2241 = var1.readUnsignedShort();
+			this.boundsHeight = var1.readUnsignedShort();
 			break;
 		case 12:
 			this.field2233 = var1.readStringCp1252NullTerminated();
@@ -232,7 +242,7 @@ public class class207 extends DualNode {
 		garbageValue = "-521677348"
 	)
 	void method4613() {
-		this.field2243 = new class564(this.field2240, this.field2241, this.field2238, this.field2232);
+		this.field2243 = new class564(this.boundsWidth, this.boundsHeight, this.boundsX, this.boundsY);
 		this.method4614();
 	}
 
@@ -243,11 +253,11 @@ public class class207 extends DualNode {
 	)
 	void method4614() {
 		short var1 = 256;
-		this.field2244[0] = new class564(var1 + this.field2240, var1 + this.field2241, this.field2238, this.field2232);
+		this.field2244[0] = new class564(var1 + this.boundsWidth, var1 + this.boundsHeight, this.boundsX, this.boundsY);
 		var1 = 362;
-		this.field2244[2] = new class564(var1 + this.field2240, var1 + this.field2241, this.field2238, this.field2232);
+		this.field2244[2] = new class564(var1 + this.boundsWidth, var1 + this.boundsHeight, this.boundsX, this.boundsY);
 		var1 = 334;
-		this.field2244[1] = new class564(var1 + this.field2240, var1 + this.field2241, this.field2238, this.field2232);
+		this.field2244[1] = new class564(var1 + this.boundsWidth, var1 + this.boundsHeight, this.boundsX, this.boundsY);
 		this.field2244[3] = this.field2244[1];
 	}
 

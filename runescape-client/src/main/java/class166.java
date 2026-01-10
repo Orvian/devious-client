@@ -94,7 +94,7 @@ public class class166 extends class151 {
 
 		for (var4 = var2.length - 1; var4 >= 0; --var4) {
 			if (var3[var4] > 0.0F || var2[var4] == -1) {
-				class526 var26 = Client.worldViewManager.method2398(var2[var4]);
+				ClickAction var26 = Client.worldViewManager.getClickAction(var2[var4]);
 				if (!var25.containsKey(var26)) {
 					var25.put(var26, var2[var4]);
 				}
@@ -103,12 +103,12 @@ public class class166 extends class151 {
 
 		for (var4 = 0; var4 < var2.length; ++var4) {
 			int var6 = var2[var4];
-			class526 var7 = Client.worldViewManager.method2398(var6);
+			ClickAction var7 = Client.worldViewManager.getClickAction(var6);
 			Integer var8 = (Integer)var25.get(var7);
 			if (var8 != null && var8.equals(var6)) {
-				if (var7 == class526.field5582) {
+				if (var7 == ClickAction.field5582) {
 					ClanChannel.insertMenuItem("Walk here", "", 23, 0, var0, var1, 0, false, var6);
-				} else if (var7 == class526.field5580) {
+				} else if (var7 == ClickAction.field5580) {
 					int var9 = Client.viewportWidth / 2;
 					int var10 = Client.viewportHeight / 2;
 					int var11 = Client.viewportZoom;

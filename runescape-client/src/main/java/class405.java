@@ -429,7 +429,7 @@ public enum class405 implements Enum {
 								}
 
 								if (UrlRequest.field1542 == null) {
-									UrlRequest.field1542 = class207.method4647(class147.archive8, ApproximateRouteStrategy.field225.field5626, 0);
+									UrlRequest.field1542 = WorldEntityConfig.method4647(class147.archive8, ApproximateRouteStrategy.field225.field5626, 0);
 								} else {
 									++var24;
 								}

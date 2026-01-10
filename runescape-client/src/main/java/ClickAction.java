@@ -1,10 +1,12 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("uv")
-public enum class526 implements Enum {
+@Implements("ClickAction")
+public enum ClickAction implements Enum {
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
 		descriptor = "Luv;"
@@ -32,7 +34,7 @@ public enum class526 implements Enum {
 	)
 	final int field5581;
 
-	class526(int var3, int var4) {
+	ClickAction(int var3, int var4) {
 		this.field5578 = var3;
 		this.field5581 = var4;
 	}

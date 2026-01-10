@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.DialogOption;
+import net.runelite.api.ObjectComposition;
 import net.runelite.api.events.DialogProcessed;
 import net.runelite.api.events.DynamicObjectAnimationChanged;
 import net.runelite.api.mixins.Copy;
@@ -129,6 +130,13 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	public RSModel getModelZbuf()
 	{
 		return this.getModel();
+	}
+
+	@Inject
+	@Override
+	public ObjectComposition getRecordedObjectComposition()
+	{
+		return client.getRSObjectComposition(this.getId());
 	}
 
 	@Inject

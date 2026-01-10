@@ -120,6 +120,7 @@ import net.runelite.api.widgets.WidgetUtil;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSBuffer;
+import net.runelite.rs.api.RSBufferedNetSocket;
 import net.runelite.rs.api.RSCameraFocusableEntity;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClanChannel;
@@ -171,6 +172,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.FileDescriptor;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -3575,5 +3577,13 @@ public abstract class RSClientMixin implements RSClient
 	public WorldView findWorldViewFromWorldPoint(WorldPoint point)
 	{
 		return client.getWorldViewManager().getWorldViewFromWorldPoint(point.getX(), point.getY());
+	}
+
+	@Nullable
+	@Inject
+	@Override
+	public FileDescriptor getSocketFD()
+	{
+		return getPacketWriter().getSocket() != null ? ((RSBufferedNetSocket) getPacketWriter().getSocket()).getFileDescriptor() : null;
 	}
 }

@@ -111,12 +111,12 @@ public class SpriteBufferProperties {
 					--var1.delay;
 				}
 
-				if (var1.delay == 0 && var1.x >= 1 && var1.y >= 1 && var1.x <= 102 && var1.y <= 102 && (var1.field998 < 0 || class480.method9927(var1.field998, var1.field1000))) {
-					class150.addPendingSpawnToScene(var0, var1.plane, var1.type, var1.x, var1.y, var1.field998, var1.field999, var1.field1000, var1.field1001);
+				if (var1.delay == 0 && var1.x >= 1 && var1.y >= 1 && var1.x <= 102 && var1.y <= 102 && (var1.objectId2 < 0 || class480.method9927(var1.objectId2, var1.field1000))) {
+					class150.addPendingSpawnToScene(var0, var1.plane, var1.type, var1.x, var1.y, var1.objectId2, var1.field999, var1.field1000, var1.field1001);
 					var1.delay = -1;
-					if (var1.field998 == var1.objectId && var1.objectId == -1) {
+					if (var1.objectId2 == var1.objectId && var1.objectId == -1) {
 						var1.remove();
-					} else if (var1.objectId == var1.field998 && var1.field1007 == var1.field999 && var1.field992 == var1.field1000) {
+					} else if (var1.objectId == var1.objectId2 && var1.field1007 == var1.field999 && var1.field992 == var1.field1000) {
 						var1.remove();
 					}
 				}

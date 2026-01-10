@@ -48,7 +48,7 @@ public abstract class class167 extends Node {
 		garbageValue = "48"
 	)
 	public static void method4166() {
-		class207.field2248.clear();
+		WorldEntityConfig.field2248.clear();
 	}
 
 	@ObfuscatedName("ke")

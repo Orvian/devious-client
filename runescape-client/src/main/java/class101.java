@@ -185,7 +185,7 @@ public class class101 {
 					if (var3 == -1) {
 						Interpreter.Interpreter_objectStack[++SecureRandomFuture.Interpreter_objectStackSize - 1] = "";
 					} else {
-						class207 var4 = WorldMapRegion.method6822(var3);
+						WorldEntityConfig var4 = WorldMapRegion.method6822(var3);
 						Interpreter.Interpreter_objectStack[++SecureRandomFuture.Interpreter_objectStackSize - 1] = var4 == null ? "" : var4.field2233;
 					}
 

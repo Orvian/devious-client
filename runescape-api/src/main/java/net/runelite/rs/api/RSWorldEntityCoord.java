@@ -12,4 +12,7 @@ public interface RSWorldEntityCoord
 
 	@Import("z")
 	int getZ();
+
+	@Import("orientation")
+	int getOrientation();
 }

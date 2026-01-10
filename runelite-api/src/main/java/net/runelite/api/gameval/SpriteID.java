@@ -2607,6 +2607,8 @@ public final class SpriteID
 		public static final int SMOOTH_DANCE = _45;
 		public static final int CRAZY_DANCE = _46;
 		public static final int PREMIER_SHIELD = _47;
+		public static final int FORTIS_SALUTE = _57;
+		public static final int CRAB_DANCE = _56;
 	}
 
 	public static final class EmotesLocked
@@ -4452,6 +4454,13 @@ public final class SpriteID
 		public static final int _144 = 7285;
 		public static final int _145 = 7286;
 		public static final int _146 = 7287;
+		public static final int _147 = 7311;
+		public static final int _148 = 7312;
+		public static final int _149 = 7313;
+		public static final int _150 = 7314;
+		public static final int _151 = 7315;
+		public static final int _152 = 7316;
+		public static final int _153 = 7317;
 
 		public static final int GENERAL_STORE = _0;
 		public static final int SWORD_SHOP = _1;
@@ -10516,6 +10525,24 @@ public final class SpriteID
 		public static final int _15 = 6855;
 		public static final int _16 = 6856;
 		public static final int _17 = 6857;
+		public static final int _18 = 7293;
+		public static final int _19 = 7294;
+		public static final int _20 = 7295;
+		public static final int _21 = 7296;
+		public static final int _22 = 7297;
+		public static final int _23 = 7298;
+		public static final int _24 = 7299;
+		public static final int _25 = 7300;
+		public static final int _26 = 7301;
+		public static final int _27 = 7302;
+		public static final int _28 = 7303;
+		public static final int _29 = 7304;
+		public static final int _30 = 7305;
+		public static final int _31 = 7306;
+		public static final int _32 = 7307;
+		public static final int _33 = 7308;
+		public static final int _34 = 7309;
+		public static final int _35 = 7310;
 	}
 
 	public static final class IconChevron16x16

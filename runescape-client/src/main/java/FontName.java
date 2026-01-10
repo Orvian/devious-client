@@ -214,7 +214,7 @@ public class FontName {
 		} else if (var0 < 7200) {
 			return UserComparator6.method3747(var0, var1, var2);
 		} else if (var0 < 7500) {
-			return class207.method4659(var0, var1, var2);
+			return WorldEntityConfig.method4659(var0, var1, var2);
 		} else if (var0 < 7600) {
 			return ObjectSound.method2381(var0, var1, var2);
 		} else if (var0 < 7700) {

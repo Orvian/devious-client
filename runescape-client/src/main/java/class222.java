@@ -154,7 +154,7 @@ public class class222 {
 					if (var10 != null) {
 						var11 = var10.getX() / 32 - Client.field468 / 32;
 						var31 = var10.getY() / 32 - Client.field512 / 32;
-						var32 = var10.field5538.method4640();
+						var32 = var10.worldEntityConfig.method4640();
 						var34 = 1;
 						if (!var10.method10502()) {
 							var35 = 2047 - var10.method10529() + 1024;
@@ -242,7 +242,7 @@ public class class222 {
 					SecureRandomFuture.drawSpriteOnMinimap(var1, var2, var9, var33, var5, class217.mapDotSprites[0], var4);
 				}
 
-				if (Client.worldViewManager.method2398(-1) == class526.field5580 && class217.mapDotSprites.length >= 4) {
+				if (Client.worldViewManager.getClickAction(-1) == ClickAction.field5580 && class217.mapDotSprites.length >= 4) {
 					var9 = var4.width / 2 + var1;
 					var33 = var4.height / 2 + var2;
 					if (var4.contains(MouseHandler.MouseHandler_x - var1, MouseHandler.MouseHandler_y - var2)) {

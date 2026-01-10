@@ -97,7 +97,7 @@ public class WorldMapLabelSize {
 		garbageValue = "2"
 	)
 	static void method6575(WorldView var0, WorldEntity var1, boolean var2) {
-		boolean var3 = var1.field5538.field2227 && !var2;
+		boolean var3 = var1.worldEntityConfig.field2227 && !var2;
 		long var4 = 0L;
 		boolean var6 = var1.worldView.id == Client.currentWorldViewId;
 		class406 var7 = var1.method10496(var6);

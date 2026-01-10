@@ -561,4 +561,11 @@ public abstract class RSModelMixin implements RSModel
 	{
 		return this.getModelColorOverride() != null ? this.getModelColorOverride().getOverrideLuminance() : 0;
 	}
+
+	@Inject
+	@Override
+	public short[] getUnlitFaceColors()
+	{
+		throw new UnsupportedOperationException("Not implemented yet");
+	}
 }

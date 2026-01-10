@@ -33,6 +33,9 @@ public interface RSWorldView extends WorldView
 	@Import("groundItems")
 	RSNodeDeque[][][] getGroundItems();
 
+	@Import("pendingSpawns")
+	RSNodeDeque getPendingSpawns();
+
 	@Import("objectSounds")
 	RSNodeDeque getObjectSounds();
 
@@ -87,4 +90,6 @@ public interface RSWorldView extends WorldView
 
 	@Construct
 	RSRuneLiteWorldView createRuneLiteWorldView(RSWorldView worldView);
+
+	RSPendingSpawn getPendingSpawn(long hash);
 }

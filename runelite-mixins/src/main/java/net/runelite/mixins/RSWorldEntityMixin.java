@@ -64,6 +64,25 @@ public abstract class RSWorldEntityMixin implements RSWorldEntity
 
 	@Inject
 	@Override
+	public int getOrientation()
+	{
+		return this.getWorldEntityCoord().getOrientation();
+	}
+
+	@Inject
+	@Override
+	public LocalPoint getTargetLocation()
+	{
+		return this.getWorldEntityCoordSnapshotIdx() > 0 ? new LocalPoint(this.getWorldEntityCoordSnapshots()[0].getWorldEntityCoord().getX(), this.getWorldEntityCoordSnapshots()[0].getWorldEntityCoord().getY(), -1) : this.getLocalLocation();
+	}
+
+	public int getTargetOrientation()
+	{
+		return this.getWorldEntityCoordSnapshotIdx() > 0 ? this.getWorldEntityCoordSnapshots()[0].getWorldEntityCoord().getOrientation() : this.getOrientation();
+	}
+
+	@Inject
+	@Override
 	public LocalPoint transformToMainWorld(LocalPoint var1)
 	{
 		if (var1.getWorldView() != this.getPlane())
@@ -97,5 +116,12 @@ public abstract class RSWorldEntityMixin implements RSWorldEntity
 			return true;
 		}
 		return false;
+	}
+
+	@Inject
+	@Override
+	public int getOwnerType()
+	{
+		return this.getWorldEntityOwnerType().getType();
 	}
 }

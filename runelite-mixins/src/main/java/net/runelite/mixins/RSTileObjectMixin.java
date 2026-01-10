@@ -6,6 +6,9 @@ import net.runelite.api.TileObject;
 import net.runelite.api.WorldView;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import javax.annotation.Nullable;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Mixins;
@@ -15,10 +18,9 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSFloorDecoration;
 import net.runelite.rs.api.RSGameObject;
 import net.runelite.rs.api.RSItemLayer;
+import net.runelite.rs.api.RSPendingSpawn;
 import net.runelite.rs.api.RSWallDecoration;
-
-import java.awt.Graphics2D;
-import java.awt.Polygon;
+import net.runelite.rs.api.RSWorldView;
 
 @Mixins({
 	@Mixin(RSWallDecoration.class),
@@ -151,5 +153,29 @@ public abstract class RSTileObjectMixin implements TileObject
 	public WorldView getWorldView()
 	{
 		return client.getWorldView(getWorldViewId());
+	}
+
+
+	@Inject
+	public RSWorldView getRSWorldView()
+	{
+		return (RSWorldView) getWorldView();
+	}
+
+	@Nullable
+	@Inject
+	@Override
+	public String getOpOverride(int index)
+	{
+		final RSPendingSpawn pendingSpawn = this.getRSWorldView().getPendingSpawn(this.getHash());
+		return pendingSpawn == null ? null : pendingSpawn.getOpOverride(index);
+	}
+
+	@Inject
+	@Override
+	public boolean isOpShown(int index)
+	{
+		final RSPendingSpawn pendingSpawn = this.getRSWorldView().getPendingSpawn(this.getHash());
+		return pendingSpawn == null ? true : pendingSpawn.isOpShown(index);
 	}
 }

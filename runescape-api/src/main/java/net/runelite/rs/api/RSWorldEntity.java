@@ -17,4 +17,17 @@ public interface RSWorldEntity extends WorldEntity, RSCameraFocusableEntity
 
 	@Import("getProjectionCoord")
 	RSProjectionCoord getProjectionCoord(int var1, int var2);
+
+	@Import("worldEntityConfig")
+	@Override
+	RSWorldEntityConfig getConfig();
+
+	@Import("worldEntityOwnerType")
+	RSWorldEntityOwnerType getWorldEntityOwnerType();
+
+	@Import("worldEntityCoordSnapshots")
+	RSWorldEntityCoordSnapshot[] getWorldEntityCoordSnapshots();
+
+	@Import("worldEntityCoordSnapshotIdx")
+	int getWorldEntityCoordSnapshotIdx();
 }

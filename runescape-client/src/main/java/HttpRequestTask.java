@@ -218,9 +218,9 @@ public class HttpRequestTask implements Callable {
 		boolean var6 = false;
 		boolean var8;
 		if (var3 != null) {
-			var6 = var3.method10495() != class400.field4844;
+			var6 = var3.method10495() != WorldEntityOwnerType.field4844;
 			if (!var5) {
-				class386 var7 = var3.field5538.method4621();
+				class386 var7 = var3.worldEntityConfig.method4621();
 				var8 = var1 == 1002 || var1 == 1003 || var1 == 1004 || var1 == 1013;
 				if (var8 && !var7.field4425) {
 					return false;

@@ -38,8 +38,8 @@ final class class85 implements class369 {
 		descriptor = "(I)[Lpw;",
 		garbageValue = "1309512402"
 	)
-	public static class400[] method2928() {
-		return new class400[]{class400.field4844, class400.field4843, class400.TOKEN};
+	public static WorldEntityOwnerType[] method2928() {
+		return new WorldEntityOwnerType[]{WorldEntityOwnerType.field4844, WorldEntityOwnerType.field4843, WorldEntityOwnerType.field4842};
 	}
 
 	@ObfuscatedName("iy")

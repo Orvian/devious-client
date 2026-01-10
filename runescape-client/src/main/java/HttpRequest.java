@@ -242,7 +242,7 @@ public class HttpRequest {
 			var12.addFirst(var13);
 		}
 
-		var13.field998 = var5;
+		var13.objectId2 = var5;
 		var13.field1000 = var6;
 		var13.field999 = var7;
 		var13.delay = var10;

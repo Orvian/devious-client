@@ -1,3 +1,10 @@
 package net.runelite.rs.api;
 
-public interface RSBufferedSource {}
+import java.io.InputStream;
+import net.runelite.mapping.Import;
+
+public interface RSBufferedSource
+{
+	@Import("inputStream")
+	InputStream getInputStream();
+}

@@ -181,6 +181,7 @@ public class DevToolsPlugin extends Plugin {
 	private DevToolsButton menus;
 	private DevToolsButton uiDefaultsInspector;
 	private DevToolsButton worldEntities;
+	private DevToolsButton reloadPlugins;
 	private NavigationButton navButton;
 
 	private final HotkeyListener swingInspectorHotkeyListener = new HotkeyListener(

@@ -1128,7 +1128,7 @@ public class HealthBarUpdate extends Node {
 				var30 = Client.overheadTextLimit == -1 ? AsyncHttpResponse.worldView.plane : Client.overheadTextLimit;
 				PendingSpawn var22 = class67.method2209(AsyncHttpResponse.worldView, var30, var21, var35, var5);
 				if (var22 != null) {
-					ObjectComposition var23 = AsyncHttpResponse.getObjectDefinition(var22.field998);
+					ObjectComposition var23 = AsyncHttpResponse.getObjectDefinition(var22.objectId2);
 					if (var23.field2397) {
 						class392.method8382(var30, var21, var35, var3, var4, var5, var6);
 						var22.field1001 = var6;

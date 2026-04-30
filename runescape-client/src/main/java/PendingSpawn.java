@@ -51,7 +51,8 @@ public final class PendingSpawn extends Node {
 	@ObfuscatedGetter(
 		intValue = -1096388433
 	)
-	int field998;
+	@Export("objectId2")
+	int objectId2;
 	@ObfuscatedName("ay")
 	@ObfuscatedGetter(
 		intValue = -912982729
@@ -116,7 +117,8 @@ public final class PendingSpawn extends Node {
 		descriptor = "(II)Z",
 		garbageValue = "1344631797"
 	)
-	boolean method2473(int var1) {
+	@Export("isOpShown")
+	boolean isOpShown(int var1) {
 		if (var1 >= 0 && var1 <= 4) {
 			return (this.field1004 & 1 << var1) != 0;
 		} else {
@@ -138,7 +140,8 @@ public final class PendingSpawn extends Node {
 		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "-504336118"
 	)
-	String method2460(int var1) {
+	@Export("getOpOverride")
+	String getOpOverride(int var1) {
 		return this.field1005 != null && var1 >= 0 && var1 < this.field1005.length ? this.field1005[var1] : null;
 	}
 

@@ -24,13 +24,14 @@
  */
 package net.runelite.api;
 
-import net.runelite.api.coords.LocalPoint;
-import net.unethicalite.api.SceneEntity;
-
-import javax.annotation.Nullable;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
+import net.unethicalite.api.SceneEntity;
 
 /**
  * Represents an object on a Tile
@@ -91,6 +92,21 @@ public interface TileObject extends SceneEntity
 	int getId();
 
 	/**
+	 * Get the world location for this object. For objects which are larger than 1 tile, this is the
+	 * center most tile, rounded to the south-west.
+	 * @return
+	 */
+	@Nonnull
+	WorldPoint getWorldLocation();
+
+	/**
+	 * Get the local location for this object. This point is the center point of the object.
+	 * @return
+	 */
+	@Nonnull
+	LocalPoint getLocalLocation();
+
+	/**
 	 * Calculates the position of the center of this tile on the canvas
 	 */
 	@Nullable
@@ -134,7 +150,19 @@ public interface TileObject extends SceneEntity
 	 */
 	@Nullable
 	Shape getClickbox();
-	
+
+	/**
+	 * Get the text override for a certain action
+	 */
+	@Nullable
+	String getOpOverride(int index);
+
+	/**
+	 * Gets if an action is shown in the minimenu. If an action is {@code null} it
+	 * will not be shown even if this method returns {@code true}
+	 */
+	boolean isOpShown(int index);
+
 	/**
 	 * Gets the name of the object
 	 */

@@ -13,8 +13,8 @@ public class WorldEntityCoord {
 	@ObfuscatedGetter(
 		intValue = 459733525
 	)
-	@Export("currentRotationAngle")
-	int currentRotationAngle;
+	@Export("orientation")
+	int orientation;
 	@ObfuscatedName("at")
 	@ObfuscatedGetter(
 		intValue = -639471049
@@ -35,7 +35,7 @@ public class WorldEntityCoord {
 	int z;
 
 	public WorldEntityCoord() {
-		this.currentRotationAngle = 0;
+		this.orientation = 0;
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
@@ -96,9 +96,9 @@ public class WorldEntityCoord {
 		descriptor = "(I)I",
 		garbageValue = "-1346356962"
 	)
-	@Export("getCurrentRotationAngle")
-	public int getCurrentRotationAngle() {
-		return this.currentRotationAngle;
+	@Export("getOrientation")
+	public int getOrientation() {
+		return this.orientation;
 	}
 
 	@ObfuscatedName("ak")
@@ -106,9 +106,9 @@ public class WorldEntityCoord {
 		descriptor = "(II)V",
 		garbageValue = "2055300902"
 	)
-	@Export("setCurrentRotationAngle")
-	public void setCurrentRotationAngle(int var1) {
-		this.currentRotationAngle = var1 & 2047;
+	@Export("setOrientation")
+	public void setOrientation(int var1) {
+		this.orientation = var1 & 2047;
 	}
 
 	@ObfuscatedName("aw")
@@ -117,7 +117,7 @@ public class WorldEntityCoord {
 		garbageValue = "1531022422"
 	)
 	public void method6455(WorldEntityCoord var1) {
-		this.currentRotationAngle = var1.currentRotationAngle;
+		this.orientation = var1.orientation;
 		this.x = var1.x;
 		this.z = var1.z;
 		this.y = var1.y;
@@ -163,7 +163,7 @@ public class WorldEntityCoord {
 		this.x += var1;
 		this.z += var2;
 		this.y += var3;
-		this.setCurrentRotationAngle(var4 + this.currentRotationAngle);
+		this.setOrientation(var4 + this.orientation);
 	}
 
 	@ObfuscatedName("ad")
@@ -172,11 +172,11 @@ public class WorldEntityCoord {
 		garbageValue = "1"
 	)
 	boolean method6461(WorldEntityCoord var1) {
-		return this.x == var1.x && this.z == var1.z && this.y == var1.y && this.currentRotationAngle == var1.currentRotationAngle;
+		return this.x == var1.x && this.z == var1.z && this.y == var1.y && this.orientation == var1.orientation;
 	}
 
 	public String toString() {
-		return this.x + ", " + this.z + ", " + this.y + ", " + this.currentRotationAngle;
+		return this.x + ", " + this.z + ", " + this.y + ", " + this.orientation;
 	}
 
 	public boolean equals(Object var1) {

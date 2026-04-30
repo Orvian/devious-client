@@ -302,7 +302,7 @@ public class KitDefinition extends DualNode {
 		garbageValue = "80"
 	)
 	static Widget method4386(Widget var0) {
-		Widget var1 = class207.method4626(var0);
+		Widget var1 = WorldEntityConfig.method4626(var0);
 		if (var1 == null) {
 			var1 = var0.parent;
 		}

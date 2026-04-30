@@ -48,8 +48,6 @@ import static org.lwjgl.opengl.GL33C.*;
 @RequiredArgsConstructor
 class Zone
 {
-	private static final boolean USE_STATIC_UNSORTED = false;
-
 	// Zone vertex format
 	// index 0: short vec3(x, y, z)
 	// index 1: int abhsl
@@ -496,22 +494,41 @@ class Zone
 		elementBufferId = 0;
 	}
 
-	void alphaSort(int zx, int zz, int cx, int cy, int cz)
+	static class AlphaModelComparator implements Comparator<AlphaModel>
 	{
-		alphaModels.sort(Comparator.comparingInt((AlphaModel m) ->
-					{
-						final int mx = (m.x + ((zx - m.zofx) << 10));
-						final int mz = (m.z + ((zz - m.zofz) << 10));
-						return (mx - cx) * (mx - cx) +
-							(m.y - cy) * (m.y - cy) +
-							(mz - cz) * (mz - cz);
-					}
-				)
-				.reversed()
-		);
+		int zx, zz;
+		int cx, cy, cz;
+
+		@Override
+		public int compare(AlphaModel o1, AlphaModel o2)
+		{
+			return Integer.compare(z(o2), z(o1));
+		}
+
+		private int z(AlphaModel m)
+		{
+			final int mx = (m.x + ((zx - m.zofx) << 10));
+			final int mz = (m.z + ((zz - m.zofz) << 10));
+			return (mx - cx) * (mx - cx) +
+				(m.y - cy) * (m.y - cy) +
+				(mz - cz) * (mz - cz);
+		}
 	}
 
-	void renderAlpha(int zx, int zz, int cyaw, int cpitch, int minLevel, int currentLevel, int maxLevel, int level, Set<Integer> hiddenRoofIds)
+	private static final AlphaModelComparator alphaModelComparator = new AlphaModelComparator();
+
+	void alphaSort(int zx, int zz, int cx, int cy, int cz)
+	{
+		alphaModelComparator.zx = zx;
+		alphaModelComparator.zz = zz;
+		alphaModelComparator.cx = cx;
+		alphaModelComparator.cy = cy;
+		alphaModelComparator.cz = cz;
+
+		alphaModels.sort(alphaModelComparator);
+	}
+
+	void renderAlpha(int zx, int zz, int cyaw, int cpitch, int minLevel, int currentLevel, int maxLevel, int level, Set<Integer> hiddenRoofIds, boolean useStaticUnsorted)
 	{
 		drawOff.clear();
 		drawEnd.clear();
@@ -524,10 +541,14 @@ class Zone
 		int yawcos = Perspective.COSINE[cyaw];
 		int pitchsin = Perspective.SINE[cpitch];
 		int pitchcos = Perspective.COSINE[cpitch];
-		for (AlphaModel m : alphaModels)
+		for (int j = 0; j < alphaModels.size(); ++j) // NOPMD: ForLoopCanBeForeach
 		{
-			if ((m.flags & AlphaModel.SKIP) != 0) continue;
-			if (m.level != level) continue;
+			AlphaModel m = alphaModels.get(j);
+
+			if ((m.flags & AlphaModel.SKIP) != 0 || m.level != level)
+			{
+				continue;
+			}
 
 			boolean ok = false;
 			if (level >= minLevel && level <= maxLevel)
@@ -561,7 +582,7 @@ class Zone
 				continue;
 			}
 
-			if (USE_STATIC_UNSORTED)
+			if (useStaticUnsorted)
 			{
 				lastDrawMode = STATIC_UNSORTED;
 				pushRange(m.startpos, m.endpos);
@@ -720,8 +741,9 @@ class Zone
 	void multizoneLocs(Scene scene, int zx, int zz, int cx, int cz, Zone[][] zones)
 	{
 		int offset = scene.getWorldViewId() == -1 ? GpuPlugin.SCENE_OFFSET >> 3 : 0;
-		for (AlphaModel m : alphaModels)
+		for (int i = 0; i < alphaModels.size(); ++i) // NOPMD: ForLoopCanBeForeach
 		{
+			AlphaModel m = alphaModels.get(i);
 			if (m.lx == -1)
 			{
 				continue;

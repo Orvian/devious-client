@@ -168,8 +168,12 @@ subprojects {
         withType<AbstractArchiveTask> {
             isPreserveFileTimestamps = false
             isReproducibleFileOrder = true
-            dirMode = 493
-            fileMode = 420
+            dirPermissions {
+                493 // 0755
+            }
+            filePermissions {
+                420 // 0644
+            }
         }
 
         withType<JavaCompile> {

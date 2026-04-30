@@ -223,6 +223,8 @@ class DevToolsPanel extends PluginPanel
 		{
 		}
 
+		container.add(plugin.getWorldEntities());
+
 		return container;
 	}
 }

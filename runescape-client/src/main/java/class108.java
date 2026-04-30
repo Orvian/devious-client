@@ -663,8 +663,8 @@ public class class108 {
 			WorldMapLabelSize.method6575(var14, var8, false);
 		}
 
-		class212.method4683(Occluder.topLevelWorldView, class400.TOKEN);
-		class212.method4683(Occluder.topLevelWorldView, class400.field4844);
+		class212.method4683(Occluder.topLevelWorldView, WorldEntityOwnerType.field4842);
+		class212.method4683(Occluder.topLevelWorldView, WorldEntityOwnerType.field4844);
 		class291.addNpcsToScene(Occluder.topLevelWorldView, class201.field2172);
 		WorldView var16 = Occluder.topLevelWorldView;
 		int var9 = Client.playerUpdateManager.playerCount;
@@ -680,7 +680,7 @@ public class class108 {
 		class291.addNpcsToScene(Occluder.topLevelWorldView, class201.field2167);
 		class338.method7282();
 		UserList.method10364(Occluder.topLevelWorldView);
-		class212.method4683(Occluder.topLevelWorldView, class400.field4843);
+		class212.method4683(Occluder.topLevelWorldView, WorldEntityOwnerType.field4843);
 		class33.worldToScreen(var0, var1, var2, var3);
 		Occluder.topLevelWorldView.scene.setViewportWalking();
 

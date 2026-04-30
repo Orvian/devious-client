@@ -76,8 +76,8 @@ public class class164 extends class167 {
 		descriptor = "(I)[Luv;",
 		garbageValue = "1672752639"
 	)
-	public static class526[] method4141() {
-		return new class526[]{class526.field5579, class526.field5582, class526.field5580};
+	public static ClickAction[] method4141() {
+		return new ClickAction[]{ClickAction.field5579, ClickAction.field5582, ClickAction.field5580};
 	}
 
 	@ObfuscatedName("ac")

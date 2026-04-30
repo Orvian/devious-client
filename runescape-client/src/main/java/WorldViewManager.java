@@ -23,7 +23,7 @@ public class WorldViewManager implements Iterable {
 	@ObfuscatedSignature(
 		descriptor = "Luv;"
 	)
-	class526 field986;
+	ClickAction field986;
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
 		descriptor = "Luf;"
@@ -209,7 +209,7 @@ public class WorldViewManager implements Iterable {
 		descriptor = "(Luv;Luf;I)V",
 		garbageValue = "-2019849903"
 	)
-	void method2395(class526 var1, class524 var2) {
+	void method2395(ClickAction var1, class524 var2) {
 		this.field986 = var1;
 		this.field985 = var2;
 	}
@@ -219,7 +219,7 @@ public class WorldViewManager implements Iterable {
 		descriptor = "(ILuv;Luf;I)V",
 		garbageValue = "600103470"
 	)
-	void method2417(int var1, class526 var2, class524 var3) {
+	void method2417(int var1, ClickAction var2, class524 var3) {
 		this.field982.put(var1, var2);
 		this.field983.put(var1, var3);
 	}
@@ -239,8 +239,9 @@ public class WorldViewManager implements Iterable {
 		descriptor = "(II)Luv;",
 		garbageValue = "-19345525"
 	)
-	class526 method2398(int var1) {
-		class526 var2 = (class526)this.field982.get(var1);
+	@Export("getClickAction")
+	ClickAction getClickAction(int var1) {
+		ClickAction var2 = (ClickAction)this.field982.get(var1);
 		return var2 != null ? var2 : this.field986;
 	}
 
@@ -272,7 +273,7 @@ public class WorldViewManager implements Iterable {
 		this.field988 = 0;
 		this.field982.clear();
 		this.field983.clear();
-		this.field986 = class526.field5582;
+		this.field986 = ClickAction.field5582;
 		this.field985 = class524.field5562;
 		if (this.worldView != null) {
 			this.worldView.method2792();

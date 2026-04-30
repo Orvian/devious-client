@@ -26,7 +26,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id("com.github.hauner.jarTest") version "1.0.1"
+    id("com.github.hauner.jarTest") version "1.1.0"
 }
 
 val deobjars: Configuration = configurations.create("deobjars")

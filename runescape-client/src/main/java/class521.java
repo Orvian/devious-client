@@ -46,9 +46,9 @@ public class class521 extends class520 {
 		descriptor = "(Lkb;Lto;II)V",
 		garbageValue = "-1824890420"
 	)
-	void vmethod10584(WorldEntityCoord var1, class519 var2, int var3) {
+	void vmethod10584(WorldEntityCoord var1, WorldEntityCoordSnapshot var2, int var3) {
 		this.field5550.method6455(var1);
-		this.field5548.method6455(var2.field5545);
+		this.field5548.method6455(var2.worldEntityCoord);
 		this.field5549 = var3 - 1;
 		this.field5552 = var2.field5542 + field5551;
 	}
@@ -74,9 +74,9 @@ public class class521 extends class520 {
 			var11 = (int)((float)var11 * var10);
 			var12 = (int)((float)var12 * var10);
 			var1.method6487(var8.getX() + var11, var8.getY() + var12);
-			int var13 = WorldMapRegion.method6823(var8.getCurrentRotationAngle(), var9.getCurrentRotationAngle());
+			int var13 = WorldMapRegion.method6823(var8.getOrientation(), var9.getOrientation());
 			var13 = (int)(var10 * (float)var13);
-			var1.setCurrentRotationAngle(var8.getCurrentRotationAngle() + var13);
+			var1.setOrientation(var8.getOrientation() + var13);
 			return var4 >= 1.0F;
 		}
 	}

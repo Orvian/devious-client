@@ -79,10 +79,10 @@ public class class1 implements Callable {
 					int var10 = var5 * var8 - var4 * var7 >> 11;
 					int var11 = var9 + Client.field468 >> 7;
 					int var12 = Client.field512 - var10 >> 7;
-					class526 var13 = Client.worldViewManager.method2398(-1);
-					if (var13 == class526.field5582) {
+					ClickAction var13 = Client.worldViewManager.getClickAction(-1);
+					if (var13 == ClickAction.field5582) {
 						BuddyRankComparator.method3734(var11, var12, var4, var5);
-					} else if (var13 == class526.field5580) {
+					} else if (var13 == ClickAction.field5580) {
 						int var15 = var3.width / 2 + var1;
 						int var16 = var3.height / 2 + var2;
 						int var17 = MouseHandler.MouseHandler_x - var15;

@@ -116,7 +116,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 					throw new RuntimeException("");
 				}
 
-				class526.method10648(var5, var0);
+				ClickAction.method10648(var5, var0);
 			}
 		}
 

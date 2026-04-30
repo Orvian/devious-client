@@ -555,13 +555,97 @@ public interface UnethicalDevToolsConfig extends Config
     }
 
     @ConfigItem(
+            keyName = "actionLoggerMenuActions",
+            name = "Menu actions",
+            description = "Log menu option clicks (NPC/object/player/etc.)",
+            section = actionLoggerSection,
+            position = 1
+    )
+    default boolean actionLoggerMenuActions()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "actionLoggerWalkHere",
+            name = "Walk / tile clicks",
+            description = "Log \"Walk here\" / tile movement clicks",
+            section = actionLoggerSection,
+            position = 2
+    )
+    default boolean actionLoggerWalkHere()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "actionLoggerChat",
+            name = "Chat",
+            description = "Log your own chat messages",
+            section = actionLoggerSection,
+            position = 3
+    )
+    default boolean actionLoggerChat()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "actionLoggerPrayers",
+            name = "Prayer changes",
+            description = "Log when prayers are toggled",
+            section = actionLoggerSection,
+            position = 4
+    )
+    default boolean actionLoggerPrayers()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "actionLoggerNearbyNpcs",
+            name = "Nearby NPCs",
+            description = "Log when nearby NPCs are first detected",
+            section = actionLoggerSection,
+            position = 5
+    )
+    default boolean actionLoggerNearbyNpcs()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "actionLoggerProjectiles",
+            name = "Projectiles (log)",
+            description = "Log projectile spawns",
+            section = actionLoggerSection,
+            position = 6
+    )
+    default boolean actionLoggerProjectiles()
+    {
+        return false;
+    }
+
+    @ConfigItem(
+            keyName = "actionLoggerGroundItems",
+            name = "Ground items",
+            description = "Log ground item spawns / despawns",
+            section = actionLoggerSection,
+            position = 7
+    )
+    default boolean actionLoggerGroundItems()
+    {
+        return true;
+    }
+
+    @ConfigItem(
             keyName = "printStackTrace",
-			name = "Print Stack Trace",
-			description = "Button that prints out the current stack trace",
-			position = 100
-	)
-	default Button printStackTrace()
-	{
-		return new Button();
-	}
+            name = "Print Stack Trace",
+            description = "Button that prints out the current stack trace",
+            position = 100
+    )
+    default Button printStackTrace()
+    {
+        return new Button();
+    }
 }

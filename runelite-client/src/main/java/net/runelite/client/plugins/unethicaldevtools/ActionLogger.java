@@ -55,6 +55,23 @@ public class ActionLogger {
         this.client = client;
     }
 
+    private static String sanitizeOrNull(String value) {
+        return value == null ? null : Text.sanitize(value);
+    }
+
+    private WorldPoint resolveWorldPoint(LocalPoint localPoint) {
+        if (localPoint == null) {
+            return null;
+        }
+
+        try {
+            return WorldPoint.fromLocalInstance(client, localPoint);
+        } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException ex) {
+            log.debug("Failed to resolve local point {} in instance, falling back to scene coords", localPoint, ex);
+            return WorldPoint.fromLocal(client, localPoint);
+        }
+    }
+
     private void log(String action, String details) {
         // Deduplicate identical logs across a small tick window
         final int tick = client.getTickCount();
@@ -70,6 +87,14 @@ public class ActionLogger {
     @Subscribe
     public void onMenuOptionClicked(MenuOptionClicked event) {
         if (!config.actionLogger()) {
+            return;
+        }
+
+        final boolean logMenuActions = config.actionLoggerMenuActions();
+        final boolean logWalkHere = config.actionLoggerWalkHere();
+
+        // If neither menu actions nor walk logging are enabled, skip entirely
+        if (!logMenuActions && !logWalkHere) {
             return;
         }
 
@@ -89,7 +114,7 @@ public class ActionLogger {
                 action = "NPC Interaction";
                 LocalPoint localPoint = LocalPoint.fromScene(event.getMenuEntry().getParam0(),
                         event.getMenuEntry().getParam1());
-                WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, localPoint);
+                WorldPoint worldPoint = resolveWorldPoint(localPoint);
                 details = String.format("NPC: %s, ID: %d, Location: %s", menuTarget, id, worldPoint);
                 break;
             }
@@ -99,10 +124,13 @@ public class ActionLogger {
             case GAME_OBJECT_THIRD_OPTION:
             case GAME_OBJECT_FOURTH_OPTION:
             case GAME_OBJECT_FIFTH_OPTION: {
+                if (!logMenuActions) {
+                    return;
+                }
                 action = "Object Interaction";
                 LocalPoint localPoint = LocalPoint.fromScene(event.getMenuEntry().getParam0(),
                         event.getMenuEntry().getParam1());
-                WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, localPoint);
+                WorldPoint worldPoint = resolveWorldPoint(localPoint);
                 details = String.format("Object: %s, ID: %d, Location: %s", menuTarget, id, worldPoint);
                 break;
             }
@@ -112,10 +140,13 @@ public class ActionLogger {
             case GROUND_ITEM_THIRD_OPTION:
             case GROUND_ITEM_FOURTH_OPTION:
             case GROUND_ITEM_FIFTH_OPTION: {
+                if (!logMenuActions) {
+                    return;
+                }
                 action = "Item Pickup";
                 LocalPoint localPoint = LocalPoint.fromScene(event.getMenuEntry().getParam0(),
                         event.getMenuEntry().getParam1());
-                WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, localPoint);
+                WorldPoint worldPoint = resolveWorldPoint(localPoint);
                 details = String.format("Item: %s, ID: %d, Location: %s", menuTarget, id, worldPoint);
                 break;
             }
@@ -125,6 +156,9 @@ public class ActionLogger {
             case PLAYER_FOURTH_OPTION:
             case PLAYER_FIFTH_OPTION:
             case WIDGET_TARGET_ON_PLAYER: {
+                if (!logMenuActions) {
+                    return;
+                }
                 action = "Player Interaction";
                 details = String.format("Option: %s, Target: %s, ID: %d", event.getMenuOption(), menuTarget, id);
                 break;
@@ -133,6 +167,9 @@ public class ActionLogger {
             case ITEM_SECOND_OPTION:
             case ITEM_THIRD_OPTION:
             case ITEM_FOURTH_OPTION: {
+                if (!logMenuActions) {
+                    return;
+                }
                 int slot = event.getMenuEntry().getParam0();
                 int widgetId = event.getMenuEntry().getParam1();
                 int group = WidgetInfo.TO_GROUP(widgetId);
@@ -145,11 +182,17 @@ public class ActionLogger {
             }
             case ITEM_FIFTH_OPTION: // This is often used for item options in inventory
                 if ("Drop".equals(event.getMenuOption())) {
+                    if (!logMenuActions) {
+                        return;
+                    }
                     action = "Item Drop";
                     details = String.format("Item: %s, ID: %d", menuTarget, id);
                 }
                 break;
             case WIDGET_TARGET: {
+                if (!logMenuActions) {
+                    return;
+                }
                 int slot = event.getMenuEntry().getParam0();
                 int widgetId = event.getMenuEntry().getParam1();
                 int group = WidgetInfo.TO_GROUP(widgetId);
@@ -162,6 +205,9 @@ public class ActionLogger {
             }
             case CC_OP:
             case CC_OP_LOW_PRIORITY: {
+                if (!logMenuActions) {
+                    return;
+                }
                 String optLower = event.getMenuOption().toLowerCase();
                 if (optLower.contains("prayer")) {
                     action = "Prayer";
@@ -179,6 +225,9 @@ public class ActionLogger {
                 break;
             }
             case WIDGET_CONTINUE: {
+                if (!logMenuActions) {
+                    return;
+                }
                 int widgetId = event.getMenuEntry().getParam1();
                 int group = WidgetInfo.TO_GROUP(widgetId);
                 int child = WidgetInfo.TO_CHILD(widgetId);
@@ -187,6 +236,9 @@ public class ActionLogger {
                 break;
             }
             case WALK: {
+                if (!logWalkHere) {
+                    return;
+                }
                 action = "Walk Here";
                 LocalPoint localPoint = LocalPoint.fromScene(event.getMenuEntry().getParam0(),
                         event.getMenuEntry().getParam1());
@@ -194,11 +246,14 @@ public class ActionLogger {
                     // Fallback (handles minimap clicks etc.)
                     localPoint = client.getLocalDestinationLocation();
                 }
-                WorldPoint worldPoint = localPoint != null ? WorldPoint.fromLocalInstance(client, localPoint) : null;
+                WorldPoint worldPoint = resolveWorldPoint(localPoint);
                 details = String.format("Location: %s", worldPoint);
                 break;
             }
             default:
+                if (!logMenuActions) {
+                    return;
+                }
                 action = "Menu Click";
                 details = String.format("MenuOption: %s, Target: %s, ID: %d, MenuAction: %s",
                         event.getMenuOption(), menuTarget, id, menuAction);
@@ -212,7 +267,7 @@ public class ActionLogger {
 
     @Subscribe
     public void onChatMessage(ChatMessage event) {
-        if (!config.actionLogger()) {
+        if (!config.actionLogger() || !config.actionLoggerChat()) {
             return;
         }
         ChatMessageType type = event.getType();
@@ -221,8 +276,8 @@ public class ActionLogger {
             isSelf = true;
         } else {
             if (client.getLocalPlayer() != null) {
-                String self = Text.sanitize(client.getLocalPlayer().getName());
-                String name = Text.sanitize(event.getName());
+                String self = sanitizeOrNull(client.getLocalPlayer().getName());
+                String name = sanitizeOrNull(event.getName());
                 if (self != null && name != null && self.equalsIgnoreCase(name)) {
                     isSelf = true;
                 }
@@ -242,52 +297,63 @@ public class ActionLogger {
             return;
         }
 
-        // Prayer state changes (debounced once per tick, with 3-tick suppression)
-        final int tick = client.getTickCount();
-        Set<Prayer> now = EnumSet.noneOf(Prayer.class);
-        for (Prayer p : Prayer.values()) {
-            if (client.isPrayerActive(p)) {
-                now.add(p);
-            }
-        }
-        // Enabled
-        for (Prayer p : now) {
-            if (!lastActivePrayers.contains(p)) {
-                Integer suppressUntil = prayerLastLogTick.get(p);
-                if (suppressUntil == null || tick >= suppressUntil) {
-                    log("Prayer Enabled", p.name());
-                    prayerLastLogTick.put(p, tick + 3);
-                }
-            }
-        }
-        // Disabled
-        for (Prayer p : lastActivePrayers) {
-            if (!now.contains(p)) {
-                Integer suppressUntil = prayerLastLogTick.get(p);
-                if (suppressUntil == null || tick >= suppressUntil) {
-                    log("Prayer Disabled", p.name());
-                    prayerLastLogTick.put(p, tick + 3);
-                }
-            }
-        }
-        lastActivePrayers = now;
+        final boolean logPrayers = config.actionLoggerPrayers();
+        final boolean logNearbyNpcs = config.actionLoggerNearbyNpcs();
 
-        for (NPC npc : client.getNpcs()) {
-            if (npc != null && !loggedNpcs.contains(npc)) {
-                WorldPoint npcLocation = npc.getWorldLocation();
-                WorldArea playerArea = new WorldArea(client.getLocalPlayer().getWorldLocation(), 1, 1);
-                boolean hasLineOfSight = playerArea.hasLineOfSightTo(client.getTopLevelWorldView(), npcLocation);
-                String details = String.format("NPC: %s, ID: %d, Location: %s, Line of Sight: %b",
-                        npc.getName(), npc.getId(), npcLocation, hasLineOfSight);
-                log("NPC Detected", details);
-                loggedNpcs.add(npc);
+        if (!logPrayers && !logNearbyNpcs) {
+            return;
+        }
+
+        if (logPrayers) {
+            // Prayer state changes (debounced once per tick, with 3-tick suppression)
+            final int tick = client.getTickCount();
+            Set<Prayer> now = EnumSet.noneOf(Prayer.class);
+            for (Prayer p : Prayer.values()) {
+                if (client.isPrayerActive(p)) {
+                    now.add(p);
+                }
+            }
+            // Enabled
+            for (Prayer p : now) {
+                if (!lastActivePrayers.contains(p)) {
+                    Integer suppressUntil = prayerLastLogTick.get(p);
+                    if (suppressUntil == null || tick >= suppressUntil) {
+                        log("Prayer Enabled", p.name());
+                        prayerLastLogTick.put(p, tick + 3);
+                    }
+                }
+            }
+            // Disabled
+            for (Prayer p : lastActivePrayers) {
+                if (!now.contains(p)) {
+                    Integer suppressUntil = prayerLastLogTick.get(p);
+                    if (suppressUntil == null || tick >= suppressUntil) {
+                        log("Prayer Disabled", p.name());
+                        prayerLastLogTick.put(p, tick + 3);
+                    }
+                }
+            }
+            lastActivePrayers = now;
+        }
+
+        if (logNearbyNpcs) {
+            for (NPC npc : client.getNpcs()) {
+                if (npc != null && !loggedNpcs.contains(npc)) {
+                    WorldPoint npcLocation = npc.getWorldLocation();
+                    WorldArea playerArea = new WorldArea(client.getLocalPlayer().getWorldLocation(), 1, 1);
+                    boolean hasLineOfSight = playerArea.hasLineOfSightTo(client.getTopLevelWorldView(), npcLocation);
+                    String details = String.format("NPC: %s, ID: %d, Location: %s, Line of Sight: %b",
+                            npc.getName(), npc.getId(), npcLocation, hasLineOfSight);
+                    log("NPC Detected", details);
+                    loggedNpcs.add(npc);
+                }
             }
         }
     }
 
     @Subscribe
     public void onProjectileMoved(ProjectileMoved event) {
-        if (!config.actionLogger() || !config.projectiles()) {
+        if (!config.actionLogger() || !config.actionLoggerProjectiles()) {
             return;
         }
 
@@ -296,7 +362,7 @@ public class ActionLogger {
             return;
         }
         LocalPoint lp = event.getPosition();
-        WorldPoint worldPoint = lp != null ? WorldPoint.fromLocalInstance(client, lp) : null;
+        WorldPoint worldPoint = resolveWorldPoint(lp);
 
         String details = String.format(
                 "Projectile ID: %d, Location: %s, StartCycle: %d, EndCycle: %d",
@@ -311,14 +377,16 @@ public class ActionLogger {
 
     @Subscribe
     public void onItemSpawned(ItemSpawned event) {
-        if (!config.actionLogger()) {
+        if (!config.actionLogger() || !config.actionLoggerGroundItems()) {
             return;
         }
         Tile tile = event.getTile();
         TileItem item = event.getItem();
         LocalPoint lp = tile != null ? tile.getLocalLocation() : null;
-        WorldPoint wp = lp != null ? WorldPoint.fromLocalInstance(client, lp)
-                : (tile != null ? tile.getWorldLocation() : null);
+        WorldPoint wp = resolveWorldPoint(lp);
+        if (wp == null && tile != null) {
+            wp = tile.getWorldLocation();
+        }
         String details = String.format("ID: %d, Qty: %d, Location: %s",
                 item.getId(), item.getQuantity(), wp);
         log("Ground Item Spawned", details);
@@ -326,14 +394,16 @@ public class ActionLogger {
 
     @Subscribe
     public void onItemDespawned(ItemDespawned event) {
-        if (!config.actionLogger()) {
+        if (!config.actionLogger() || !config.actionLoggerGroundItems()) {
             return;
         }
         Tile tile = event.getTile();
         TileItem item = event.getItem();
         LocalPoint lp = tile != null ? tile.getLocalLocation() : null;
-        WorldPoint wp = lp != null ? WorldPoint.fromLocalInstance(client, lp)
-                : (tile != null ? tile.getWorldLocation() : null);
+        WorldPoint wp = resolveWorldPoint(lp);
+        if (wp == null && tile != null) {
+            wp = tile.getWorldLocation();
+        }
         String details = String.format("ID: %d, Qty: %d, Location: %s",
                 item.getId(), item.getQuantity(), wp);
         log("Ground Item Despawned", details);

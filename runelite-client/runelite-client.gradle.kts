@@ -32,8 +32,8 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.openosrs.scriptassembler")
     java
-    kotlin("jvm") version "1.6.21"
-    id("org.jetbrains.kotlin.plugin.lombok") version "1.6.21"
+    kotlin("jvm") version "1.9.22" // 1.6.21  Latest: 1.9.22
+    id("org.jetbrains.kotlin.plugin.lombok") version "1.9.22" // 1.6.21 Latest: 1.9.22
     pmd
 }
 

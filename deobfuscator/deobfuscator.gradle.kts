@@ -36,8 +36,8 @@ configurations {
 }
 
 dependencies {
-    deobjars(group = "net.runelite.rs", name = "vanilla", version = ProjectVersions.rsversion.toString())
-    //deobjars(files("${System.getProperty("user.home")}/gamepack/gamepack_"+ProjectVersions.rsversion.toString()+".jar"))
+    //deobjars(group = "net.runelite.rs", name = "vanilla", version = ProjectVersions.rsversion.toString())
+    deobjars(files("${System.getProperty("user.home")}/.m2/repository/net/runelite/rs/vanilla/"+ProjectVersions.rsversion.toString()+"/vanilla-"+ProjectVersions.rsversion.toString()+".jar"))
     deobjars(project(":runescape-client"))
 
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)

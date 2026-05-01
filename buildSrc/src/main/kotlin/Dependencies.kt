@@ -29,7 +29,7 @@ object ProjectVersions {
 
     const val openosrsVersion = "4.31.2"
 
-    const val rsversion = 235
+    const val rsversion = 237
     const val cacheversion = 165
 
     const val lombokVersion = "1.18.30"

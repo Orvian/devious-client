@@ -22,6 +22,11 @@ public class GraphicsObjectTransformer implements Transformer // robots in disgu
 		ClassFile graphicsObject = group.findClass(GRAPHICS_OBJECT);
 		ClassFile renderable = group.findClass(RENDERABLE);
 
+		if (graphicsObject == null || renderable == null)
+		{
+			return;
+		}
+
 		graphicsObject.clearFinal();
 
 		Method initGraphicsObject = new Method(graphicsObject, "<init>", new Signature("()V"));

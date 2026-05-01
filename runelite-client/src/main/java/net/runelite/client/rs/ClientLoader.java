@@ -217,9 +217,16 @@ public class ClientLoader implements Supplier<Client>
 
 	private void writeInjectedClient(File cachedInjected) throws IOException
 	{
+		InputStream injectedStream = ClientLoader.class.getResourceAsStream(INJECTED_CLIENT_NAME);
+		if (injectedStream == null)
+		{
+			log.warn("Injected client not found, skipping injection");
+			return;
+		}
+
 		String cachedHash = cachedInjected.exists() ? com.google.common.io.Files.asByteSource(cachedInjected).hash(Hashing.sha256()).toString() : "";
 
-		byte[] currentInjected = ByteStreams.toByteArray(ClientLoader.class.getResourceAsStream(INJECTED_CLIENT_NAME));
+		byte[] currentInjected = ByteStreams.toByteArray(injectedStream);
 		String currentHash = Hashing.sha256().hashBytes(currentInjected).toString();
 
 		if (!cachedInjected.exists() || !currentHash.equals(cachedHash))

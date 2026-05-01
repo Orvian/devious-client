@@ -89,6 +89,13 @@ public class BufferRenameTransformer implements Transformer
 			}
 		}
 
+		if (targetBufferCF == null)
+		{
+			logger.warn("Could not find Buffer class with expected constant, skipping buffer renaming");
+			logger.info("Took: {}", stopWatch);
+			return;
+		}
+
 		List<Method> namedMethods = namedBufferCF.getMethods().stream()
 			.filter(m -> !m.isStatic())
 			.filter(m -> !m.getName().equals("<clinit>"))
